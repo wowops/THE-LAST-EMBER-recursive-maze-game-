@@ -1,0 +1,57 @@
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 3: The Last Ember
+
+========================================
+Goal: Rescue enough survivors to unlock the shelter door
+Settings:
+  1. The shelter door is initially locked and can only be opened by rescuing enough survivors
+  2. The more survivors you rescue, the slower you move, with each step taking longer (1 extra unit of time per 4 survivors)
+  3. The blizzard has buried the path behind you, no turning back!
+  4. Rescue as many survivors as possible before time runs out
+
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 8 8 7 7 0 0 1987 120
+
+Survivor distribution map (numbers = survivors to rescue, # = snow wall/chasm, D = locked shelter door):
+ D  2  3  4  5  6  7  8 
+16  #  # 30  #  #  #  9 
+17  #  # 31  #  #  # 10 
+18  #  # 32 33  #  # 11 
+19  #  #  # 34  #  # 12 
+20  #  #  # 35  #  # 13 
+21  #  #  # 36  #  # 14 
+22 23 24 25 26 27 28  S 
+
+Number of survivors needed to unlock the shelter: 120
+
+Planning route (must reach unlock threshold, dynamic time consumption)...
+Initial remaining survival time: 1987 units
+
+✓ You have unlocked the shelter door!
+Successfully rescued: 577 survivors (threshold 120)
+Path length: 31 steps
+(7,7) -> (6,7) -> (5,7) -> (4,7) -> (3,7) -> (2,7) -> (1,7) -> (0,7) -> (0,6) -> (0,5) -> (0,4) -> (0,3) -> (1,3) -> (2,3) -> (3,3) -> (3,4) -> (4,4) -> (5,4) -> (6,4) -> (7,4) -> (7,3) -> (7,2) -> (7,1) -> (7,0) -> (6,0) -> (5,0) -> (4,0) -> (3,0) -> (2,0) -> (1,0) -> (0,0)
+
+Path annotated map (survivor counts preserved):
+ D  2  3  v  <  <  <  < 
+ ^  #  #  v  #  #  #  ^ 
+ ^  #  #  v  #  #  #  ^ 
+ ^  #  #  >  v  #  #  ^ 
+ ^  #  #  #  v  #  #  ^ 
+ ^  #  #  #  v  #  #  ^ 
+ ^  #  #  #  v  #  #  ^ 
+ ^  <  <  <  < 27 28  S 
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Game Over!
+
+========================================

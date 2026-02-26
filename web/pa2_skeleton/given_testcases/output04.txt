@@ -1,0 +1,61 @@
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 2: The Last Ember — Horror Unleashed
+
+========================================
+Goal: Rescue enough survivors amidst blizzard and monster threats
+Settings:
+  1. The shelter door is initially locked and opens only after rescuing enough survivors
+  2. Your time is limited. Speed up!
+  3. The blizzard has buried the path behind you, no turning back!
+  4. A terrifying monster moves periodically. Watch out!
+
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter monsterRow monsterCol monsterType monsterDirection monsterPeriod: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 8 8 0 0 7 7 20 35
+Monster: row=4 col=3 type=0 dir=0 period=3
+
+Survivor map (numbers = survivors, # = snow wall/chasm, M = monster start, D = locked shelter door):
+ S  5  2  #  4  1  2  3 
+ 1  #  6  3  2  4  5  # 
+ 4  2  5  1  7  #  3  2 
+ 2  3  #  4  5  6  1  4 
+ 5  4  3  M  9  2  #  5 
+ 2  #  4  3  1  8  2  6 
+ 3  2  1  #  4  3  7  2 
+ 6  5  2  4  3  2  5  D 
+
+Monster info:
+  Location: Row 4, starting from column 3
+  Period: 3 cells
+  Damage: Lose 20 time units and 20 survivors upon encounter
+
+Survivors needed to unlock shelter: 35
+Available time: 20 units
+
+Valid path found!
+Path length: 19
+Survivors rescued: 65
+Path: (0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (7,0) -> (7,1) -> (6,1) -> (6,2) -> (5,2) -> (5,3) -> (5,4) -> (6,4) -> (7,4) -> (7,5) -> (7,6) -> (7,7)
+
+Path annotated map (survivor counts preserved):
+ S  5  2  #  4  1  2  3 
+ v  #  6  3  2  4  5  # 
+ v  2  5  1  7  #  3  2 
+ v  3  #  4  5  6  1  4 
+ v  4  3  2  9  2  #  5 
+ v  #  >  >  v  8  2  6 
+ v  >  ^  #  v  3  7  2 
+ >  ^  2  4  >  >  >  D 
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Game Over!
+
+========================================

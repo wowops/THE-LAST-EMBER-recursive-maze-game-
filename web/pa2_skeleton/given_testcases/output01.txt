@@ -1,0 +1,146 @@
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 1: Traverse the Blizzard to Find the Beacon
+
+========================================
+Goal: Reach the distress beacon from the temporary camp at (0,0) by finding any viable path.
+
+Enter startR startC targetR targetC: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 8 8 0 0 6 6
+
+Wasteland terrain ( .=passable, #=chasm ):
+ S  .  .  #  .  .  .  . 
+ .  #  .  .  .  .  .  # 
+ .  .  .  .  .  #  .  . 
+ .  .  #  .  .  .  .  . 
+ .  .  .  .  .  .  #  . 
+ .  #  .  .  .  .  .  . 
+ .  .  .  #  .  .  E  . 
+ .  .  .  .  .  .  .  . 
+
+Searching for path...
+
+✓ Path found successfully!
+Path length: 41 steps
+(0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (7,0) -> (7,1) -> (6,1) -> (6,2) -> (5,2) -> (4,2) -> (4,1) -> (3,1) -> (2,1) -> (2,2) -> (1,2) -> (1,3) -> (2,3) -> (3,3) -> (4,3) -> (5,3) -> (5,4) -> (4,4) -> (3,4) -> (2,4) -> (1,4) -> (0,4) -> (0,5) -> (1,5) -> (1,6) -> (2,6) -> (3,6) -> (3,5) -> (4,5) -> (5,5) -> (6,5) -> (7,5) -> (7,6) -> (6,6)
+
+Path annotated map:
+ S  .  .  #  >  v  .  . 
+ v  #  >  v  ^  >  v  # 
+ v  >  ^  v  ^  #  v  . 
+ v  ^  #  v  ^  v  <  . 
+ v  ^  <  v  ^  v  #  . 
+ v  #  ^  >  ^  v  .  . 
+ v  >  ^  #  .  v  E  . 
+ >  ^  .  .  .  >  ^  . 
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 2: The Last Ember — Horror Unleashed
+
+========================================
+Goal: Rescue enough survivors amidst blizzard and monster threats
+Settings:
+  1. The shelter door is initially locked and opens only after rescuing enough survivors
+  2. Your time is limited. Speed up!
+  3. The blizzard has buried the path behind you, no turning back!
+  4. A terrifying monster moves periodically. Watch out!
+
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter monsterRow monsterCol monsterType monsterDirection monsterPeriod: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 8 8 0 0 6 6 25 70
+Monster: row=2 col=2 type=1 dir=0 period=7
+
+Survivor map (numbers = survivors, # = snow wall/chasm, M = monster start, D = locked shelter door):
+ S  5  2  #  4  1  2  3 
+ 1  #  6  3  2  4  5  # 
+ 4  2  M  1  7  #  3  2 
+ 2  3  #  4  5  6  1  4 
+ 5  4  3  2  9  2  #  5 
+ 2  #  4  3  1  8  2  6 
+ 3  2  1  #  4  3  D  2 
+ 6  5  2  4  3  2  5  9 
+
+Monster info:
+  Location: Row 2, starting from column 2
+  Period: 7 cells
+  Damage: Lose 20 time units and 20 survivors upon encounter
+
+Survivors needed to unlock shelter: 70
+Available time: 25 units
+
+Valid path found!
+Path length: 25
+Survivors rescued: 80
+Path: (0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (7,0) -> (7,1) -> (6,1) -> (6,2) -> (5,2) -> (4,2) -> (4,1) -> (3,1) -> (2,1) -> (2,2) -> (2,3) -> (3,3) -> (4,3) -> (5,3) -> (5,4) -> (6,4) -> (6,5) -> (6,6)
+
+Path annotated map (survivor counts preserved):
+ S  5  2  #  4  1  2  3 
+ v  #  6  3  2  4  5  # 
+ v  >  >  v  7  #  3  2 
+ v  ^  #  v  5  6  1  4 
+ v  ^  <  v  9  2  #  5 
+ v  #  ^  >  v  8  2  6 
+ v  >  ^  #  >  >  D  2 
+ >  ^  2  4  3  2  5  9 
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 3: The Last Ember
+
+========================================
+Goal: Rescue enough survivors to unlock the shelter door
+Settings:
+  1. The shelter door is initially locked and can only be opened by rescuing enough survivors
+  2. The more survivors you rescue, the slower you move, with each step taking longer (1 extra unit of time per 4 survivors)
+  3. The blizzard has buried the path behind you, no turning back!
+  4. Rescue as many survivors as possible before time runs out
+
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 8 8 0 0 6 6 210 70
+
+Survivor distribution map (numbers = survivors to rescue, # = snow wall/chasm, D = locked shelter door):
+ S  5  2  #  4  1  2  3 
+ 1  #  6  3  2  4  5  # 
+ 4  2  5  1  7  #  3  2 
+ 2  3  #  4  5  6  1  4 
+ 5  4  3  2  9  2  #  5 
+ 2  #  4  3  1  8  2  6 
+ 3  2  1  #  4  3  D  2 
+ 6  5  2  4  3  2  5  9 
+
+Number of survivors needed to unlock the shelter: 70
+
+Planning route (must reach unlock threshold, dynamic time consumption)...
+Initial remaining survival time: 210 units
+
+✓ You have unlocked the shelter door!
+Successfully rescued: 93 survivors (threshold 70)
+Path length: 21 steps
+(0,0) -> (1,0) -> (2,0) -> (3,0) -> (3,1) -> (2,1) -> (2,2) -> (1,2) -> (1,3) -> (1,4) -> (2,4) -> (3,4) -> (4,4) -> (4,5) -> (5,5) -> (5,6) -> (5,7) -> (6,7) -> (7,7) -> (7,6) -> (6,6)
+
+Path annotated map (survivor counts preserved):
+ S  5  2  #  4  1  2  3 
+ v  #  >  >  v  4  5  # 
+ v  >  ^  1  v  #  3  2 
+ >  ^  #  4  v  6  1  4 
+ 5  4  3  2  >  v  #  5 
+ 2  #  4  3  1  >  >  v 
+ 3  2  1  #  4  3  D  v 
+ 6  5  2  4  3  2  ^  < 
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Game Over!
+
+========================================
