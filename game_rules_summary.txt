@@ -1,0 +1,126 @@
+================================================================================
+                        THE LAST EMBER - GAME RULES
+================================================================================
+
+LEVEL 1: SIMPLE PATHFINDING
+================================================================================
+
+OBJECTIVE:
+Find any valid path from start to exit.
+
+MAP ELEMENTS:
+- 'S' = Starting position
+- 'E' = Exit position
+- '.' = Passable terrain
+- '#' = Chasm (impassable)
+
+RULES:
+- Move in 4 directions: up, down, left, right
+- Cannot revisit cells
+- Cannot pass through chasms
+- Must stay within map boundaries
+
+SUCCESS:
+- Any valid path from start to exit
+
+
+================================================================================
+LEVEL 2: PATHFINDING WITH MONSTER THREAT
+================================================================================
+
+OBJECTIVE:
+Rescue enough survivors to unlock exit while avoiding monster and managing time.
+
+MAP ELEMENTS:
+- 'S' = Starting position
+- 'D' = Locked exit (requires survivors to unlock)
+- '#' = Impassable
+- 'M' = Monster starting position
+- Numbers = Survivor count at location
+
+MOVEMENT:
+- 4 directions: up, down, left, right
+- Cannot revisit cells
+- Each step costs 1 time unit
+- Must stay within boundaries
+
+SURVIVOR SYSTEM:
+- Collect survivors as you traverse cells
+- Need ≥ unlock threshold to open exit
+
+MONSTER MECHANICS:
+- Patrols along a row (type=0) or column (type=1)
+- Moves periodically (bounces back and forth)
+- Parameters: row, col, type, direction, period
+- Monster position changes based on time elapsed
+- Encounter penalty: -20 time units, -20 survivors
+
+AVOIDING THE MONSTER:
+- Before each move, check if monster will be at next position
+- Monster position = f(timeElapsed, type, direction, period)
+- If next cell has monster, choose different direction
+
+SUCCESS CONDITIONS:
+- rescued_survivors ≥ unlockThreshold (after monster damage)
+- Reach exit before time runs out
+
+
+================================================================================
+LEVEL 3: OPTIMIZATION WITH DYNAMIC TIME COST
+================================================================================
+
+OBJECTIVE:
+Maximize survivors rescued while meeting unlock threshold and time constraint.
+
+MAP ELEMENTS:
+- 'S' = Starting position
+- 'D' = Locked exit
+- '#' = Impassable
+- Numbers = Survivor count at location
+
+MOVEMENT:
+- 4 directions: up, down, left, right
+- Cannot revisit cells
+- Must stay within boundaries
+
+DYNAMIC TIME COST:
+- Base cost per step: 1 time unit
+- Additional cost: +1 time unit per 4 survivors rescued
+- Formula: time_cost = 1 + (total_survivors_rescued / 4)
+- Carrying more survivors slows movement
+
+SURVIVOR SYSTEM:
+- Collect survivors as you traverse cells
+- Need ≥ unlock threshold to open exit
+- Goal: maximize total survivors (not just meet threshold)
+
+SUCCESS CONDITIONS:
+- rescued_survivors ≥ unlockThreshold
+- Reach exit before time runs out
+- Among valid paths, maximize survivor count
+
+STRATEGY:
+- Balance between collecting survivors vs reaching exit in time
+- More survivors = slower movement = less time to explore
+
+
+================================================================================
+IMPLEMENTATION NOTES
+================================================================================
+
+ALGORITHM:
+- Recursive backtracking for pathfinding
+- Direction order (for grading consistency): up, down, left, right
+- No revisiting cells (mark visited, backtrack when needed)
+
+CONSTANTS:
+- MAX_MAP_SIZE = 16
+- MAX_PATH_LENGTH = 256
+- MONSTER_DAMAGE_TIME = 20
+- MONSTER_DAMAGE_SURVIVORS = 20
+
+MAP FILE FORMAT:
+- First line: rows cols
+- Following rows: map values (-1 for impassable, ≥0 for passable/survivors)
+
+================================================================================
