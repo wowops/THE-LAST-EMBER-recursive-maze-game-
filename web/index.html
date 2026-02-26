@@ -175,8 +175,8 @@
                         The game is divided into three levels:
                         <ul>
                             <li>Level 1: Simple pathfinding to reach a beacon without revisiting cells.</li>
-                            <li>Level 2: Unlock shelter with enough survivors under time constraints, dynamic movement costs and monster threats.</li>
-                            <li>Level 3: Maximize survivors rescued under time constraints and dynamic movement costs.</li>
+                            <li>Level 2: Maximize survivors rescued under time constraints and dynamic movement costs.</li>
+                            <li>Level 3: Unlock shelter with enough survivors under time constraints and monster threats.</li>
                         </ul>
                     </p>
 
@@ -307,9 +307,9 @@ Path annotated map:
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
-> <span class="input">2</span>
+> <span class="input">3</span>
 ========================================
-Level 2: The Last Ember — Horror Unleashed
+Level 3: The Last Ember — Horror Unleashed
 
 ========================================
 Goal: Rescue enough survivors amidst blizzard and monster threats
@@ -362,9 +362,9 @@ Path annotated map (survivor counts preserved):
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
-> <span class="input">3</span>
+> <span class="input">2</span>
 ========================================
-Level 3: The Last Ember
+Level 2: The Last Ember
 
 ========================================
 Goal: Rescue enough survivors to unlock the shelter door
@@ -448,8 +448,8 @@ Game Over!
                             <ul>
                                 <li><code language="language-cpp">printPath</code></li>
                                 <li><code language="language-cpp">copyPathRecursive</code></li>
-                                <li><code language="language-cpp">findPathSimple</code></li>
                                 <li><code language="language-cpp">calculate_num_survivors</code></li>
+                                <li><code language="language-cpp">shortestPath</code></li>
                                 <li><code language="language-cpp">tryAllDirectionsWithMonster</code></li>
                                 <li><code language="language-cpp">rescueSurvivorsWithMonster</code></li>
                                 <li><code language="language-cpp">tryAllDirections</code></li>
@@ -460,9 +460,6 @@ Game Over!
                         <li>You can add extra helper functions, but you <strong>CANNOT</strong> use any loops inside your helper functions.
                             <strong>DO NOT</strong> change other parts of the skeleton code.
                         </li>
-
-
-                        <li>GL and HF:
 
 
 <p><strong>Task1: Implement printPath</strong></p>
@@ -481,13 +478,6 @@ Game Over!
 
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
 // TODO: print the path (only the coordinates) recursively
-//
-// Hints:
-// - Figure out the base case(s).
-// - Print the current coordinate.
-// - Remember to add " -> ".
-// - Recur for the next iteration.
-//
 // @param path: a 2D array storing the path coordinates
 // @param pathLength: length of the path
 // @param index: current index to print (default = 0)
@@ -510,13 +500,7 @@ void printPath(int path[][2], int pathLength, int index = 0){
 
 
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Copy path from source recursively
-//
-// Hints:
-// - Figure out the base case.
-// - Copy the current row and column.
-// - Recur for the next iteration.
-//
+// TODO: Copy path from source Recursively
 // @param source: source path
 // @param copy: destination path
 // @param pathLength: length of the path
@@ -526,10 +510,40 @@ void copyPathRecursive(int source[][2], int copy[][2], int pathLength, int index
 }
 </code></pre>
 
-<p><strong>Task3: Implement findPathSimple (Level 1)</strong></p>
+<p><strong>Task3: Implement calculate_num_survivors</strong></p>
 
 <ul>
-    <li><strong>Background:</strong> Find <strong>ONE valid path</strong> is enough
+    <li><strong>Purpose:</strong>
+        <ul>
+            <li>Calculate the total number of survivors along a given path recursively</li>
+        </ul>
+    </li>
+</ul>
+
+<pre><code class="language-cpp" style="white-space: pre-wrap;">
+// TODO: Calculate total survivors along the path recursively
+// @param map: The 2D array storing survivor counts
+// @param rows: number of rows
+// @param cols: number of columns
+// @param path: the path array containing coordinates
+// @param pathLength: length of the path
+// @param index: current index to process (default = 0)
+// @return: total number of survivors along the path
+int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int pathLength, int index = 0){
+    // TODO3: Implement this function
+    if (index >= pathLength) {
+        return 0;
+    }
+    int r = path[index][0];
+    int c = path[index][1];
+    return map[r][c] + calculate_num_survivors(map, rows, cols, path, pathLength, index + 1);
+}
+</code></pre>
+
+<p><strong>【Level 1: Shortest Path】</strong></p>
+
+<ul>
+    <li><strong>Background:</strong> Find the <strong>shortest valid path</strong> (fewest steps)
         <ul>
             <li>You are stranded in a frozen wasteland and you want to find other survivors</li>
             <li>Your only hope is to reach the old distress beacon (E) located at the far side of the map</li>
@@ -545,14 +559,25 @@ void copyPathRecursive(int source[][2], int copy[][2], int pathLength, int index
     </li>
     <li><strong>Purpose:</strong>
         <ul>
-            <li>In Level 1, the player must find a path from start to exit in the grid map that satisfies the above rules</li>
+            <li>In Level 1, the player must find the shortest path from start to exit under the above constraints</li>
+        </ul>
+    </li>
+    <li><strong>Shortest Path pseudocode :</strong>
+        <ul>
+            <li>Step 1: If current cell is invalid (out of bounds, chasm, visited, or path too long), stop this branch.</li>
+            <li>Step 2: Mark current cell as visited and append it into <code>currentPath</code>.</li>
+            <li>Step 3: If current cell is the target, compare current path length with <code>pathLength</code> and update best path only when shorter.</li>
+            <li>Step 4: Recursively explore four directions in order: up, down, left, right.</li>
+            <li>Step 5: Backtrack by unmarking visited before returning to caller.</li>
+            <li>Step 6: Use existing parameters/variables (<code>visited</code>, <code>currentPath</code>, <code>path</code>, <code>pathLength</code>) to complete implementation by yourself.</li>
         </ul>
     </li>
 </ul>
 
+<p><strong>Task4: Implement Shortest Path Algorithm </strong></p>
 
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Level 1: Simple path finding using recursion
+// TODO: Level 1: Shortest path finding using recursion
 //
 // Hints:
 // - Check boundaries, chasms, visited, and path length as base cases.
@@ -573,48 +598,122 @@ void copyPathRecursive(int source[][2], int copy[][2], int pathLength, int index
 // @param currentPath: path has been explored
 // @param currentPathLength: length of current path
 // @return: true if path found, false otherwise
-bool findPathSimple(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength, 
+bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength, 
                     int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE],
                     int currentPath[][2], int currentPathLength){
-    // TODO3: Implement this function
-}
-</code></pre>
-
-
-<p><strong>Task4: Implement calculate_num_survivors</strong></p>
-
-<ul>
-    <li><strong>Purpose:</strong>
-        <ul>
-            <li>Calculate the total number of survivors along a given path recursively</li>
-        </ul>
-    </li>
-</ul>
-
-<pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Calculate total survivors along the path recursively
-//
-// Hints:
-// - Figure out the base case.
-// - Get current survivor count.
-// - Recur for the next iteration.
-//
-// @param map: The 2D array storing survivor counts
-// @param rows: number of rows
-// @param cols: number of columns
-// @param path: the path array containing coordinates
-// @param pathLength: length of the path
-// @param index: current index to process (default = 0)
-// @return: total number of survivors along the path
-int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int pathLength, int index = 0){
     // TODO4: Implement this function
 }
 </code></pre>
 
 
+<p><strong>【Level 2: Maximum Rescue】</strong></p>
+<ul>
+    <li><strong>Background:</strong> Find the <strong>BEST path</strong> that maximizes
+the number of survivors
+        <ul>
+            <li>You have reached the shelter and collected the resources inside</li>
+            <li>However, you know you can't stay here forever</li>
+            <li>There are still survivors out there who need your help</li>
+            <li>You decide to continue the rescue mission to save as many survivors as possible and find more shelters</li>
+        </ul>
+    </li>
+    <li><strong>Rules of this level:</strong>
+        <ul>
+            <li>You still cannot revisit cells (blizzard rule remains)</li>
+            <li>You have a limited amount of time to reach the shelter</li>
+            <li>Carrying more survivors makes you slower: each step costs 1 + (total_survivors / 4) time units</li>
+            <li>You need to rescue at least 'unlockThreshold' survivors to unlock the shelter door</li>
+            <li>There is no monster in this level, but you need to maximize the number of rescued survivors</li>
+        </ul>
+    </li>
+</ul>
+
+<p><strong>Task5: Implement tryAllDirections</strong></p>
+
+<ul>
+    <li><strong>Purpose:</strong>
+        <ul>
+            <li>In Level 2, without monsters, find the path that rescues the maximum survivors while reaching the shelter within time, unlocking it if enough survivors are collected, and update the best path</li>
+        </ul>
+    </li>
+</ul>
+
+<pre><code class="language-cpp" style="white-space: pre-wrap;">
+// TODO: Try all four directions recursively (maximum rescue version)
+//
+// Hints:
+// - Use direction deltas array.
+// - Base case: all directions tried.
+// - For each direction, calculate new position and time cost.
+// - Recur into rescueSurvivors, then try next direction.
+// - Compare the results
+// - - Use the const int variable UNREACHABLE to indicate a path cannot satisfy the constraints.
+//
+// @param map: The 2D array storing survivor counts
+// @param rows, cols: map dimensions
+// @param targetRow, targetCol: shelter location
+// @param r, c: current position
+// @param visited: visited cells tracker
+// @param currentPath: path explored so far
+// @param currentPathLength: current path length
+// @param timeLeft: remaining time
+// @param bestPath: best path found so far
+// @param bestPathLength: length of best path
+// @param dirIndex: current direction index to try
+// @param maxSurvivors: maximum survivors rescued along best path
+// @param currentSurvivors: survivors rescued so far
+// @param unlockThreshold: survivors needed to unlock
+// @return: maximum survivors that can be rescued
+int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
+                     bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
+                     int timeLeft, int bestPath[][2], int& bestPathLength, int dirIndex,
+                     int& maxSurvivors, int currentSurvivors, int unlockThreshold){
+    // TODO7: Implement this function
+}
+</code></pre>
+
+<p><strong>Task6: Implement rescueSurvivors</strong></p>
+<ul>
+    <li><strong>Purpose:</strong>
+        <ul>
+            <li>In Level 2, recursively explore paths to maximize rescued survivors, considering time costs that increase with load, and only succeed if the shelter can be unlocked with enough survivors</li>
+        </ul>
+    </li>
+</ul>
+
+<pre><code class="language-cpp" style="white-space: pre-wrap;">
+// TODO: Rescue survivors recursively (maximum rescue version)
+//
+// Hints:
+// - There's no need for monster checks.
+// - Remember to update best path and max survivors when reaching the target.
+//
+// @param map: The 2D array storing survivor counts
+// @param rows, cols: map dimensions
+// @param targetRow, targetCol: shelter location
+// @param r, c: current position
+// @param visited: visited cells tracker
+// @param currentPath: path explored so far
+// @param currentPathLength: current path length
+// @param timeLeft: remaining time
+// @param bestPath: best path found so far
+// @param bestPathLength: length of best path
+// @param maxSurvivors: maximum survivors rescued along best path (reference to update)
+// @param currentSurvivors: survivors rescued so far
+// @param unlockThreshold: survivors needed to unlock
+// @return: maximum survivors that can be rescued
+int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
+                    bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
+                    int timeLeft, int bestPath[][2], int& bestPathLength,
+                    int& maxSurvivors, int currentSurvivors, int unlockThreshold){
+    // TODO6: Implement this function
+}
+</code></pre>
 
 
-<p><strong>【Level 2: Horror Unleashed】</strong></p>
+
+
+<p><strong>【Level 3: Horror Unleashed】</strong></p>
 <ul>
     <li><strong>Background:</strong>
         <ul>
@@ -645,11 +744,11 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols, int pat
     </li>
 </ul>
 
-<p><strong>Task5: Implement tryAllDirectionsWithMonster</strong></p>
+<p><strong>Task7: Implement tryAllDirectionsWithMonster</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
-            <li>In Level 2, while navigating with a monster patrolling, this function tries each of the four possible moves (up, down, left, right) recursively, updating time and checking for success</li>
+            <li>In Level 3, while navigating with a monster patrolling, this function tries each of the four possible moves (up, down, left, right) recursively, updating time and checking for success</li>
         </ul>
     </li>
 </ul>
@@ -690,11 +789,11 @@ bool tryAllDirectionsWithMonster(int map[][MAX_MAP_SIZE], int rows, int cols, in
 }
 </code></pre>
 
-<p><strong>Task6: Implement rescueSurvivorsWithMonster</strong></p>
+<p><strong>Task8: Implement rescueSurvivorsWithMonster</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
-            <li>In Level 2, find a path to the shelter while rescuing survivors (cell values), considering time limits, increasing time cost with more survivors, and avoiding or handling monster encounters</li>
+            <li>In Level 3, find a path to the shelter while rescuing survivors (cell values), considering time limits and avoiding or handling monster encounters</li>
         </ul>
     </li>
 </ul>
@@ -732,111 +831,6 @@ bool rescueSurvivorsWithMonster(int map[][MAX_MAP_SIZE], int rows, int cols, int
                                 int monsterRow, int monsterCol, int type, int direction, int period){
     // TODO6: Implement this function
 }
-</code></pre>
-
-<p><strong>【Level 3: Maximum Rescue】</strong></p>
-<ul>
-    <li><strong>Background:</strong> Find the <strong>BEST path</strong> that maximizes
-the number of survivors
-        <ul>
-            <li>You have reached the shelter and collected the resources inside</li>
-            <li>However, you know you can't stay here forever</li>
-            <li>There are still survivors out there who need your help</li>
-            <li>You decide to continue the rescue mission to save as many survivors as possible and find more shelters</li>
-        </ul>
-    </li>
-    <li><strong>Rules of this level:</strong>
-        <ul>
-            <li>You still cannot revisit cells (blizzard rule remains)</li>
-            <li>You have a limited amount of time to reach the shelter</li>
-            <li>Carrying more survivors makes you slower: each step costs 1 + (total_survivors / 4) time units</li>
-            <li>You need to rescue at least 'unlockThreshold' survivors to unlock the shelter door</li>
-            <li>There is no monster in this level, but you need to maximize the number of rescued survivors</li>
-        </ul>
-    </li>
-</ul>
-
-<p><strong>Task7: Implement tryAllDirections</strong></p>
-
-<ul>
-    <li><strong>Purpose:</strong>
-        <ul>
-            <li>In Level 3, similar to Level 2 but without monsters, find the path that rescues the maximum survivors while reaching the shelter within time, unlocking it if enough survivors are collected, and update the best path</li>
-        </ul>
-    </li>
-</ul>
-
-<pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Try all four directions recursively (maximum rescue version)
-//
-// Hints:
-// - Use direction deltas array.
-// - Base case: all directions tried.
-// - For each direction, calculate new position and time cost.
-// - Recur into rescueSurvivors, then try next direction.
-// - Compare the results
-// - - Use the const int variable UNREACHABLE to indicate a path cannot satisfy the constraints.
-//
-// @param map: The 2D array storing survivor counts
-// @param rows, cols: map dimensions
-// @param targetRow, targetCol: shelter location
-// @param r, c: current position
-// @param visited: visited cells tracker
-// @param currentPath: path explored so far
-// @param currentPathLength: current path length
-// @param timeLeft: remaining time
-// @param bestPath: best path found so far
-// @param bestPathLength: length of best path
-// @param dirIndex: current direction index to try
-// @param maxSurvivors: maximum survivors rescued along best path
-// @param currentSurvivors: survivors rescued so far
-// @param unlockThreshold: survivors needed to unlock
-// @return: maximum survivors that can be rescued
-int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
-                     bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
-                     int timeLeft, int bestPath[][2], int& bestPathLength, int dirIndex,
-                     int& maxSurvivors, int currentSurvivors, int unlockThreshold){
-    // TODO7: Implement this function
-}
-</code></pre>
-
-<p><strong>Task8: Implement rescueSurvivors</strong></p>
-<ul>
-    <li><strong>Purpose:</strong>
-        <ul>
-            <li>In Level 3, recursively explore paths to maximize rescued survivors, considering time costs that increase with load, and only succeed if the shelter can be unlocked with enough survivors</li>
-        </ul>
-    </li>
-</ul>
-
-<pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Rescue survivors recursively (maximum rescue version)
-//
-// Hints:
-// - There's no need for monster checks.
-// - Remember to update best path and max survivors when reaching the target.
-//
-// @param map: The 2D array storing survivor counts
-// @param rows, cols: map dimensions
-// @param targetRow, targetCol: shelter location
-// @param r, c: current position
-// @param visited: visited cells tracker
-// @param currentPath: path explored so far
-// @param currentPathLength: current path length
-// @param timeLeft: remaining time
-// @param bestPath: best path found so far
-// @param bestPathLength: length of best path
-// @param maxSurvivors: maximum survivors rescued along best path (reference to update)
-// @param currentSurvivors: survivors rescued so far
-// @param unlockThreshold: survivors needed to unlock
-// @return: maximum survivors that can be rescued
-int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
-                    bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
-                    int timeLeft, int bestPath[][2], int& bestPathLength,
-                    int& maxSurvivors, int currentSurvivors, int unlockThreshold){
-    // TODO8: Implement this function
-}
-
 </code></pre>
 
 
@@ -1026,7 +1020,7 @@ g++ uninitialized_variables.cpp -Wuninitialized
                                 <td><a href="pa2_skeleton/given_testcases/output03.txt">output03.txt</a></td>
                                 <td><a href="pa2_skeleton/map01.txt">map01.txt</a></td>
                                 <td>
-                                    Level 2
+                                    Level 3
                                 </td>
                                 <td>
                                     Rescue survivors with monster (encounter monster)
@@ -1037,7 +1031,7 @@ g++ uninitialized_variables.cpp -Wuninitialized
                                 <td><a href="pa2_skeleton/given_testcases/output04.txt">output04.txt</a></td>
                                 <td><a href="pa2_skeleton/map01.txt">map01.txt</a></td>
                                 <td>
-                                    Level 2
+                                    Level 3
                                 </td>
                                 <td>
                                     Rescue survivors with monster (avoid monster)
@@ -1048,7 +1042,7 @@ g++ uninitialized_variables.cpp -Wuninitialized
                                 <td><a href="pa2_skeleton/given_testcases/output05.txt">output05.txt</a></td>
                                 <td><a href="pa2_skeleton/map01.txt">map01.txt</a></td>
                                 <td>
-                                    Level 3
+                                    Level 2
                                 </td>
                                 <td>
                                     Rescue maximum survivors
@@ -1059,7 +1053,7 @@ g++ uninitialized_variables.cpp -Wuninitialized
                                 <td><a href="pa2_skeleton/given_testcases/output11.txt">output11.txt</a></td>
                                 <td><a href="pa2_skeleton/map05.txt">map05.txt</a></td>
                                 <td>
-                                    Level 2
+                                    Level 3
                                 </td>
                                 <td>
                                     Rescue survivors with monster (exact time and survivors)
@@ -1104,14 +1098,14 @@ g++ uninitialized_variables.cpp -Wuninitialized
                             </tr>
 
                             <tr>
-                                <td>Level 2</td>
+                                <td>Level 3</td>
                                 <td>4</td>
                                 <td>7</td>
                                 <td>55<br>(5 marks for each case)</td>
                             </tr>
 
                             <tr>
-                                <td>Level 3</td>
+                                <td>Level 2</td>
                                 <td>2</td>
                                 <td>4</td>
                                 <td>30<br>(5 marks for each case)</td>

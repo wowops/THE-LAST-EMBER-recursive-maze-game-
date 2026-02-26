@@ -49,7 +49,7 @@ void level1() {
     int currentPathLength = 0;
 
     cout << "\nSearching for path..." << endl;
-    bool found = findPathSimple(map, rows, cols, path, pathLength, targetR, targetC,
+    bool found = shortestPath(map, rows, cols, path, pathLength, targetR, targetC,
                                 startR, startC, visited,
                                 currentPath, currentPathLength);
 

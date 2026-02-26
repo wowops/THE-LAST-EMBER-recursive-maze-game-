@@ -6,7 +6,7 @@ LEVEL 1: SIMPLE PATHFINDING
 ================================================================================
 
 OBJECTIVE:
-Find any valid path from start to exit.
+Find the shortest valid path (fewest steps) from start to exit.
 
 MAP ELEMENTS:
 - 'S' = Starting position
@@ -21,7 +21,7 @@ RULES:
 - Must stay within map boundaries
 
 SUCCESS:
-- Any valid path from start to exit
+- Shortest valid path (fewest steps) from start to exit
 
 
 ================================================================================
@@ -110,6 +110,7 @@ IMPLEMENTATION NOTES
 
 ALGORITHM:
 - Recursive backtracking for pathfinding
+- Level 1 uses DFS backtracking with full exploration to track the minimum-length path
 - Direction order (for grading consistency): up, down, left, right
 - No revisiting cells (mark visited, backtrack when needed)
 

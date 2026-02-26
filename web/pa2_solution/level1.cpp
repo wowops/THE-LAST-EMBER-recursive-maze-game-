@@ -6,7 +6,7 @@ void level1() {
     cout << "\n========================================" << endl;
     cout << "Level 1: Traverse the Blizzard to Find the Beacon" << endl;
     cout << "\n========================================" << endl;
-    cout << "Goal: Reach the distress beacon from the temporary camp at (0,0) by finding any viable path." << endl;
+    cout << "Goal: Reach the distress beacon from the temporary camp at (0,0) by finding the shortest viable path." << endl;
 
     cout << "\nEnter startR startC targetR targetC: ";
     int rows, cols, startR, startC, targetR, targetC;
@@ -48,8 +48,8 @@ void level1() {
     int currentPath[MAX_PATH_LENGTH][2];
     int currentPathLength = 0;
 
-    cout << "\nSearching for path..." << endl;
-    bool found = findPathSimple(map, rows, cols, path, pathLength, targetR, targetC,
+    cout << "\nSearching for shortest path..." << endl;
+    bool found = shortestPath(map, rows, cols, path, pathLength, targetR, targetC,
                                 startR, startC, visited,
                                 currentPath, currentPathLength);
 
