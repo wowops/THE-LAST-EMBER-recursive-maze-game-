@@ -183,61 +183,7 @@ int bouncePosition(int pos, int maxIndex) {
     return cycle - pos;
 }
 
-/**
- * Monster position calculation.
- * The monster moves back and forth along a given row or column.
- */
-// type: 0 for row movement, 1 for column movement; row, col: baseline position
-// direction: 0 moves forward, 1 moves backward; timeStep: current time step
-// period: movement range (cycles through period*2-2 without dwelling at endpoints)
-// rows, cols: map dimensions for boundary checks
-int getMonsterPosition(int type, int row, int col, int direction, int timeStep,
-                       int period, int rows, int cols) {
-    int fullCycle = (period - 1) * 2;
-    int cyclePos = timeStep % fullCycle;
-
-    int offset;
-    if (cyclePos < period - 1) {
-        offset = cyclePos;
-    } else {
-        offset = (2 * (period - 1)) - cyclePos;
-    }
-
-    if (direction == 1) {
-        offset = -offset;
-    }
-
-    if (type == 0) {
-        int pos = col + offset;
-        return bouncePosition(pos, cols - 1);
-    }
-
-    int pos = row + offset;
-    return bouncePosition(pos, rows - 1);
-}
-
-/**
- * Check whether the player encounters the monster
- */
-// playerR, playerC: player's current position; monsterRow, monsterCol: monster baseline
-bool isMonsterHere(int playerR, int playerC,
-                   int monsterRow, int monsterCol,
-                   int type, int direction, int timeStep, int period,
-                   int rows, int cols) {
-    if (type == 0) {
-        if (playerR != monsterRow) return false;
-        int monsterC = getMonsterPosition(type, monsterRow, monsterCol, direction,
-                                          timeStep, period, rows, cols);
-        return playerC == monsterC;
-    }
-
-    if (playerC != monsterCol) return false;
-    int monsterR = getMonsterPosition(type, monsterRow, monsterCol, direction,
-                                      timeStep, period, rows, cols);
-    return playerR == monsterR;
-}
-
-// Level 2 utility (non-TODO)
+// Level 3 utility (non-TODO)
 int calculateTimeCost(int num_rescued) {
     return 1 + num_rescued / 4;
 }
@@ -262,28 +208,26 @@ int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
                     int& maxSurvivors, int currentSurvivors,
                     int unlockThreshold);
 
-bool tryAllDirectionsWithMonster(int map[][MAX_MAP_SIZE], int rows, int cols,
+bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
                                  int targetRow, int targetCol,
                                  int r, int c, bool visited[][MAX_MAP_SIZE],
                                  int currentPath[][2], int currentPathLength,
-                                 int timeLeft, int timeElapsed,
+                                 int timeLeft,
                                  int dirIndex,
                                  int outPath[][2], int& outPathLength,
                                  int currentSurvivors,
                                  int unlockThreshold,
-                                 int monsterRow, int monsterCol, int type,
-                                 int direction, int period);
+                                 int& bestPathLength);
 
-bool rescueSurvivorsWithMonster(int map[][MAX_MAP_SIZE], int rows, int cols,
+bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
                                 int targetRow, int targetCol,
                                 int r, int c, bool visited[][MAX_MAP_SIZE],
                                 int currentPath[][2], int currentPathLength,
-                                int timeLeft, int timeElapsed,
+                                int timeLeft,
                                 int outPath[][2], int& outPathLength,
                                 int currentSurvivors,
                                 int unlockThreshold,
-                                int monsterRow, int monsterCol, int type,
-                                int direction, int period);
+                                int& bestPathLength);
 
 /**
  * Phase A (Recursion Warm-up)
@@ -395,9 +339,133 @@ bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols,
     return found;
 }
 
+
 /**
- * Phase C (Level 2 DFS Optimization)
- * TODO C1: DFS rescue with dynamic time cost, threshold check, and best-path update.
+ * Phase C (Level 2 Advanced DFS with Penalty Tiles)
+ * TODO C1: DFS rescue with time/resource constraints and penalty tile mechanics.
+ * Penalty tiles (negative values) reduce rescued survivors.
+ */
+bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
+                                int targetRow, int targetCol,
+                                int r, int c, bool visited[][MAX_MAP_SIZE],
+                                int currentPath[][2], int currentPathLength,
+                                int timeLeft,
+                                int outPath[][2], int& outPathLength,
+                                int currentSurvivors,
+                                int unlockThreshold,
+                                int& bestPathLength) {
+    // Hint 1: Prune impossible states early (bounds, time, wall, visited, max path).
+    if (r < 0 || r >= rows || c < 0 || c >= cols) {
+        return false;
+    }
+    if (timeLeft <= 0) {
+        return false;
+    }
+    if (map[r][c] == -1) {
+        return false;
+    }
+    if (visited[r][c]) {
+        return false;
+    }
+    if (currentPathLength >= MAX_PATH_LENGTH) {
+        return false;
+    }
+
+    // Hint 2: Mark state and handle survivor collection/penalty (positive or negative values).
+    visited[r][c] = true;
+    currentPath[currentPathLength][0] = r;
+    currentPath[currentPathLength][1] = c;
+    int newPathLength = currentPathLength + 1;
+
+    int survivor = map[r][c];
+    int totalSurvivors = currentSurvivors + survivor;
+
+    // Hint 3: If we reach the target with enough survivors, check if we found a shorter path.
+    if (r == targetRow && c == targetCol) {
+        if (totalSurvivors >= unlockThreshold) {
+            // Only update if this path is shorter than the best found so far
+            if (bestPathLength == 0 || newPathLength < bestPathLength) {
+                outPathLength = newPathLength;
+                copyPathRecursive(currentPath, outPath, newPathLength, 0);
+                bestPathLength = newPathLength;
+            }
+            visited[r][c] = false;
+            return true;
+        }
+
+        visited[r][c] = false;
+        return false;
+    }
+
+    // Hint 4: Recurse to all directions and backtrack visited on return.
+    bool found = tryAllDirectionsWithPenalty(map, rows, cols, targetRow, targetCol,
+                                             r, c, visited,
+                                             currentPath, newPathLength,
+                                             timeLeft,
+                                             0,
+                                             outPath, outPathLength,
+                                             totalSurvivors,
+                                             unlockThreshold,
+                                             bestPathLength);
+
+    visited[r][c] = false;
+    return found;
+}
+
+/**
+ * Phase C (Level 2 Advanced DFS with Penalty Tiles)
+ * TODO C2: Recursively try all four directions while tracking shortest valid path.
+ */
+bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
+                                 int targetRow, int targetCol,
+                                 int r, int c, bool visited[][MAX_MAP_SIZE],
+                                 int currentPath[][2], int currentPathLength,
+                                 int timeLeft,
+                                 int dirIndex,
+                                 int outPath[][2], int& outPathLength,
+                                 int currentSurvivors,
+                                 int unlockThreshold,
+                                 int& bestPathLength) {
+    // Hint 1: Base case for direction recursion is dirIndex >= 4.
+    if (dirIndex >= 4) {
+        return false;
+    }
+
+    int newR = r + DIRECTIONS[dirIndex][0];
+    int newC = c + DIRECTIONS[dirIndex][1];
+    int timeCost = 1;
+
+    // Hint 2: Check bounds and recurse into rescueSurvivorsWithPenalty for this branch.
+    bool found = false;
+    if (newR >= 0 && newR < rows && newC >= 0 && newC < cols) {
+        found = rescueSurvivorsWithPenalty(map, rows, cols, targetRow, targetCol,
+                                           newR, newC, visited,
+                                           currentPath, currentPathLength,
+                                           timeLeft - timeCost,
+                                           outPath, outPathLength,
+                                           currentSurvivors,
+                                           unlockThreshold,
+                                           bestPathLength);
+    }
+
+    // Hint 3: Continue exploring all directions to ensure we find the shortest path.
+    // Even if we found a valid path, we need to check other branches for potentially shorter ones.
+    bool nextResult = tryAllDirectionsWithPenalty(map, rows, cols, targetRow, targetCol,
+                                                  r, c, visited,
+                                                  currentPath, currentPathLength,
+                                                  timeLeft,
+                                                  dirIndex + 1,
+                                                  outPath, outPathLength,
+                                                  currentSurvivors,
+                                                  unlockThreshold,
+                                                  bestPathLength);
+    return found || nextResult;
+}
+
+
+/**
+ * Phase D (Level 3 DFS Optimization)
+ * TODO D1: DFS rescue with dynamic time cost, threshold check, and best-path update.
  * Note: Kept separate from tryAllDirections intentionally for DFS decomposition learning.
  */
 int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
@@ -465,8 +533,8 @@ int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
 }
 
 /**
- * Phase C (Level 2 DFS Optimization)
- * TODO C2: Try all four directions and combine branch results.
+ * Phase D (Level 3 DFS Optimization)
+ * TODO D2: Try all four directions and combine branch results.
  * Note: Kept separate from rescueSurvivors intentionally for DFS decomposition learning.
  */
 int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
@@ -519,178 +587,5 @@ int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
     return (result > nextResult) ? result : nextResult;
 }
 
-/**
- * Phase D (Level 3 Advanced DFS with Monster)
- * TODO D1: DFS rescue with time/resource constraints and monster penalties.
- */
-bool rescueSurvivorsWithMonster(int map[][MAX_MAP_SIZE], int rows, int cols,
-                                int targetRow, int targetCol,
-                                int r, int c, bool visited[][MAX_MAP_SIZE],
-                                int currentPath[][2], int currentPathLength,
-                                int timeLeft, int timeElapsed,
-                                int outPath[][2], int& outPathLength,
-                                int currentSurvivors,
-                                int unlockThreshold,
-                                int monsterRow, int monsterCol, int type,
-                                int direction, int period) {
-    // Hint 1: Prune impossible states early (bounds, time, wall, visited, max path).
-    if (r < 0 || r >= rows || c < 0 || c >= cols) {
-        return false;
-    }
-    if (timeLeft <= 0) {
-        return false;
-    }
-    if (map[r][c] == -1) {
-        return false;
-    }
-    if (visited[r][c]) {
-        return false;
-    }
-    if (currentPathLength >= MAX_PATH_LENGTH) {
-        return false;
-    }
-
-    // Hint 2: If monster is on this tile now, apply monster penalty consistently.
-    if (isMonsterHere(r, c, monsterRow, monsterCol, type, direction, timeElapsed,
-                      period, rows, cols)) {
-        int survivorsHere = map[r][c];
-        int collectedSurvivors = currentSurvivors + survivorsHere;
-
-        int potentialSurvivors = collectedSurvivors - MONSTER_DAMAGE_SURVIVORS;
-        int potentialTimeLeft = timeLeft - MONSTER_DAMAGE_TIME;
-
-        if (potentialSurvivors <= 0 || potentialTimeLeft <= 0) {
-            return false;
-        }
-
-        int newCurrentSurvivors = potentialSurvivors;
-
-        visited[r][c] = true;
-        currentPath[currentPathLength][0] = r;
-        currentPath[currentPathLength][1] = c;
-        int newPathLength = currentPathLength + 1;
-
-        bool found = tryAllDirectionsWithMonster(map, rows, cols, targetRow, targetCol,
-                                                 r, c, visited,
-                                                 currentPath, newPathLength,
-                                                 potentialTimeLeft,
-                                                 timeElapsed + MONSTER_DAMAGE_TIME,
-                                                 0,
-                                                 outPath, outPathLength,
-                                                 newCurrentSurvivors,
-                                                 unlockThreshold,
-                                                 monsterRow, monsterCol, type,
-                                                 direction, period);
-
-        visited[r][c] = false;
-        return found;
-    }
-
-    // Hint 3: Otherwise, mark state, collect survivors, and check unlock condition.
-    visited[r][c] = true;
-    currentPath[currentPathLength][0] = r;
-    currentPath[currentPathLength][1] = c;
-    int newPathLength = currentPathLength + 1;
-
-    int survivor = map[r][c];
-    int totalSurvivors = currentSurvivors + survivor;
-
-    if (r == targetRow && c == targetCol) {
-        if (totalSurvivors >= unlockThreshold) {
-            outPathLength = newPathLength;
-            copyPathRecursive(currentPath, outPath, newPathLength, 0);
-            visited[r][c] = false;
-            return true;
-        }
-
-        visited[r][c] = false;
-        return false;
-    }
-
-    // Hint 4: Recurse to all directions and backtrack visited on return.
-    bool found = tryAllDirectionsWithMonster(map, rows, cols, targetRow, targetCol,
-                                             r, c, visited,
-                                             currentPath, newPathLength,
-                                             timeLeft, timeElapsed,
-                                             0,
-                                             outPath, outPathLength,
-                                             totalSurvivors,
-                                             unlockThreshold,
-                                             monsterRow, monsterCol, type,
-                                             direction, period);
-
-    visited[r][c] = false;
-    return found;
-}
-
-/**
- * Phase D (Level 3 Advanced DFS with Monster)
- * TODO D2: Recursively try all four directions while avoiding monster collisions.
- */
-bool tryAllDirectionsWithMonster(int map[][MAX_MAP_SIZE], int rows, int cols,
-                                 int targetRow, int targetCol,
-                                 int r, int c, bool visited[][MAX_MAP_SIZE],
-                                 int currentPath[][2], int currentPathLength,
-                                 int timeLeft, int timeElapsed,
-                                 int dirIndex,
-                                 int outPath[][2], int& outPathLength,
-                                 int currentSurvivors,
-                                 int unlockThreshold,
-                                 int monsterRow, int monsterCol, int type,
-                                 int direction, int period) {
-    // Hint 1: Base case for direction recursion is dirIndex >= 4.
-    if (dirIndex >= 4) {
-        return false;
-    }
-
-    int newR = r + DIRECTIONS[dirIndex][0];
-    int newC = c + DIRECTIONS[dirIndex][1];
-    int timeCost = 1;
-
-    // Hint 2: Before moving, check monster occupancy with current timing model.
-    if (newR >= 0 && newR < rows && newC >= 0 && newC < cols) {
-        if (isMonsterHere(newR, newC, monsterRow, monsterCol, type, direction,
-                          timeElapsed, period, rows, cols)) {
-            return tryAllDirectionsWithMonster(map, rows, cols, targetRow, targetCol,
-                                               r, c, visited,
-                                               currentPath, currentPathLength,
-                                               timeLeft, timeElapsed,
-                                               dirIndex + 1,
-                                               outPath, outPathLength,
-                                               currentSurvivors,
-                                               unlockThreshold,
-                                               monsterRow, monsterCol, type,
-                                               direction, period);
-        }
-    }
-
-    // Hint 3: If safe, recurse into rescueSurvivorsWithMonster for this branch.
-    bool found = rescueSurvivorsWithMonster(map, rows, cols, targetRow, targetCol,
-                                            newR, newC, visited,
-                                            currentPath, currentPathLength,
-                                            timeLeft - timeCost,
-                                            timeElapsed + timeCost,
-                                            outPath, outPathLength,
-                                            currentSurvivors,
-                                            unlockThreshold,
-                                            monsterRow, monsterCol, type,
-                                            direction, period);
-
-    if (found) {
-        return true;
-    }
-
-    // Hint 4: If branch fails, continue with the next direction.
-    return tryAllDirectionsWithMonster(map, rows, cols, targetRow, targetCol,
-                                       r, c, visited,
-                                       currentPath, currentPathLength,
-                                       timeLeft, timeElapsed,
-                                       dirIndex + 1,
-                                       outPath, outPathLength,
-                                       currentSurvivors,
-                                       unlockThreshold,
-                                       monsterRow, monsterCol, type,
-                                       direction, period);
-}
 
 #endif // HELPERS_H

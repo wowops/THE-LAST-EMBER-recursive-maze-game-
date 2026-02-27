@@ -176,7 +176,7 @@
                         <ul>
                             <li>Level 1: Simple pathfinding to reach a beacon without revisiting cells.</li>
                             <li>Level 2: Maximize survivors rescued under time constraints and dynamic movement costs.</li>
-                            <li>Level 3: Unlock shelter with enough survivors under time constraints and monster threats.</li>
+                            <li>Level 3: Unlock shelter with enough survivors under time constraints and penalty tile mechanics.</li>
                         </ul>
                     </p>
 
@@ -261,158 +261,180 @@
 
                     <p>The input values are marked as <span class="input">Green</span></p>
 
-                                        <pre style="border: 1px solid; padding: 5px;">
+                        <pre style="border: 1px solid; padding: 5px;">
 ========================================
 The Last Ember
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
 > <span class="input">1</span>
+
 ========================================
 Level 1: Traverse the Blizzard to Find the Beacon
 
 ========================================
-Goal: Reach the distress beacon from the temporary camp at (0,0) by finding any viable path.
+Goal: Reach the distress beacon from the temporary camp at (0,0) by finding the shortest viable path.
 
-Enter startR startC targetR targetC: <span class="input">0 0 6 6</span>
+Enter startR startC targetR targetC: <span class="input">0 0 5 5</span>
 Enter map file name (e.g., map01 or map01.txt): <span class="input">map01</span>
 
-Test case: 8 8 0 0 6 6
+Test case: 6 6 0 0 5 5
 
 Wasteland terrain ( .=passable, #=chasm ):
- S  .  .  #  .  .  .  . 
- .  #  .  .  .  .  .  # 
- .  .  .  .  .  #  .  . 
- .  .  #  .  .  .  .  . 
- .  .  .  .  .  .  #  . 
- .  #  .  .  .  .  .  . 
- .  .  .  #  .  .  E  . 
- .  .  .  .  .  .  .  . 
+ S  .  .  .  .  .
+ .  #  #  #  #  .
+ .  #  .  .  .  .
+ .  #  .  #  #  .
+ .  #  .  .  .  .
+ .  .  .  #  #  E
 
-Searching for path...
+Searching for shortest path...
 
 ✓ Path found successfully!
-Path length: 41 steps
-(0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (7,0) -> (7,1) -> (6,1) -> (6,2) -> (5,2) -> (4,2) -> (4,1) -> (3,1) -> (2,1) -> (2,2) -> (1,2) -> (1,3) -> (2,3) -> (3,3) -> (4,3) -> (5,3) -> (5,4) -> (4,4) -> (3,4) -> (2,4) -> (1,4) -> (0,4) -> (0,5) -> (1,5) -> (1,6) -> (2,6) -> (3,6) -> (3,5) -> (4,5) -> (5,5) -> (6,5) -> (7,5) -> (7,6) -> (6,6)
+Path length: 11 steps
+(0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (1,5) -> (2,5) -> (3,5) -> (4,5) -> (5,5)       
 
 Path annotated map:
- S  .  .  #  >  v  .  . 
- v  #  >  v  ^  >  v  # 
- v  >  ^  v  ^  #  v  . 
- v  ^  #  v  ^  v  &lt;  . 
- v  ^  &lt;  v  ^  v  #  . 
- v  #  ^  >  ^  v  .  . 
- v  >  ^  #  .  v  E  . 
- >  ^  .  .  .  >  ^  . 
-
-Select a level to run: 1 / 2 / 3
-Enter q to quit
-> <span class="input">3</span>
-========================================
-Level 3: The Last Ember — Horror Unleashed
-
-========================================
-Goal: Rescue enough survivors amidst blizzard and monster threats
-Settings:
-  1. The shelter door is initially locked and opens only after rescuing enough survivors
-  2. Your time is limited. Speed up!
-  3. The blizzard has buried the path behind you, no turning back!
-  4. A terrifying monster moves periodically. Watch out!
-
-Enter startR startC targetR targetC: <span class="input">0 0 6 6</span>
-Enter timeLeft unlockThreshold: <span class="input">25 70</span>
-Enter monsterRow monsterCol monsterType monsterDirection monsterPeriod: <span class="input">2 2 1 0 7</span>
-Enter map file name (e.g., map01 or map01.txt): <span class="input">map01</span>
-
-Test case: 8 8 0 0 6 6 25 70
-Monster: row=2 col=2 type=1 dir=0 period=7
-
-Survivor map (numbers = survivors, # = snow wall/chasm, M = monster start, D = locked shelter door):
- S  5  2  #  4  1  2  3 
- 1  #  6  3  2  4  5  # 
- 4  2  M  1  7  #  3  2 
- 2  3  #  4  5  6  1  4 
- 5  4  3  2  9  2  #  5 
- 2  #  4  3  1  8  2  6 
- 3  2  1  #  4  3  D  2 
- 6  5  2  4  3  2  5  9 
-
-Monster info:
-  Location: Row 2, starting from column 2
-  Period: 7 cells
-  Damage: Lose 20 time units and 20 survivors upon encounter
-
-Survivors needed to unlock shelter: 70
-Available time: 25 units
-
-Valid path found!
-Path length: 25
-Survivors rescued: 80
-Path: (0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (7,0) -> (7,1) -> (6,1) -> (6,2) -> (5,2) -> (4,2) -> (4,1) -> (3,1) -> (2,1) -> (2,2) -> (2,3) -> (3,3) -> (4,3) -> (5,3) -> (5,4) -> (6,4) -> (6,5) -> (6,6)
-
-Path annotated map (survivor counts preserved):
- S  5  2  #  4  1  2  3 
- v  #  6  3  2  4  5  # 
- v  >  >  v  7  #  3  2 
- v  ^  #  v  5  6  1  4 
- v  ^  &lt;  v  9  2  #  5 
- v  #  ^  >  v  8  2  6 
- v  >  ^  #  >  >  D  2 
- >  ^  2  4  3  2  5  9 
-
-Select a level to run: 1 / 2 / 3
-Enter q to quit
-> <span class="input">2</span>
-========================================
-Level 2: The Last Ember
-
-========================================
-Goal: Rescue enough survivors to unlock the shelter door
-Settings:
-  1. The shelter door is initially locked and can only be opened by rescuing enough survivors
-  2. The more survivors you rescue, the slower you move, with each step taking longer (1 extra unit of time per 4 survivors)
-  3. The blizzard has buried the path behind you, no turning back!
-  4. Rescue as many survivors as possible before time runs out
-
-Enter startR startC targetR targetC: <span class="input">0 0 6 6</span>
-Enter timeLeft unlockThreshold: <span class="input">210 70</span>
-Enter map file name (e.g., map01 or map01.txt): <span class="input">map01</span>
-
-Test case: 8 8 0 0 6 6 210 70
-
-Survivor distribution map (numbers = survivors to rescue, # = snow wall/chasm, D = locked shelter door):
- S  5  2  #  4  1  2  3 
- 1  #  6  3  2  4  5  # 
- 4  2  5  1  7  #  3  2 
- 2  3  #  4  5  6  1  4 
- 5  4  3  2  9  2  #  5 
- 2  #  4  3  1  8  2  6 
- 3  2  1  #  4  3  D  2 
- 6  5  2  4  3  2  5  9 
-
-Number of survivors needed to unlock the shelter: 70
-
-Planning route (must reach unlock threshold, dynamic time consumption)...
-Initial remaining survival time: 210 units
-
-✓ You have unlocked the shelter door!
-Successfully rescued: 93 survivors (threshold 70)
-Path length: 21 steps
-(0,0) -> (1,0) -> (2,0) -> (3,0) -> (3,1) -> (2,1) -> (2,2) -> (1,2) -> (1,3) -> (1,4) -> (2,4) -> (3,4) -> (4,4) -> (4,5) -> (5,5) -> (5,6) -> (5,7) -> (6,7) -> (7,7) -> (7,6) -> (6,6)
-
-Path annotated map (survivor counts preserved):
- S  5  2  #  4  1  2  3 
- v  #  >  >  v  4  5  # 
- v  >  ^  1  v  #  3  2 
- >  ^  #  4  v  6  1  4 
- 5  4  3  2  >  v  #  5 
- 2  #  4  3  1  >  >  v 
- 3  2  1  #  4  3  D  v 
- 6  5  2  4  3  2  ^  &lt; 
+ S  >  >  >  >  v
+ .  #  #  #  #  v
+ .  #  .  .  .  v
+ .  #  .  #  #  v
+ .  #  .  .  .  v
+ .  .  .  #  #  E
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
 > <span class="input">q</span>
+
+========================================
+Game Over!
+
+========================================</pre>
+
+                        <pre style="border: 1px solid; padding: 5px;">
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> <span class="input">2</span>
+
+========================================
+Level 2: The Last Ember — Hazardous Journey
+
+========================================
+Goal: Rescue enough survivors and find the shortest safe path
+Settings:
+  1. The shelter door is initially locked and can only be opened by rescuing enough survivors
+  2. Your time is limited. Speed up!
+  3. The blizzard has buried the path behind you, no turning back!
+  4. Some tiles contain hazards (negative values) that reduce rescued survivors
+  5. Find the SHORTEST valid path to the shelter while meeting survivor requirements
+
+Enter startR startC targetR targetC: <span class="input">0 0 7 9</span>
+Enter timeLeft unlockThreshold: <span class="input">25 10</span>
+Enter map file name (e.g., map01 or map01.txt): <span class="input">map02</span>
+
+Test case: 8 10 0 0 7 9 25 10
+
+Map (positive = survivors to rescue, negative = hazard points lost, # = wall/chasm, S = start, D = locked shelter door):
+ S -5 -5 -5 -5 -5 -5 -5 -5 -5
+ 2  #  #  #  #  #  #  #  # -5
+ 2  2  5  5  5  5  5  5  # -5
+ 2  #  #  #  #  #  #  5  # -5
+ 2  5  5  5  5  5  5  5  # -5
+ 2  5  #  #  #  #  #  #  # -5
+ 2  2  2  2  2  #  2  2  2 -5
+ #  #  #  #  2  2  2  #  2  D
+
+Survivors needed to unlock the shelter: 10
+Available time: 25 units
+
+Planning route (must reach unlock threshold, avoid hazards, find shortest path)...
+Initial remaining time: 25 units
+
+✓ You have found a safe path!
+Path length: 19 steps (SHORTEST)
+Path coordinates: (0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (6,1) -> (6,2) -> (6,3) -> (6,4) -> (7,4) -> (7,5) -> (7,6) -> (6,6) -> (6,7) -> (6,8) -> (7,8) -> (7,9)
+
+
+Path annotated map:
+ S  .  .  .  .  .  .  .  .  .
+ v  #  #  #  #  #  #  #  #  .
+ v  .  .  .  .  .  .  .  #  .
+ v  #  #  #  #  #  #  .  #  .
+ v  .  .  .  .  .  .  .  #  .
+ v  .  #  #  #  #  #  #  #  .
+ >  >  >  >  v  #  >  >  v  .
+ #  #  #  #  >  >  ^  #  >  E
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> <span class="input">q</span>
+
+========================================
+Game Over!
+
+========================================</pre>
+
+                        <pre style="border: 1px solid; padding: 5px;">
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> <span class="input">3</span>
+
+========================================
+Level 3: The Last Ember — Rescue Mission
+
+========================================
+Goal: Rescue as many survivors as possible while unlocking the shelter
+Settings:
+  1. The shelter door is initially locked and opens only after rescuing enough survivors
+  2. The more survivors you rescue, the slower you move (dynamic time cost)
+  3. Your time is limited. Plan your route carefully!
+  4. The blizzard has buried the path behind you, no turning back!
+  5. Rescue as many survivors as possible before time runs out
+
+Enter startR startC targetR targetC: <span class="input">0 0 6 6</span>
+Enter timeLeft unlockThreshold: <span class="input">45 15</span>
+Enter map file name (e.g., map01 or map01.txt): <span class="input">map03</span>
+
+Test case: 7 7 0 0 6 6 45 15
+
+Survivor distribution map (numbers = survivors to rescue, # = snow wall/chasm, D = locked shelter door):
+ S  5  5  5  5  5  #
+ 0  #  #  #  #  5  #
+ 0  #  #  #  #  5  #
+ 0  #  #  #  #  5  #
+ 3  #  #  #  #  5  #
+ 3  #  #  #  #  5  #
+ 3  3  3  3  3  0  D
+
+Number of survivors needed to unlock the shelter: 15
+
+Planning route (dynamic time consumption)...
+Initial remaining survival time: 45 units
+
+✓ You have unlocked the shelter door!
+Successfully rescued: 21 survivors (threshold 15)
+Path length: 13 steps
+Path coordinates: (0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (6,1) -> (6,2) -> (6,3) -> (6,4) -> (6,5) -> (6,6)
+
+Path annotated map (survivor counts preserved):
+ S  5  5  5  5  5  #
+ v  #  #  #  #  5  #
+ v  #  #  #  #  5  #
+ v  #  #  #  #  5  #
+ v  #  #  #  #  5  #
+ v  #  #  #  #  5  #
+ >  >  >  >  >  >  D
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> <span class="input">q</span>
+
 ========================================
 Game Over!
 
@@ -427,14 +449,9 @@ Game Over!
                         <li>The map has at least 1 row and at most 16 rows, inclusive</li>
                         <li>The map has at least 1 column and at most 16 columns, inclusive</li>
                         <li>The length of the path has at most 256 steps</li>
-                        <li>Negative values (-1) represent chasms where the player cannot cross.</li>
                         <li><strong style="color:red;">Do not use loops in the functions to be implemented.</strong>
                             Code checking will be applied after the submission. <strong style="color:red;">0 marks will be assigned</strong> if loop instead of recursion
                         is used on these functions.
-                        </li>
-                        <li><strong>⚠️ IMPORTANT FOR GRADING:</strong> When trying directions recursively,
-                            you MUST use this exact order: <strong>up, down, left, right</strong>.
-                            Using a different order will cause your output to differ from expected results.
                         </li>
                         
                     </ul>
@@ -450,8 +467,8 @@ Game Over!
                                 <li><code language="language-cpp">copyPathRecursive</code></li>
                                 <li><code language="language-cpp">calculate_num_survivors</code></li>
                                 <li><code language="language-cpp">shortestPath</code></li>
-                                <li><code language="language-cpp">tryAllDirectionsWithMonster</code></li>
-                                <li><code language="language-cpp">rescueSurvivorsWithMonster</code></li>
+                                <li><code language="language-cpp">tryAllDirectionsWithPenalty</code></li>
+                                <li><code language="language-cpp">rescueSurvivorsWithPenalty</code></li>
                                 <li><code language="language-cpp">tryAllDirections</code></li>
                                 <li><code language="language-cpp">rescueSurvivors</code></li>
                             </ul>
@@ -546,7 +563,7 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols, int pat
     <li><strong>Background:</strong> Find the <strong>shortest valid path</strong> (fewest steps)
         <ul>
             <li>You are stranded in a frozen wasteland and you want to find other survivors</li>
-            <li>Your only hope is to reach the old distress beacon (E) located at the far side of the map</li>
+            <li>Your only hope is to reach the old distress beacon (E) located at the far side of the map <strong>as soon as possible</strong></li>
         </ul>
     </li>
     <li><strong>Rules of this level:</strong>
@@ -554,22 +571,11 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols, int pat
             <li>You cannot cross chasms (# / -1 cells)</li>
             <li>You cannot visit the same cell twice (blizzard buries your tracks behind you)</li>
             <li>There is no time limit and no weight penalty yet</li>
-            <li>Monster does not exist in this level</li>
         </ul>
     </li>
     <li><strong>Purpose:</strong>
         <ul>
             <li>In Level 1, the player must find the shortest path from start to exit under the above constraints</li>
-        </ul>
-    </li>
-    <li><strong>Shortest Path pseudocode :</strong>
-        <ul>
-            <li>Step 1: If current cell is invalid (out of bounds, chasm, visited, or path too long), stop this branch.</li>
-            <li>Step 2: Mark current cell as visited and append it into <code>currentPath</code>.</li>
-            <li>Step 3: If current cell is the target, compare current path length with <code>pathLength</code> and update best path only when shorter.</li>
-            <li>Step 4: Recursively explore four directions in order: up, down, left, right.</li>
-            <li>Step 5: Backtrack by unmarking visited before returning to caller.</li>
-            <li>Step 6: Use existing parameters/variables (<code>visited</code>, <code>currentPath</code>, <code>path</code>, <code>pathLength</code>) to complete implementation by yourself.</li>
         </ul>
     </li>
 </ul>
@@ -606,34 +612,145 @@ bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], in
 </code></pre>
 
 
-<p><strong>【Level 2: Maximum Rescue】</strong></p>
+<p><strong>【Level 2: Advanced DFS with Penalty Tiles】</strong></p>
 <ul>
-    <li><strong>Background:</strong> Find the <strong>BEST path</strong> that maximizes
-the number of survivors
+    <li><strong>Background:</strong>
         <ul>
-            <li>You have reached the shelter and collected the resources inside</li>
+            <li>From the beacon, you saw a big shelter (D), but it's currently locked</li>
+            <li>Luckily, there are survivors scattered around the area who can help you break through the door</li>
+            <li>You must rescue enough survivors scattered across the map to open it</li>
+            <li>However, it is getting colder and you have limited time before the blizzard hits again</li>
+            <li>Some areas are more dangerous (penalty tiles with negative values) that will reduce the survivors you rescue</li>
+            <li>You need to plan your route carefully to maximize efficiency and reach the shelter in time</li>
+        </ul>
+    </li>
+    <li><strong>Rules of this level:</strong> Find <strong>ONE valid path</strong> is enough
+        <ul>
+            <li>You still cannot revisit cells (blizzard rule remains)</li>
+            <li>You have a limited amount of time to reach the shelter</li>
+            <li>Each step costs 1 time unit (fixed cost)</li>
+            <li>You need to rescue at least 'unlockThreshold' survivors to unlock the shelter door</li>
+            <li>Certain cells contain negative values (penalty tiles) that reduce your total rescued survivors when you step on them</li>
+            <li>The goal is to find a valid path that reaches the shelter with enough survivors while staying within time limits</li>
+        </ul>
+    </li>
+</ul>
+
+<p><strong>Task5: Implement rescueSurvivorsWithPenalty</strong></p>
+<ul>
+    <li><strong>Purpose:</strong>
+        <ul>
+            <li>In Level 2, find a path to the shelter while rescuing survivors (cell values may be positive or negative), considering time limits and penalty tile mechanics</li>
+        </ul>
+    </li>
+</ul>
+
+<pre><code class="language-cpp" style="white-space: pre-wrap;">
+// TODO: Rescue survivors to unlock shelter (with penalty tiles)
+//
+// Hints:
+// - Check boundaries, time, chasms, visited, path length and use them as base cases.
+// - Handle positive and negative survivor values (penalty tiles).
+// - Mark as visited and add to path.
+// - Add current survivors (which may be negative). Also check if at target and enough to unlock.
+// - Call tryAllDirectionsWithPenalty to explore moves.
+// - Remember to backtrack.
+//
+// @param map: The 2D array storing survivor counts (positive or negative values)
+// @param rows, cols: map dimensions
+// @param targetRow, targetCol: shelter location
+// @param r, c: current position
+// @param visited: visited cells tracker
+// @param currentPath: path explored so far
+// @param currentPathLength: current path length
+// @param timeLeft: remaining time
+// @param outPath: output path if found
+// @param outPathLength: output path length
+// @param currentSurvivors: survivors rescued so far
+// @param unlockThreshold: survivors needed to unlock
+// @param bestPathLength: length of best path found so far
+// @return: true if path found, false otherwise
+bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
+                                bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
+                                int timeLeft, int outPath[][2], int& outPathLength,
+                                int currentSurvivors, int unlockThreshold,
+                                int& bestPathLength){
+    // TODO5: Implement this function
+}
+</code></pre>
+
+<p><strong>Task6: Implement tryAllDirectionsWithPenalty</strong></p>
+<ul>
+    <li><strong>Purpose:</strong>
+        <ul>
+            <li>In Level 2, this function tries each of the four possible moves (up, down, left, right) recursively, exploring different paths to find one that reaches the shelter with enough survivors within time limits</li>
+        </ul>
+    </li>
+</ul>
+
+<pre><code class="language-cpp" style="white-space: pre-wrap;">
+// TODO: Try all four directions recursively (penalty tiles version)
+//
+// Hints:
+// - Use an array of direction (fixed order for grading: up, down, left, right).
+// - Base case: all directions tried.
+// - Calculate new position and time cost.
+// - Recur into rescueSurvivorsWithPenalty for the new position.
+// - Make use of the return value.
+//
+// @param map: The 2D array storing survivor counts (positive or negative values)
+// @param rows, cols: map dimensions
+// @param targetRow, targetCol: shelter location
+// @param r, c: current position
+// @param visited: visited cells tracker
+// @param currentPath: path explored so far
+// @param currentPathLength: current path length
+// @param timeLeft: remaining time
+// @param dirIndex: current direction index to try
+// @param outPath: output path if found
+// @param outPathLength: output path length
+// @param currentSurvivors: survivors rescued so far
+// @param unlockThreshold: survivors needed to unlock
+// @param bestPathLength: length of best path found so far
+// @return: true if valid path found, false otherwise
+bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
+                                 bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
+                                 int timeLeft, int dirIndex,
+                                 int outPath[][2], int& outPathLength, int currentSurvivors, int unlockThreshold,
+                                 int& bestPathLength){
+    // TODO6: Implement this function
+}
+</code></pre>
+
+
+<p><strong>【Level 3: DFS Optimization with Maximum Rescue】</strong></p>
+<ul>
+    <li><strong>Background:</strong> Find the <strong>BEST path</strong> that maximizes the number of survivors
+        <ul>
+            <li>From the shelter, you decide to continue the rescue mission</li>
+            <li>You have collected some resources from the shelter</li>
             <li>However, you know you can't stay here forever</li>
             <li>There are still survivors out there who need your help</li>
-            <li>You decide to continue the rescue mission to save as many survivors as possible and find more shelters</li>
+            <li>You want to save as many survivors as possible and return to more shelters</li>
         </ul>
     </li>
     <li><strong>Rules of this level:</strong>
         <ul>
             <li>You still cannot revisit cells (blizzard rule remains)</li>
-            <li>You have a limited amount of time to reach the shelter</li>
+            <li>You have a limited amount of time to reach the next shelter</li>
             <li>Carrying more survivors makes you slower: each step costs 1 + (total_survivors / 4) time units</li>
-            <li>You need to rescue at least 'unlockThreshold' survivors to unlock the shelter door</li>
-            <li>There is no monster in this level, but you need to maximize the number of rescued survivors</li>
+            <li>You need to rescue at least 'unlockThreshold' survivors to unlock the next shelter door</li>
+            <li>The goal is to maximize the number of rescued survivors while unlocking the shelter</li>
         </ul>
     </li>
 </ul>
 
-<p><strong>Task5: Implement tryAllDirections</strong></p>
+<p><strong>Task7: Implement tryAllDirections</strong></p>
 
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
-            <li>In Level 2, without monsters, find the path that rescues the maximum survivors while reaching the shelter within time, unlocking it if enough survivors are collected, and update the best path</li>
+            <li>In Level 3, find the path that rescues the maximum survivors while reaching the shelter within time, unlocking it if enough survivors are collected, and update the best path</li>
         </ul>
     </li>
 </ul>
@@ -672,11 +789,11 @@ int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow,
 }
 </code></pre>
 
-<p><strong>Task6: Implement rescueSurvivors</strong></p>
+<p><strong>Task8: Implement rescueSurvivors</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
-            <li>In Level 2, recursively explore paths to maximize rescued survivors, considering time costs that increase with load, and only succeed if the shelter can be unlocked with enough survivors</li>
+            <li>In Level 3, recursively explore paths to maximize rescued survivors, considering time costs that increase with load, and only succeed if the shelter can be unlocked with enough survivors</li>
         </ul>
     </li>
 </ul>
@@ -685,7 +802,7 @@ int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow,
 // TODO: Rescue survivors recursively (maximum rescue version)
 //
 // Hints:
-// - There's no need for monster checks.
+// - Use dynamic time cost based on survivors rescued.
 // - Remember to update best path and max survivors when reaching the target.
 //
 // @param map: The 2D array storing survivor counts
@@ -706,135 +823,9 @@ int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, 
                     bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
                     int timeLeft, int bestPath[][2], int& bestPathLength,
                     int& maxSurvivors, int currentSurvivors, int unlockThreshold){
-    // TODO6: Implement this function
+    // TODO8: Implement this function
 }
 </code></pre>
-
-
-
-
-<p><strong>【Level 3: Horror Unleashed】</strong></p>
-<ul>
-    <li><strong>Background:</strong>
-        <ul>
-            <li>From the beacon, you saw a big shelter (D), but it's currently locked</li>
-            <li>Luckily, there are survivors scattered around the area who can help you break through the door</li>
-            <li>You must rescue enough survivors scattered across the map to open it</li>
-            <li>However, it is getting colder and you have limited time before the blizzard hits again</li>
-            <li>What's worse, a monster is patrolling somewhere in the map</li>
-            <li>If you encounter the monster, you will lose survivors and time, and the game may end if you can't sustain the damage</li>
-            <li>The good news is you can avoid the monster if you find that it's adjacent to you</li>
-            <li>Compare these 2 scenarios and you will understand the differences</li>
-        </ul>
-    </li>
-    <li><strong>Rules of this level:</strong> Find <strong>ONE valid path</strong> is enough
-        <ul>
-            <li>You still cannot revisit cells (blizzard rule remains)</li>
-            <li>You have a limited amount of time to reach the shelter</li>
-            <li>Each step costs 1 time unit (fixed cost)</li>
-            <li>You need to rescue at least 'unlockThreshold' survivors to unlock the shelter door</li>
-            <li>If you step on the same cell as the monster at that exact time step:
-                <ul>
-                    <li>you lose 20 survivors and 20 time units (MONSTER_DAMAGE_SURVIVORS & MONSTER_DAMAGE_TIME)</li>
-                    <li>if either survivors or time would become non-positive after the damage, the game is over</li>
-                </ul>
-            </li>
-            <li>If you find the monster is adjacent to your current position, you cannot move there. Instead, you must choose a different path.</li>
-        </ul>
-    </li>
-</ul>
-
-<p><strong>Task7: Implement tryAllDirectionsWithMonster</strong></p>
-<ul>
-    <li><strong>Purpose:</strong>
-        <ul>
-            <li>In Level 3, while navigating with a monster patrolling, this function tries each of the four possible moves (up, down, left, right) recursively, updating time and checking for success</li>
-        </ul>
-    </li>
-</ul>
-
-<pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Try all four directions recursively (monster version)
-//
-// Hints:
-// - Use an array of direction (fixed order for grading: up, down, left, right).
-// - Base case: all directions tried.
-// - Calculate new position and time cost.
-// - Avoid the monster if needed.
-// - Recur into rescueSurvivorsWithMonster for the new position.
-// - Make use of the return value.
-//
-// @param map: The 2D array storing survivor counts
-// @param rows, cols: map dimensions
-// @param targetRow, targetCol: shelter location
-// @param r, c: current position
-// @param visited: visited cells tracker
-// @param currentPath: path explored so far
-// @param currentPathLength: current path length
-// @param timeLeft: remaining time
-// @param timeElapsed: time elapsed so far
-// @param dirIndex: current direction index to try
-// @param outPath: output path if found
-// @param outPathLength: output path length
-// @param currentSurvivors: survivors rescued so far
-// @param unlockThreshold: survivors needed to unlock
-// @param monsterRow, monsterCol, type, direction, period: monster configuration
-// @return: true if path found, false otherwise
-bool tryAllDirectionsWithMonster(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
-                                 bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
-                                 int timeLeft, int timeElapsed, int dirIndex,
-                                 int outPath[][2], int& outPathLength, int currentSurvivors, int unlockThreshold,
-                                 int monsterRow, int monsterCol, int type, int direction, int period){
-    // TODO5: Implement this function
-}
-</code></pre>
-
-<p><strong>Task8: Implement rescueSurvivorsWithMonster</strong></p>
-<ul>
-    <li><strong>Purpose:</strong>
-        <ul>
-            <li>In Level 3, find a path to the shelter while rescuing survivors (cell values), considering time limits and avoiding or handling monster encounters</li>
-        </ul>
-    </li>
-</ul>
-
-<pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Rescue survivors to unlock shelter (with dynamic load, time cost, and monster threat)
-//
-// Hints:
-// - Check boundaries, time, chasms, visited, path length and use them as base cases.
-// - Handle monster encounters.
-// - Mark as visited and add to path.
-// - Add current survivors. Also check if at target and enough to unlock.
-// - Call tryAllDirectionsWithMonster to explore moves.
-// - Remember to backtrack.
-//
-// @param map: The 2D array storing survivor counts
-// @param rows, cols: map dimensions
-// @param targetRow, targetCol: shelter location
-// @param r, c: current position
-// @param visited: visited cells tracker
-// @param currentPath: path explored so far
-// @param currentPathLength: current path length
-// @param timeLeft: remaining time
-// @param timeElapsed: time elapsed so far
-// @param outPath: output path if found
-// @param outPathLength: output path length
-// @param currentSurvivors: survivors rescued so far
-// @param unlockThreshold: survivors needed to unlock
-// @param monsterRow, monsterCol, type, direction, period: monster configuration
-// @return: true if path found, false otherwise
-bool rescueSurvivorsWithMonster(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
-                                bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
-                                int timeLeft, int timeElapsed, int outPath[][2], int& outPathLength,
-                                int currentSurvivors, int unlockThreshold,
-                                int monsterRow, int monsterCol, int type, int direction, int period){
-    // TODO6: Implement this function
-}
-</code></pre>
-
-
-
 
 
                         </li>

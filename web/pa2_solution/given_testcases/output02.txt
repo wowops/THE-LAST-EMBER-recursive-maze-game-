@@ -5,39 +5,50 @@ Select a level to run: 1 / 2 / 3
 Enter q to quit
 > 
 ========================================
-Level 1: Traverse the Blizzard to Find the Beacon
+Level 2: The Last Ember — Hazardous Journey
 
 ========================================
-Goal: Reach the distress beacon from the temporary camp at (0,0) by finding any viable path.
+Goal: Rescue enough survivors and find the shortest safe path
+Settings:
+  1. The shelter door is initially locked and can only be opened by rescuing enough survivors
+  2. Your time is limited. Speed up!
+  3. The blizzard has buried the path behind you, no turning back!
+  4. Some tiles contain hazards (negative values) that reduce rescued survivors
+  5. Find the SHORTEST valid path to the shelter while meeting survivor requirements
 
-Enter startR startC targetR targetC: Enter map file name (e.g., map01 or map01.txt): 
-Test case: 8 8 0 0 7 7
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 8 10 0 0 7 9 25 10
 
-Wasteland terrain ( .=passable, #=chasm ):
- S  .  .  .  .  .  .  . 
- .  #  #  .  #  #  #  . 
- .  #  #  .  #  #  #  . 
- .  #  #  .  .  #  #  . 
- .  #  #  #  .  #  #  . 
- .  #  #  #  .  #  #  . 
- .  #  #  #  .  #  #  . 
- .  .  .  .  .  .  .  E 
+Map (positive = survivors to rescue, negative = hazard points lost, # = wall/chasm, S = start, D = locked shelter door):
+ S -5 -5 -5 -5 -5 -5 -5 -5 -5 
+ 2  #  #  #  #  #  #  #  # -5 
+ 2  2  5  5  5  5  5  5  # -5 
+ 2  #  #  #  #  #  #  5  # -5 
+ 2  5  5  5  5  5  5  5  # -5 
+ 2  5  #  #  #  #  #  #  # -5 
+ 2  2  2  2  2  #  2  2  2 -5 
+ #  #  #  #  2  2  2  #  2  D 
 
-Searching for path...
+Survivors needed to unlock the shelter: 10
+Available time: 25 units
 
-✓ Path found successfully!
-Path length: 31 steps
-(0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (7,0) -> (7,1) -> (7,2) -> (7,3) -> (7,4) -> (6,4) -> (5,4) -> (4,4) -> (3,4) -> (3,3) -> (2,3) -> (1,3) -> (0,3) -> (0,4) -> (0,5) -> (0,6) -> (0,7) -> (1,7) -> (2,7) -> (3,7) -> (4,7) -> (5,7) -> (6,7) -> (7,7)
+Planning route (must reach unlock threshold, avoid hazards, find shortest path)...
+Initial remaining time: 25 units
+
+✓ You have found a safe path!
+Path length: 19 steps (SHORTEST)
+Path coordinates: (0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (6,1) -> (6,2) -> (6,3) -> (6,4) -> (7,4) -> (7,5) -> (7,6) -> (6,6) -> (6,7) -> (6,8) -> (7,8) -> (7,9)
+
 
 Path annotated map:
- S  .  .  >  >  >  >  v 
- v  #  #  ^  #  #  #  v 
- v  #  #  ^  #  #  #  v 
- v  #  #  ^  <  #  #  v 
- v  #  #  #  ^  #  #  v 
- v  #  #  #  ^  #  #  v 
- v  #  #  #  ^  #  #  v 
- >  >  >  >  ^  .  .  E 
+ S  .  .  .  .  .  .  .  .  . 
+ v  #  #  #  #  #  #  #  #  . 
+ v  .  .  .  .  .  .  .  #  . 
+ v  #  #  #  #  #  #  .  #  . 
+ v  .  .  .  .  .  .  .  #  . 
+ v  .  #  #  #  #  #  #  #  . 
+ >  >  >  >  v  #  >  >  v  . 
+ #  #  #  #  >  >  ^  #  >  E 
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit

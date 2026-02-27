@@ -1,17 +1,18 @@
-// Level 3 test cases.
+// Level 3 test cases - Maximize survivors with dynamic time cost.
 
 #include "helpers.cpp"
 
 void level3() {
     cout << "\n========================================" << endl;
-    cout << "Level 3: The Last Ember" << endl;
+    cout << "Level 3: The Last Ember — Rescue Mission" << endl;
     cout << "\n========================================" << endl;
-    cout << "Goal: Rescue enough survivors to unlock the shelter door" << endl;
+    cout << "Goal: Rescue as many survivors as possible while unlocking the shelter" << endl;
     cout << "Settings:" << endl;
-    cout << "  1. The shelter door is initially locked and can only be opened by rescuing enough survivors" << endl;
-    cout << "  2. The more survivors you rescue, the slower you move, with each step taking longer (1 extra unit of time per 4 survivors)" << endl;
-    cout << "  3. The blizzard has buried the path behind you, no turning back!" << endl;
-    cout << "  4. Rescue as many survivors as possible before time runs out" << endl;
+    cout << "  1. The shelter door is initially locked and opens only after rescuing enough survivors" << endl;
+    cout << "  2. The more survivors you rescue, the slower you move (dynamic time cost)" << endl;
+    cout << "  3. Your time is limited. Plan your route carefully!" << endl;
+    cout << "  4. The blizzard has buried the path behind you, no turning back!" << endl;
+    cout << "  5. Rescue as many survivors as possible before time runs out" << endl;
 
     cout << "\nEnter startR startC targetR targetC: ";
     int rows, cols, startR, startC, targetR, targetC;
@@ -63,10 +64,12 @@ void level3() {
     int bestPathLength = 0;
     int currentPath[MAX_PATH_LENGTH][2];
     int currentPathLength = 0;
+
     int maxSurvivors = 0;
 
-    cout << "\nPlanning route (must reach unlock threshold, dynamic time consumption)..." << endl;
+    cout << "\nPlanning route (dynamic time consumption)..." << endl;
     cout << "Initial remaining survival time: " << timeLeft << " units" << endl;
+    
     rescueSurvivors(resourceMap, rows, cols, targetR, targetC,
                     startR, startC, visited,
                     currentPath, currentPathLength,
@@ -80,6 +83,7 @@ void level3() {
         cout << "\n✓ You have unlocked the shelter door!" << endl;
         cout << "Successfully rescued: " << maxSurvivors << " survivors (threshold " << unlockThreshold << ")" << endl;
         cout << "Path length: " << bestPathLength << " steps" << endl;
+        cout << "Path coordinates: ";
         printPath(bestPath, bestPathLength, 0);
         printLevel2MapWithPath(resourceMap, rows, cols, bestPath, bestPathLength, startR, startC, targetR, targetC);
     }

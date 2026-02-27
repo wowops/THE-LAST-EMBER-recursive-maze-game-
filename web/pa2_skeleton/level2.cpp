@@ -1,17 +1,18 @@
-// Level 2 test cases.
+// Level 2 test cases (Penalty Tiles system).
 
 #include "helpers.cpp"
 
 void level2() {
     cout << "\n========================================" << endl;
-    cout << "Level 2: The Last Ember — Horror Unleashed" << endl;
+    cout << "Level 2: The Last Ember — Hazardous Journey" << endl;
     cout << "\n========================================" << endl;
-    cout << "Goal: Rescue enough survivors amidst blizzard and monster threats" << endl;
+    cout << "Goal: Rescue enough survivors and find the shortest safe path" << endl;
     cout << "Settings:" << endl;
-    cout << "  1. The shelter door is initially locked and opens only after rescuing enough survivors" << endl;
+    cout << "  1. The shelter door is initially locked and can only be opened by rescuing enough survivors" << endl;
     cout << "  2. Your time is limited. Speed up!" << endl;
     cout << "  3. The blizzard has buried the path behind you, no turning back!" << endl;
-    cout << "  4. A terrifying monster moves periodically. Watch out!" << endl;
+    cout << "  4. Some tiles contain hazards (negative values) that reduce rescued survivors" << endl;
+    cout << "  5. Find the SHORTEST valid path to the shelter while meeting survivor requirements" << endl;
 
     cout << "\nEnter startR startC targetR targetC: ";
     int rows, cols, startR, startC, targetR, targetC;
@@ -27,13 +28,6 @@ void level2() {
         return;
     }
 
-    cout << "Enter monsterRow monsterCol monsterType monsterDirection monsterPeriod: ";
-    int monsterRow, monsterCol, monsterType, monsterDirection, monsterPeriod;
-    if (!(cin >> monsterRow >> monsterCol >> monsterType >> monsterDirection >> monsterPeriod)) {
-        cout << "Error: Invalid monster parameters" << endl;
-        return;
-    }
-
     cout << "Enter map file name (e.g., map01 or map01.txt): ";
     string mapName;
     cin >> mapName;
@@ -44,9 +38,8 @@ void level2() {
     }
 
     cout << "\nTest case: " << rows << " " << cols << " " << startR << " " << startC << " " << targetR << " " << targetC << " " << timeLeft << " " << unlockThreshold << endl;
-    cout << "Monster: row=" << monsterRow << " col=" << monsterCol << " type=" << monsterType << " dir=" << monsterDirection << " period=" << monsterPeriod << endl;
 
-    cout << "\nSurvivor map (numbers = survivors, # = snow wall/chasm, M = monster start, D = locked shelter door):" << endl;
+    cout << "\nMap (positive = survivors to rescue, negative = hazard points lost, # = wall/chasm, S = start, D = locked shelter door):" << endl;
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             if (i == startR && j == startC) {
@@ -55,11 +48,11 @@ void level2() {
             else if (i == targetR && j == targetC) {
                 cout << " D ";
             }
-            else if (i == monsterRow && j == monsterCol) {
-                cout << " M ";
-            }
             else if (resourceMap[i][j] == -1) {
                 cout << " # ";
+            }
+            else if (resourceMap[i][j] < 0) {
+                cout << setw(2) << resourceMap[i][j] << " ";
             }
             else {
                 cout << setw(2) << resourceMap[i][j] << " ";
@@ -67,61 +60,42 @@ void level2() {
         }
         cout << endl;
     }
-
-    cout << "\nMonster info:" << endl;
-    cout << "  Location: Row " << monsterRow << ", starting from column " << monsterCol << endl;
-    cout << "  Period: " << monsterPeriod << " cells" << endl;
-    cout << "  Damage: Lose " << MONSTER_DAMAGE_TIME << " time units and " << MONSTER_DAMAGE_SURVIVORS << " survivors upon encounter" << endl;
-
-    cout << "\nSurvivors needed to unlock shelter: " << unlockThreshold << endl;
+    cout << "\nSurvivors needed to unlock the shelter: " << unlockThreshold << endl;
     cout << "Available time: " << timeLeft << " units" << endl;
 
     bool visited[MAX_MAP_SIZE][MAX_MAP_SIZE] = {false};
-    int path[MAX_PATH_LENGTH][2];
-    int pathLength = 0;
+    int bestPath[MAX_PATH_LENGTH][2];
+    int bestPathLength = 0;
     int currentPath[MAX_PATH_LENGTH][2];
+    int currentPathLength = 0;
+    int maxSurvivors = 0;
 
-    // Use monster-aware search
-    bool found = rescueSurvivorsWithMonster(resourceMap, rows, cols, targetR, targetC,
-                                            startR, startC, visited,
-                                            currentPath, 0,
-                                            timeLeft, 0,
-                                            path, pathLength,
-                                            0,
-                                            unlockThreshold,
-                                            monsterRow, monsterCol, monsterType, monsterDirection, monsterPeriod);
+    cout << "\nPlanning route (must reach unlock threshold, avoid hazards, find shortest path)..." << endl;
+    cout << "Initial remaining time: " << timeLeft << " units" << endl;
+    
+    rescueSurvivorsWithPenalty(resourceMap, rows, cols, targetR, targetC,
+                               startR, startC, visited,
+                               currentPath, currentPathLength,
+                               timeLeft,
+                               bestPath, bestPathLength,
+                               0,
+                               unlockThreshold,
+                               bestPathLength);
 
-    if (found && pathLength > 0) {
-        cout << "\nValid path found!" << endl;
-        cout << "Path length: " << pathLength << endl;
-        
-        // Calculate survivors with monster damage
-        int rescued = calculate_num_survivors(resourceMap, rows, cols, path, pathLength);
-        int totalTime = 0;
-        int survivorsLostToMonster = 0;
-        
-        // Check for monster encounters along the path
-        for (int step = 0; step < pathLength; step++) {
-            int r = path[step][0];
-            int c = path[step][1];
-            
-            bool monsterPresent = isMonsterHere(r, c, monsterRow, monsterCol, monsterType, monsterDirection, totalTime, monsterPeriod, rows, cols);
-            
-            if (monsterPresent) {
-                survivorsLostToMonster += MONSTER_DAMAGE_SURVIVORS;
-            }
-            
-            totalTime++;
-        }
-        
-        rescued -= survivorsLostToMonster;
-        
-        cout << "Survivors rescued: " << rescued << endl;
-        cout << "Path: ";
-        printPath(path, pathLength);
-        printLevel2MapWithPath(resourceMap, rows, cols, path, pathLength, startR, startC, targetR, targetC);
+    if (bestPathLength > 0) {
+        cout << "\n✓ You have found a safe path!" << endl;
+        cout << "Path length: " << bestPathLength << " steps (SHORTEST)" << endl;
+        cout << "Path coordinates: ";
+        printPath(bestPath, bestPathLength, 0);
+        cout << endl;
+        printLevel1MapWithPath(bestPath, bestPathLength, resourceMap, rows, cols, startR, startC, targetR, targetC);
     }
     else {
-        cout << "\nNo valid path found!" << endl;
+        cout << "\n✗ No viable path found" << endl;
+        cout << "Possible reasons:" << endl;
+        cout << "  - Insufficient remaining time to reach the shelter" << endl;
+        cout << "  - Hazardous tiles reduce the survivor count below the required threshold" << endl;
+        cout << "  - Not enough accessible survivors to meet the threshold of " << unlockThreshold << endl;
+        cout << "  - All viable paths are blocked by obstacles" << endl;
     }
 }
