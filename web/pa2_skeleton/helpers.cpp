@@ -248,8 +248,8 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
  */
 // path: 2D array storing path coordinates; pathLength: path length; index: current print index
 void printPath(int path[][2], int pathLength, int index = 0) {
-    // Hint 1: Handle empty path first.
-    // Hint 2: Base case when index reaches pathLength.
+    // Hint 1: Handle empty path.
+    // Hint 2: Base case: index reaches pathLength.
     // Hint 3: Print current coordinate, then recurse to index + 1.
     // TODO: Implement this function
 }
@@ -260,7 +260,7 @@ void printPath(int path[][2], int pathLength, int index = 0) {
  */
 // source: source path; copy: destination path; pathLength: length; index: current index
 void copyPathRecursive(int source[][2], int copy[][2], int pathLength, int index = 0) {
-    // Hint 1: Stop when index reaches pathLength.
+    // Hint 1: Base case: index reaches pathLength.
     // Hint 2: Copy one (row, col) pair each step.
     // Hint 3: Recurse with index + 1.
     // TODO: Implement this function
@@ -272,27 +272,11 @@ void copyPathRecursive(int source[][2], int copy[][2], int pathLength, int index
  */
 int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols,
                             int path[][2], int pathLength, int index = 0) {
-    // Hint 1: Base case returns 0 when index reaches pathLength.
+    // Hint 1: Base case: index reaches pathLength.
     // Hint 2: Add current cell survivors and recurse to next index.
     // TODO: Implement this function
 }
 
-/**
- * Phase B (Level 1 DFS Foundation)
- * TODO B0: Recursively try all 4 directions for shortest-path search.
- * Note: This helper is separated from shortestPath to enforce recursive direction traversal.
- */
-bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
-                               int path[][2], int& pathLength,
-                               int targetRow, int targetCol,
-                               int r, int c, bool visited[][MAX_MAP_SIZE],
-                               int currentPath[][2], int currentPathLength,
-                               int dirIndex) {
-    // Hint 1: Base case when dirIndex >= 4.
-    // Hint 2: Explore current direction via shortestPath(...), then recurse with dirIndex + 1.
-    // Hint 3: Return whether any branch finds a valid route.
-    // TODO: Implement this function
-}
 
 /**
  * Phase B (Level 1 DFS Foundation)
@@ -311,6 +295,23 @@ bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols,
     // Hint 3: At target, update best path only if current path is shorter.
     // Hint 4: Explore all four directions (do not stop at first success).
     // Hint 5: Backtrack after branch exploration and return whether any route exists.
+    // TODO: Implement this function
+}
+
+/**
+ * Phase B (Level 1 DFS Foundation)
+ * TODO B2: Recursively try all 4 directions for shortest-path search.
+ * Note: This helper is separated from shortestPath to enforce recursive direction traversal.
+ */
+bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+                               int path[][2], int& pathLength,
+                               int targetRow, int targetCol,
+                               int r, int c, bool visited[][MAX_MAP_SIZE],
+                               int currentPath[][2], int currentPathLength,
+                               int dirIndex) {
+    // Hint 1: Base case when dirIndex >= 4.
+    // Hint 2: Explore current direction via shortestPath(...), then recurse with dirIndex + 1.
+    // Hint 3: Return whether any branch finds a valid route.
     // TODO: Implement this function
 }
 
