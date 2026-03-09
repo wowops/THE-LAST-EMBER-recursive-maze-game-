@@ -70,7 +70,7 @@ void level3() {
     cout << "\nPlanning route (dynamic time consumption)..." << endl;
     cout << "Initial remaining survival time: " << timeLeft << " units" << endl;
     
-    rescueSurvivors(resourceMap, rows, cols, targetR, targetC,
+    rescueSurvivorsMax(resourceMap, rows, cols, targetR, targetC,
                     startR, startC, visited,
                     currentPath, currentPathLength,
                     timeLeft,

@@ -189,7 +189,7 @@ int calculateTimeCost(int num_rescued) {
 }
 
 // Forward declarations for mutually recursive TODO functions.
-int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+int tryAllDirectionsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                      int targetRow, int targetCol,
                      int r, int c, bool visited[][MAX_MAP_SIZE],
                      int currentPath[][2], int currentPathLength,
@@ -199,7 +199,7 @@ int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
                      int& maxSurvivors, int currentSurvivors,
                      int unlockThreshold);
 
-int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
+int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                     int targetRow, int targetCol,
                     int r, int c, bool visited[][MAX_MAP_SIZE],
                     int currentPath[][2], int currentPathLength,
@@ -228,6 +228,19 @@ bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
                                 int currentSurvivors,
                                 int unlockThreshold,
                                 int& bestPathLength);
+
+bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols,
+                  int path[][2], int& pathLength,
+                  int targetRow, int targetCol,
+                  int r, int c, bool visited[][MAX_MAP_SIZE],
+                  int currentPath[][2], int currentPathLength);
+
+bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+                               int path[][2], int& pathLength,
+                               int targetRow, int targetCol,
+                               int r, int c, bool visited[][MAX_MAP_SIZE],
+                               int currentPath[][2], int currentPathLength,
+                               int dirIndex);
 
 /**
  * Phase A (Recursion Warm-up)
@@ -278,6 +291,31 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols,
     return map[r][c] + calculate_num_survivors(map, rows, cols, path, pathLength, index + 1);
 }
 
+bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+                               int path[][2], int& pathLength,
+                               int targetRow, int targetCol,
+                               int r, int c, bool visited[][MAX_MAP_SIZE],
+                               int currentPath[][2], int currentPathLength,
+                               int dirIndex) {
+    if (dirIndex >= 4) {
+        return false;
+    }
+
+    int newR = r + DIRECTIONS[dirIndex][0];
+    int newC = c + DIRECTIONS[dirIndex][1];
+    bool foundThis = shortestPath(map, rows, cols, path, pathLength,
+                                  targetRow, targetCol,
+                                  newR, newC, visited,
+                                  currentPath, currentPathLength);
+
+    bool foundNext = shortestPathTryDirections(map, rows, cols, path, pathLength,
+                                               targetRow, targetCol,
+                                               r, c, visited,
+                                               currentPath, currentPathLength,
+                                               dirIndex + 1);
+    return foundThis || foundNext;
+}
+
 /**
  * Phase B (Level 1 DFS Foundation)
  * TODO B1: DFS backtracking to find the shortest valid path to the exit.
@@ -322,16 +360,11 @@ bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols,
 
     // Hint 4: Explore all four directions (do not stop at first success).
     if (!(r == targetRow && c == targetCol)) {
-        for (int i = 0; i < 4; i++) {
-            int newR = r + DIRECTIONS[i][0];
-            int newC = c + DIRECTIONS[i][1];
-            if (shortestPath(map, rows, cols, path, pathLength,
-                               targetRow, targetCol,
-                               newR, newC, visited,
-                               currentPath, newPathLength)) {
-                found = true;
-            }
-        }
+        found = shortestPathTryDirections(map, rows, cols, path, pathLength,
+                                          targetRow, targetCol,
+                                          r, c, visited,
+                                          currentPath, newPathLength,
+                                          0);
     }
 
     // Hint 5: Backtrack after branch exploration and return whether any route exists.
@@ -466,9 +499,9 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
 /**
  * Phase D (Level 3 DFS Optimization)
  * TODO D1: DFS rescue with dynamic time cost, threshold check, and best-path update.
- * Note: Kept separate from tryAllDirections intentionally for DFS decomposition learning.
+ * Note: Kept separate from tryAllDirectionsMax intentionally for DFS decomposition learning.
  */
-int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
+int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                     int targetRow, int targetCol,
                     int r, int c, bool visited[][MAX_MAP_SIZE],
                     int currentPath[][2], int currentPathLength,
@@ -518,8 +551,8 @@ int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
         return UNREACHABLE;
     }
 
-    // Hint 4: Delegate branch exploration to tryAllDirections, then backtrack.
-    int maxFromHere = tryAllDirections(map, rows, cols, targetRow, targetCol,
+    // Hint 4: Delegate branch exploration to tryAllDirectionsMax, then backtrack.
+    int maxFromHere = tryAllDirectionsMax(map, rows, cols, targetRow, targetCol,
                                        r, c, visited,
                                        currentPath, newPathLength,
                                        timeLeft,
@@ -535,9 +568,9 @@ int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
 /**
  * Phase D (Level 3 DFS Optimization)
  * TODO D2: Try all four directions and combine branch results.
- * Note: Kept separate from rescueSurvivors intentionally for DFS decomposition learning.
+ * Note: Kept separate from rescueSurvivorsMax intentionally for DFS decomposition learning.
  */
-int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+int tryAllDirectionsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                      int targetRow, int targetCol,
                      int r, int c, bool visited[][MAX_MAP_SIZE],
                      int currentPath[][2], int currentPathLength,
@@ -557,7 +590,7 @@ int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
     int timeCost = calculateTimeCost(currentSurvivors);
 
     // Hint 3: Recurse current direction, then recurse next direction index.
-    int result = rescueSurvivors(map, rows, cols, targetRow, targetCol,
+    int result = rescueSurvivorsMax(map, rows, cols, targetRow, targetCol,
                                  newR, newC, visited,
                                  currentPath, currentPathLength,
                                  timeLeft - timeCost,
@@ -565,7 +598,7 @@ int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
                                  maxSurvivors, currentSurvivors,
                                  unlockThreshold);
 
-    int nextResult = tryAllDirections(map, rows, cols, targetRow, targetCol,
+    int nextResult = tryAllDirectionsMax(map, rows, cols, targetRow, targetCol,
                                       r, c, visited,
                                       currentPath, currentPathLength,
                                       timeLeft,

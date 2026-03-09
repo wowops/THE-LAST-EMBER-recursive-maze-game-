@@ -189,7 +189,7 @@ int calculateTimeCost(int num_rescued) {
 }
 
 // Forward declarations for mutually recursive TODO functions.
-int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+int tryAllDirectionsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                      int targetRow, int targetCol,
                      int r, int c, bool visited[][MAX_MAP_SIZE],
                      int currentPath[][2], int currentPathLength,
@@ -199,7 +199,7 @@ int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
                      int& maxSurvivors, int currentSurvivors,
                      int unlockThreshold);
 
-int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
+int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                     int targetRow, int targetCol,
                     int r, int c, bool visited[][MAX_MAP_SIZE],
                     int currentPath[][2], int currentPathLength,
@@ -228,6 +228,19 @@ bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
                                 int currentSurvivors,
                                 int unlockThreshold,
                                 int& bestPathLength);
+
+bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols,
+                  int path[][2], int& pathLength,
+                  int targetRow, int targetCol,
+                  int r, int c, bool visited[][MAX_MAP_SIZE],
+                  int currentPath[][2], int currentPathLength);
+
+bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+                               int path[][2], int& pathLength,
+                               int targetRow, int targetCol,
+                               int r, int c, bool visited[][MAX_MAP_SIZE],
+                               int currentPath[][2], int currentPathLength,
+                               int dirIndex);
 
 /**
  * Phase A (Recursion Warm-up)
@@ -261,6 +274,23 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols,
                             int path[][2], int pathLength, int index = 0) {
     // Hint 1: Base case returns 0 when index reaches pathLength.
     // Hint 2: Add current cell survivors and recurse to next index.
+    // TODO: Implement this function
+}
+
+/**
+ * Phase B (Level 1 DFS Foundation)
+ * TODO B0: Recursively try all 4 directions for shortest-path search.
+ * Note: This helper is separated from shortestPath to enforce recursive direction traversal.
+ */
+bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+                               int path[][2], int& pathLength,
+                               int targetRow, int targetCol,
+                               int r, int c, bool visited[][MAX_MAP_SIZE],
+                               int currentPath[][2], int currentPathLength,
+                               int dirIndex) {
+    // Hint 1: Base case when dirIndex >= 4.
+    // Hint 2: Explore current direction via shortestPath(...), then recurse with dirIndex + 1.
+    // Hint 3: Return whether any branch finds a valid route.
     // TODO: Implement this function
 }
 
@@ -330,9 +360,9 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
 /**
  * Phase D (Level 3 DFS Optimization)
  * TODO D1: DFS rescue with dynamic time cost, threshold check, and best-path update.
- * Note: Kept separate from tryAllDirections intentionally for DFS decomposition learning.
+ * Note: Kept separate from tryAllDirectionsMax intentionally for DFS decomposition learning.
  */
-int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
+int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                     int targetRow, int targetCol,
                     int r, int c, bool visited[][MAX_MAP_SIZE],
                     int currentPath[][2], int currentPathLength,
@@ -343,16 +373,16 @@ int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols,
     // Hint 1: Prune invalid states first (bounds, time, wall, visited, path overflow).
     // Hint 2: Record current node, then update rescued survivors.
     // Hint 3: Enforce unlock threshold only when reaching the shelter door.
-    // Hint 4: Delegate branch exploration to tryAllDirections, then backtrack.
+    // Hint 4: Delegate branch exploration to tryAllDirectionsMax, then backtrack.
     // TODO: Implement this function
 }
 
 /**
  * Phase D (Level 3 DFS Optimization)
  * TODO D2: Try all four directions and combine branch results.
- * Note: Kept separate from rescueSurvivors intentionally for DFS decomposition learning.
+ * Note: Kept separate from rescueSurvivorsMax intentionally for DFS decomposition learning.
  */
-int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+int tryAllDirectionsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                      int targetRow, int targetCol,
                      int r, int c, bool visited[][MAX_MAP_SIZE],
                      int currentPath[][2], int currentPathLength,

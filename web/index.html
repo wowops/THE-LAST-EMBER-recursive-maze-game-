@@ -257,27 +257,43 @@
            
 
 
-                    <h2 class="mume-header" id="section-complete-example">A Complete Example</h2>
+                    <h2 class="mume-header" id="section-complete-example">A Complete Side-by-Side Example</h2>
 
-                    <p>The input values are marked as <span class="input">Green</span></p>
+                    <p>
+                        The input values are marked as <span class="input">Green</span>.
+                        Each example below shows one released sample input and its corresponding expected output.
+                    </p>
 
-                        <pre style="border: 1px solid; padding: 5px;">
-========================================
+                    <h4><span class="badge badge-info">Level 1 (input01)</span></h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:30%;">A sample input</th>
+                                <th style="width:70%;">A sample output</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>given_testcases/input01.txt</code>
+                                    <pre><code style="white-space: pre-wrap;"><span class="input">1</span>
+<span class="input">0 0 5 5</span>
+<span class="input">map01</span>
+<span class="input">q</span></code></pre>
+                                </td>
+                                <td>
+                                    <code>given_testcases/output01.txt</code>
+                                    <pre><code style="white-space: pre-wrap;">========================================
 The Last Ember
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
-> <span class="input">1</span>
-
+>
 ========================================
 Level 1: Traverse the Blizzard to Find the Beacon
 
 ========================================
 Goal: Reach the distress beacon from the temporary camp at (0,0) by finding the shortest viable path.
 
-Enter startR startC targetR targetC: <span class="input">0 0 5 5</span>
-Enter map file name (e.g., map01 or map01.txt): <span class="input">map01</span>
-
+Enter startR startC targetR targetC: Enter map file name (e.g., map01 or map01.txt):
 Test case: 6 6 0 0 5 5
 
 Wasteland terrain ( .=passable, #=chasm ):
@@ -292,7 +308,7 @@ Searching for shortest path...
 
 ✓ Path found successfully!
 Path length: 11 steps
-(0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (1,5) -> (2,5) -> (3,5) -> (4,5) -> (5,5)       
+(0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (1,5) -> (2,5) -> (3,5) -> (4,5) -> (5,5)
 
 Path annotated map:
  S  >  >  >  >  v
@@ -304,21 +320,40 @@ Path annotated map:
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
-> <span class="input">q</span>
-
+>
 ========================================
 Game Over!
 
-========================================</pre>
+========================================</code></pre>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
-                        <pre style="border: 1px solid; padding: 5px;">
-========================================
+                    <h4><span class="badge badge-info">Level 2 (input02)</span></h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:30%;">A sample input</th>
+                                <th style="width:70%;">A sample output</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>given_testcases/input02.txt</code>
+                                    <pre><code style="white-space: pre-wrap;"><span class="input">2</span>
+<span class="input">0 0 7 9</span>
+<span class="input">25 10</span>
+<span class="input">map02</span>
+<span class="input">q</span></code></pre>
+                                </td>
+                                <td>
+                                    <code>given_testcases/output02.txt</code>
+                                    <pre><code style="white-space: pre-wrap;">========================================
 The Last Ember
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
-> <span class="input">2</span>
-
+>
 ========================================
 Level 2: The Last Ember — Hazardous Journey
 
@@ -331,10 +366,7 @@ Settings:
   4. Some tiles contain hazards (negative values) that reduce rescued survivors
   5. Find the SHORTEST valid path to the shelter while meeting survivor requirements
 
-Enter startR startC targetR targetC: <span class="input">0 0 7 9</span>
-Enter timeLeft unlockThreshold: <span class="input">25 10</span>
-Enter map file name (e.g., map01 or map01.txt): <span class="input">map02</span>
-
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt):
 Test case: 8 10 0 0 7 9 25 10
 
 Map (positive = survivors to rescue, negative = hazard points lost, # = wall/chasm, S = start, D = locked shelter door):
@@ -370,21 +402,40 @@ Path annotated map:
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
-> <span class="input">q</span>
-
+>
 ========================================
 Game Over!
 
-========================================</pre>
+========================================</code></pre>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
-                        <pre style="border: 1px solid; padding: 5px;">
-========================================
+                    <h4><span class="badge badge-info">Level 3 (input03)</span></h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:30%;">A sample input</th>
+                                <th style="width:70%;">A sample output</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>given_testcases/input03.txt</code>
+                                    <pre><code style="white-space: pre-wrap;"><span class="input">3</span>
+<span class="input">0 0 6 6</span>
+<span class="input">45 15</span>
+<span class="input">map03</span>
+<span class="input">q</span></code></pre>
+                                </td>
+                                <td>
+                                    <code>given_testcases/output03.txt</code>
+                                    <pre><code style="white-space: pre-wrap;">========================================
 The Last Ember
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
-> <span class="input">3</span>
-
+>
 ========================================
 Level 3: The Last Ember — Rescue Mission
 
@@ -397,10 +448,7 @@ Settings:
   4. The blizzard has buried the path behind you, no turning back!
   5. Rescue as many survivors as possible before time runs out
 
-Enter startR startC targetR targetC: <span class="input">0 0 6 6</span>
-Enter timeLeft unlockThreshold: <span class="input">45 15</span>
-Enter map file name (e.g., map01 or map01.txt): <span class="input">map03</span>
-
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt):
 Test case: 7 7 0 0 6 6 45 15
 
 Survivor distribution map (numbers = survivors to rescue, # = snow wall/chasm, D = locked shelter door):
@@ -433,12 +481,15 @@ Path annotated map (survivor counts preserved):
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
-> <span class="input">q</span>
-
+>
 ========================================
 Game Over!
 
-========================================</pre>
+========================================</code></pre>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
                   
 
@@ -456,8 +507,17 @@ Game Over!
                         
                     </ul>
 
+                    <h4><span class="badge badge-warning">Task Clarifications</span></h4>
+                    <ul>
+                        <li><strong>Direction order for recursive expansion is fixed:</strong> up, down, left, right (same order as <code>DIRECTIONS</code> in <code>globals.cpp</code>).</li>
+                        <li><strong>Path length</strong> means number of coordinates in the path array (including both start and target).</li>
+                        <li>In Levels 2 and 3, cell values are added when you step on the cell (including start and target cells if visited).</li>
+                        <li>In Level 2, among all valid routes, the expected output path is the shortest valid one (not just any valid path).</li>
+                        <li>Map file format is: first line <code>rows cols</code>, then <code>rows * cols</code> integers.</li>
+                    </ul>
 
-                    <h2 class="mume-header" id="section-coding-tasks">Coding Tasks</h2>
+
+<h2 class="mume-header" id="section-coding-tasks">Coding Tasks</h2>
 
                     <ul>
 
@@ -466,96 +526,95 @@ Game Over!
                                 <li><code language="language-cpp">printPath</code></li>
                                 <li><code language="language-cpp">copyPathRecursive</code></li>
                                 <li><code language="language-cpp">calculate_num_survivors</code></li>
+                                <li><code language="language-cpp">shortestPathTryDirections</code></li>
                                 <li><code language="language-cpp">shortestPath</code></li>
-                                <li><code language="language-cpp">tryAllDirectionsWithPenalty</code></li>
                                 <li><code language="language-cpp">rescueSurvivorsWithPenalty</code></li>
-                                <li><code language="language-cpp">tryAllDirections</code></li>
-                                <li><code language="language-cpp">rescueSurvivors</code></li>
+                                <li><code language="language-cpp">tryAllDirectionsWithPenalty</code></li>
+                                <li><code language="language-cpp">rescueSurvivorsMax</code></li>
+                                <li><code language="language-cpp">tryAllDirectionsMax</code></li>
                             </ul>
                         </li>
 
                         <li>You can add extra helper functions, but you <strong>CANNOT</strong> use any loops inside your helper functions.
                             <strong>DO NOT</strong> change other parts of the skeleton code.
                         </li>
+                    
 
+    <li>                  
+        <p><strong>Task1: Implement printPath</strong></p>
 
-<p><strong>Task1: Implement printPath</strong></p>
-
-    <ul>
-        <li><strong>Purpose:</strong>
             <ul>
-                <li>After finding a successful path, you need to display the escape route</li>
-                <li>This function prints the coordinates of the path in a readable format, like (0,0) -> (1,0) -> ..., using recursion to traverse the path array</li>
-                <li>Read the given example carefully to understand the expected output format (there's a space both before and after "->")</li>
+                <li><strong>Purpose:</strong>
+                    <ul>
+                        <li>After finding a successful path, you need to display the escape route</li>
+                        <li>This function prints the coordinates of the path in a readable format, like (0,0) -> (1,0) -> ..., using recursion to traverse the path array</li>
+                        <li>Read the given example carefully to understand the expected output format (there's a space both before and after "->")</li>
+                    </ul>
+                </li>
             </ul>
-        </li>
+
+
+            <pre><code class="language-cpp" style="white-space: pre-wrap;">
+            // TODO: print the path (only the coordinates) recursively
+            // @param path: a 2D array storing the path coordinates
+            // @param pathLength: length of the path
+            // @param index: current index to print (default = 0)
+            void printPath(int path[][2], int pathLength, int index = 0){
+                // TODO1: Implement this function
+            }
+            </code></pre>
     </li>
-    </ul>
 
+    <li>
+        <p><strong>Task2: Implement copyPathRecursive</strong></p>
 
-<pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: print the path (only the coordinates) recursively
-// @param path: a 2D array storing the path coordinates
-// @param pathLength: length of the path
-// @param index: current index to print (default = 0)
-void printPath(int path[][2], int pathLength, int index = 0){
-    // TODO1: Implement this function
-}
- </code></pre>
-
-
-<p><strong>Task2: Implement copyPathRecursive</strong></p>
-
-<ul>
-    <li><strong>Purpose:</strong>
         <ul>
-            <li>Throughout all levels, when a valid path is found during search, you need to save (copy) it to the output array</li>
-            <li>This recursive function copies coordinates from the source path to the destination path</li>
+            <li><strong>Purpose:</strong>
+                <ul>
+                    <li>Throughout all levels, when a valid path is found during search, you need to save (copy) it to the output array</li>
+                    <li>This recursive function copies coordinates from the source path to the destination path</li>
+                </ul>
+            </li>
         </ul>
+
+
+        <pre><code class="language-cpp" style="white-space: pre-wrap;">
+        // TODO: Copy path from source Recursively
+        // @param source: source path
+        // @param copy: destination path
+        // @param pathLength: length of the path
+        // @param index: current index to copy (default = 0)
+        void copyPathRecursive(int source[][2], int copy[][2], int pathLength, int index = 0){
+            // TODO2: Implement this function
+        }
+        </code></pre>
     </li>
-</ul>
 
+    <li>
+        <p><strong>Task3: Implement calculate_num_survivors</strong></p>
 
-<pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Copy path from source Recursively
-// @param source: source path
-// @param copy: destination path
-// @param pathLength: length of the path
-// @param index: current index to copy (default = 0)
-void copyPathRecursive(int source[][2], int copy[][2], int pathLength, int index = 0){
-    // TODO2: Implement this function
-}
-</code></pre>
-
-<p><strong>Task3: Implement calculate_num_survivors</strong></p>
-
-<ul>
-    <li><strong>Purpose:</strong>
         <ul>
-            <li>Calculate the total number of survivors along a given path recursively</li>
+            <li><strong>Purpose:</strong>
+                <ul>
+                    <li>Calculate the total number of survivors along a given path recursively</li>
+                </ul>
+            </li>
         </ul>
-    </li>
-</ul>
 
-<pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Calculate total survivors along the path recursively
-// @param map: The 2D array storing survivor counts
-// @param rows: number of rows
-// @param cols: number of columns
-// @param path: the path array containing coordinates
-// @param pathLength: length of the path
-// @param index: current index to process (default = 0)
-// @return: total number of survivors along the path
-int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int pathLength, int index = 0){
-    // TODO3: Implement this function
-    if (index >= pathLength) {
-        return 0;
-    }
-    int r = path[index][0];
-    int c = path[index][1];
-    return map[r][c] + calculate_num_survivors(map, rows, cols, path, pathLength, index + 1);
-}
-</code></pre>
+        <pre><code class="language-cpp" style="white-space: pre-wrap;">
+        // TODO: Calculate total survivors along the path recursively
+        // @param map: The 2D array storing survivor counts
+        // @param rows: number of rows
+        // @param cols: number of columns
+        // @param path: the path array containing coordinates
+        // @param pathLength: length of the path
+        // @param index: current index to process (default = 0)
+        // @return: total number of survivors along the path
+        int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int pathLength, int index = 0){
+            // TODO3: Implement this function
+        }
+        </code></pre>
+    </li>
 
 <p><strong>【Level 1: Shortest Path】</strong></p>
 
@@ -582,14 +641,83 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols, int pat
 
 <p><strong>Task4: Implement Shortest Path Algorithm </strong></p>
 
+<ul>
+    <li><strong>Implementation note:</strong> You should complete both <code>shortestPathTryDirections</code> and
+        <code>shortestPath</code> for recursive branch traversal without loops.</li>
+</ul>
+
+<div
+    style="background-color: #F0F8FF; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+    <h4> Hint </h4>
+
+    <p>
+        A reliable way to implement Level 1 is to separate the DFS into two parts:
+        one part processes the current cell, and another part recursively tries all 4 directions.
+    </p>
+
+    <p><strong>Step-by-step for processing one cell</strong></p>
+    <ol>
+        <li>
+            <strong>Prune invalid states first</strong>:
+            out-of-bound, wall (<code>-1</code>), already visited, or path too long.
+            <br><em>Reason:</em> stop impossible branches immediately.
+        </li>
+        <li>
+            <strong>Record current cell</strong>:
+            mark <code>visited[r][c] = true</code>, write <code>(r,c)</code> into
+            <code>currentPath[currentPathLength]</code>, then compute <code>newPathLength</code>.
+            <br><em>Reason:</em> every recursive branch must know the exact current route.
+        </li>
+        <li>
+            <strong>If current cell is target</strong>, compare <code>newPathLength</code> with
+            current best <code>pathLength</code>; if better, copy path using
+            your recursive path-copy logic.
+            <br><em>Reason:</em> we need the shortest path among all valid paths.
+        </li>
+        <li>
+            <strong>If not target</strong>, call the direction-recursion part starting from direction index 0.
+            <br><em>Reason:</em> recursively expand all 4 branches in fixed order.
+        </li>
+        <li>
+            <strong>Backtrack before return</strong>:
+            set <code>visited[r][c] = false</code>.
+            <br><em>Reason:</em> allow other DFS branches to reuse this cell legally.
+        </li>
+    </ol>
+
+    <p><strong>Step-by-step for trying directions recursively</strong></p>
+    <ol>
+        <li>
+            Base case: if <code>dirIndex >= 4</code>, return <code>false</code>.
+        </li>
+        <li>
+            Use the direction array to form <code>(newR,newC)</code>, then recurse into the
+            cell-processing part for this direction.
+        </li>
+        <li>
+            Recurse to the next direction index (<code>dirIndex + 1</code>).
+        </li>
+        <li>
+            Return <code>foundThis || foundNext</code>.
+            <br><em>Reason:</em> true means at least one direction can reach target.
+        </li>
+    </ol>
+
+    <p>
+        <strong>Important:</strong> do not stop at the first found path in Level 1.
+        You must continue exploring all branches to guarantee the shortest path is captured.
+    </p>
+</div>
+
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
+// TODO: Recursively try 4 directions for shortestPath
+bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength,
+                               int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE],
+                               int currentPath[][2], int currentPathLength, int dirIndex){
+    // TODO4-helper: Implement this function
+}
+
 // TODO: Level 1: Shortest path finding using recursion
-//
-// Hints:
-// - Check boundaries, chasms, visited, and path length as base cases.
-// - Mark current cell as visited and add to current path.
-// - Try four directions recursively (fixed order for grading: up, down, left, right).
-// - Remember to backtrack.
 //
 // @param map: The 2D array storing the map information
 // @param rows: number of rows
@@ -604,9 +732,7 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols, int pat
 // @param currentPath: path has been explored
 // @param currentPathLength: length of current path
 // @return: true if path found, false otherwise
-bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength, 
-                    int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE],
-                    int currentPath[][2], int currentPathLength){
+bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength, int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength){
     // TODO4: Implement this function
 }
 </code></pre>
@@ -745,51 +871,7 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, in
     </li>
 </ul>
 
-<p><strong>Task7: Implement tryAllDirections</strong></p>
-
-<ul>
-    <li><strong>Purpose:</strong>
-        <ul>
-            <li>In Level 3, find the path that rescues the maximum survivors while reaching the shelter within time, unlocking it if enough survivors are collected, and update the best path</li>
-        </ul>
-    </li>
-</ul>
-
-<pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Try all four directions recursively (maximum rescue version)
-//
-// Hints:
-// - Use direction deltas array.
-// - Base case: all directions tried.
-// - For each direction, calculate new position and time cost.
-// - Recur into rescueSurvivors, then try next direction.
-// - Compare the results
-// - - Use the const int variable UNREACHABLE to indicate a path cannot satisfy the constraints.
-//
-// @param map: The 2D array storing survivor counts
-// @param rows, cols: map dimensions
-// @param targetRow, targetCol: shelter location
-// @param r, c: current position
-// @param visited: visited cells tracker
-// @param currentPath: path explored so far
-// @param currentPathLength: current path length
-// @param timeLeft: remaining time
-// @param bestPath: best path found so far
-// @param bestPathLength: length of best path
-// @param dirIndex: current direction index to try
-// @param maxSurvivors: maximum survivors rescued along best path
-// @param currentSurvivors: survivors rescued so far
-// @param unlockThreshold: survivors needed to unlock
-// @return: maximum survivors that can be rescued
-int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
-                     bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
-                     int timeLeft, int bestPath[][2], int& bestPathLength, int dirIndex,
-                     int& maxSurvivors, int currentSurvivors, int unlockThreshold){
-    // TODO7: Implement this function
-}
-</code></pre>
-
-<p><strong>Task8: Implement rescueSurvivors</strong></p>
+<p><strong>Task7: Implement rescueSurvivorsMax</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
@@ -819,10 +901,54 @@ int tryAllDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow,
 // @param currentSurvivors: survivors rescued so far
 // @param unlockThreshold: survivors needed to unlock
 // @return: maximum survivors that can be rescued
-int rescueSurvivors(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
+int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
                     bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
                     int timeLeft, int bestPath[][2], int& bestPathLength,
                     int& maxSurvivors, int currentSurvivors, int unlockThreshold){
+    // TODO7: Implement this function
+}
+</code></pre>
+
+<p><strong>Task8: Implement tryAllDirectionsMax</strong></p>
+
+<ul>
+    <li><strong>Purpose:</strong>
+        <ul>
+            <li>In Level 3, try all 4 directions recursively and combine branch results to preserve the best reachable survivor total</li>
+        </ul>
+    </li>
+</ul>
+
+<pre><code class="language-cpp" style="white-space: pre-wrap;">
+// TODO: Try all four directions recursively (maximum rescue version)
+//
+// Hints:
+// - Use direction deltas array.
+// - Base case: all directions tried.
+// - For each direction, calculate new position and time cost.
+// - Recur into rescueSurvivorsMax, then try next direction.
+// - Compare the results
+// - - Use the const int variable UNREACHABLE to indicate a path cannot satisfy the constraints.
+//
+// @param map: The 2D array storing survivor counts
+// @param rows, cols: map dimensions
+// @param targetRow, targetCol: shelter location
+// @param r, c: current position
+// @param visited: visited cells tracker
+// @param currentPath: path explored so far
+// @param currentPathLength: current path length
+// @param timeLeft: remaining time
+// @param bestPath: best path found so far
+// @param bestPathLength: length of best path
+// @param dirIndex: current direction index to try
+// @param maxSurvivors: maximum survivors rescued along best path
+// @param currentSurvivors: survivors rescued so far
+// @param unlockThreshold: survivors needed to unlock
+// @return: maximum survivors that can be rescued
+int tryAllDirectionsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
+                     bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
+                     int timeLeft, int bestPath[][2], int& bestPathLength, int dirIndex,
+                     int& maxSurvivors, int currentSurvivors, int unlockThreshold){
     // TODO8: Implement this function
 }
 </code></pre>
@@ -973,7 +1099,7 @@ g++ uninitialized_variables.cpp -Wuninitialized
                     <h4><span class="badge badge-info">Before the deadline</span></h4>
 
 
-                    <p>The following test cases are released:</p>
+                    <p>The following released test cases are included in the current skeleton package:</p>
 
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -987,67 +1113,34 @@ g++ uninitialized_variables.cpp -Wuninitialized
                             <tr>
                                 <td><a href="pa2_skeleton/given_testcases/input01.txt">input01.txt</a></td>
                                 <td><a href="pa2_skeleton/given_testcases/output01.txt">output01.txt</a></td>
-                                <td><a href="pa2_skeleton/map01.txt">map01.txt</a></td>
+                                <td>map01.txt</td>
                                 <td>
-                                    All 3 Levels
+                                    Level 1
                                 </td>
                                 <td>
-                                    The Complete Example
+                                    Shortest path to the beacon (basic DFS/backtracking)
                                 </td>
                             </tr>
                             <tr>
                                 <td><a href="pa2_skeleton/given_testcases/input02.txt">input02.txt</a></td>
                                 <td><a href="pa2_skeleton/given_testcases/output02.txt">output02.txt</a></td>
-                                <td><a href="pa2_skeleton/map02.txt">map02.txt</a></td>
+                                <td>map02.txt</td>
                                 <td>
-                                    Level 1
+                                    Level 2
                                 </td>
                                 <td>
-                                    Simple path finding
+                                    Penalty tiles + time limit + shortest valid path
                                 </td>
                             </tr>
                             <tr>
                                 <td><a href="pa2_skeleton/given_testcases/input03.txt">input03.txt</a></td>
                                 <td><a href="pa2_skeleton/given_testcases/output03.txt">output03.txt</a></td>
-                                <td><a href="pa2_skeleton/map01.txt">map01.txt</a></td>
+                                <td>map03.txt</td>
                                 <td>
                                     Level 3
                                 </td>
                                 <td>
-                                    Rescue survivors with monster (encounter monster)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="pa2_skeleton/given_testcases/input04.txt">input04.txt</a></td>
-                                <td><a href="pa2_skeleton/given_testcases/output04.txt">output04.txt</a></td>
-                                <td><a href="pa2_skeleton/map01.txt">map01.txt</a></td>
-                                <td>
-                                    Level 3
-                                </td>
-                                <td>
-                                    Rescue survivors with monster (avoid monster)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="pa2_skeleton/given_testcases/input05.txt">input05.txt</a></td>
-                                <td><a href="pa2_skeleton/given_testcases/output05.txt">output05.txt</a></td>
-                                <td><a href="pa2_skeleton/map01.txt">map01.txt</a></td>
-                                <td>
-                                    Level 2
-                                </td>
-                                <td>
-                                    Rescue maximum survivors
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="pa2_skeleton/given_testcases/input11.txt">input11.txt</a></td>
-                                <td><a href="pa2_skeleton/given_testcases/output11.txt">output11.txt</a></td>
-                                <td><a href="pa2_skeleton/map05.txt">map05.txt</a></td>
-                                <td>
-                                    Level 3
-                                </td>
-                                <td>
-                                    Rescue survivors with monster (exact time and survivors)
+                                    Dynamic time cost + maximize rescued survivors
                                 </td>
                             </tr>
 
@@ -1059,15 +1152,9 @@ g++ uninitialized_variables.cpp -Wuninitialized
 
                     <h4><span class="badge badge-info">After the deadline</span></h4>
 
-                    <p>In addition to the given test cases, we have hidden test cases. They are summarized in
-                        the
-                        following table:</p>
+                    <p>In addition to the given test cases, hidden test cases will cover edge cases across all three levels.</p>
 
-                    <p><em>(*): In this project assignment, we may not able to completely isolate one feature
-                            from
-                            another feature. So, we only list out the main area in the following table.
-
-                        </em></p>
+                    <p><em>The hidden-case distribution can be adjusted before final grading release.</em></p>
 
 
 
@@ -1076,37 +1163,37 @@ g++ uninitialized_variables.cpp -Wuninitialized
                             <tr>
                                 <th>Main Area (*)</th>
                                 <th>Number of <br>Given Test Cases</th>
-                                <th>Number of <br>Hidden Test Cases</th>
+                                <th>Number of <br>Hidden Test Cases (Tentative)</th>
                                 <th>Total Marks in Each Area</th>
 
                             </tr>
 
                             <tr>
                                 <td>Level 1</td>
-                                <td>2</td>
                                 <td>1</td>
-                                <td>15 <br>(5 marks for each case)</td>
-                            </tr>
-
-                            <tr>
-                                <td>Level 3</td>
-                                <td>4</td>
-                                <td>7</td>
-                                <td>55<br>(5 marks for each case)</td>
+                                <td>TBA</td>
+                                <td>TBA</td>
                             </tr>
 
                             <tr>
                                 <td>Level 2</td>
-                                <td>2</td>
-                                <td>4</td>
-                                <td>30<br>(5 marks for each case)</td>
+                                <td>1</td>
+                                <td>TBA</td>
+                                <td>TBA</td>
+                            </tr>
+
+                            <tr>
+                                <td>Level 3</td>
+                                <td>1</td>
+                                <td>TBA</td>
+                                <td>TBA</td>
                             </tr>
                  
                             <tr>
                                 <th>Total</th>
-                                <th>7</th>
-                                <th>13</th>
-                                <th>100<br>(20 testcases in total)</th>
+                                <th>3</th>
+                                <th>TBA</th>
+                                <th>100</th>
                             </tr>
                             
                         </table>
@@ -1251,6 +1338,45 @@ g++ uninitialized_variables.cpp -Wuninitialized
                                     finish the
                                     tasks for you.
                                     <br>We might provide you some hints, but we won't debug for you.
+                                </p>
+                            </div>
+
+                            <div class="card p-3 mb-2">
+                                <h5 class="card-title">Which released test cases should I use for local checking?</h5>
+                                <p class="card-text">
+                                    Use <code>input01</code>, <code>input02</code>, and <code>input03</code> in
+                                    <code>given_testcases/</code>. These correspond to Levels 1, 2, and 3 respectively.
+                                </p>
+                            </div>
+
+                            <div class="card p-3 mb-2">
+                                <h5 class="card-title">I got “Cannot open mapXX.txt”. What should I check?</h5>
+                                <p class="card-text">
+                                    Make sure the map files are in your working directory and the names match exactly
+                                    (e.g., <code>map01.txt</code>, <code>map02.txt</code>, <code>map03.txt</code>).
+                                </p>
+                            </div>
+
+                            <div class="card p-3 mb-2">
+                                <h5 class="card-title">How is path length counted?</h5>
+                                <p class="card-text">
+                                    Path length is the number of coordinates in the path array, including both start and destination.
+                                    (So moves = path length - 1.)
+                                </p>
+                            </div>
+
+                            <div class="card p-3 mb-2">
+                                <h5 class="card-title">If multiple valid paths exist, which one should be output?</h5>
+                                <p class="card-text">
+                                    In Level 1 and Level 2, output the shortest valid path. Branch exploration order must follow
+                                    <code>up, down, left, right</code> for deterministic behavior.
+                                </p>
+                            </div>
+
+                            <div class="card p-3 mb-2">
+                                <h5 class="card-title">Can I use loops in my own helper functions?</h5>
+                                <p class="card-text">
+                                    No. For this PA, required functions and any extra helper functions for those tasks should use recursion only.
                                 </p>
                             </div>
 
