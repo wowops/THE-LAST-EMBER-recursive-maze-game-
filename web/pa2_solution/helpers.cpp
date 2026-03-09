@@ -291,30 +291,6 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols,
     return map[r][c] + calculate_num_survivors(map, rows, cols, path, pathLength, index + 1);
 }
 
-bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
-                               int path[][2], int& pathLength,
-                               int targetRow, int targetCol,
-                               int r, int c, bool visited[][MAX_MAP_SIZE],
-                               int currentPath[][2], int currentPathLength,
-                               int dirIndex) {
-    if (dirIndex >= 4) {
-        return false;
-    }
-
-    int newR = r + DIRECTIONS[dirIndex][0];
-    int newC = c + DIRECTIONS[dirIndex][1];
-    bool foundThis = shortestPath(map, rows, cols, path, pathLength,
-                                  targetRow, targetCol,
-                                  newR, newC, visited,
-                                  currentPath, currentPathLength);
-
-    bool foundNext = shortestPathTryDirections(map, rows, cols, path, pathLength,
-                                               targetRow, targetCol,
-                                               r, c, visited,
-                                               currentPath, currentPathLength,
-                                               dirIndex + 1);
-    return foundThis || foundNext;
-}
 
 /**
  * Phase B (Level 1 DFS Foundation)
@@ -372,6 +348,35 @@ bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols,
     return found;
 }
 
+/**
+ * Phase B (Level 1 DFS Foundation)
+ * TODO B2: Recursively try all 4 directions for shortest-path search.
+ * Note: This helper is separated from shortestPath to enforce recursive direction traversal.
+ */
+bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
+                               int path[][2], int& pathLength,
+                               int targetRow, int targetCol,
+                               int r, int c, bool visited[][MAX_MAP_SIZE],
+                               int currentPath[][2], int currentPathLength,
+                               int dirIndex) {
+    if (dirIndex >= 4) {
+        return false;
+    }
+
+    int newR = r + DIRECTIONS[dirIndex][0];
+    int newC = c + DIRECTIONS[dirIndex][1];
+    bool foundThis = shortestPath(map, rows, cols, path, pathLength,
+                                  targetRow, targetCol,
+                                  newR, newC, visited,
+                                  currentPath, currentPathLength);
+
+    bool foundNext = shortestPathTryDirections(map, rows, cols, path, pathLength,
+                                               targetRow, targetCol,
+                                               r, c, visited,
+                                               currentPath, currentPathLength,
+                                               dirIndex + 1);
+    return foundThis || foundNext;
+}
 
 /**
  * Phase C (Level 2 Advanced DFS with Penalty Tiles)
