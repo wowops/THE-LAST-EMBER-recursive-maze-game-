@@ -32,8 +32,10 @@
         // ===========================================================
 
         const title = "COMP2011 PA2";
-        const ta_name = "MO, Heyang";
-        const ta_email = "hmoad@connect.ust.hk";
+        const ta_contacts = [
+            { name: "MO Heyang", email: "hmoad@connect.ust.hk" },
+            { name: "CHUNG Ka Wai", email: "kwchungac@connect.ust.hk" }
+        ];
         const lab_submission_filename = "helpers.cpp";
         const command_compile_source = "g++ -std=c++11 testcases.cpp -o testcases";
         const command_run_mac_linux = "./testcases < given_testcases/input01.txt > myOutput01.txt";
@@ -50,8 +52,10 @@
             document.title = title;
             document.getElementById("sidebar-heading").innerText = title;
             document.getElementById("page-title").innerText = title;
-            document.getElementById("ta_name").innerText = ta_name;
-            document.getElementById("ta_email").innerText = ta_email;
+            const taListHtml = ta_contacts
+                .map((ta) => `${ta.name}<br>${ta.email}<br><br>`)
+                .join("");
+            document.getElementById("ta_contacts").innerHTML = taListHtml;
             document.getElementById("command_compile_source").innerText = command_compile_source;
             document.getElementById("command_run_mac_linux").innerText = command_run_mac_linux;
             document.getElementById("command_run_win").innerText = command_run_win;
@@ -112,9 +116,8 @@
 
                     <br>
                     <span class="list-group-item list-group-item-action bg-light">
-                        <span id="ta_name"></span>
-                        <br>
-                        <span id="ta_email"></span><br>
+                        <span id="ta_contacts"></span>
+                    </span>
 
 
                 </div>
@@ -245,55 +248,34 @@
                     </p>
 
 
-
-
-
-
-
-
-
-
-
            
 
 
-                    <h2 class="mume-header" id="section-complete-example">A Complete Side-by-Side Example</h2>
+                    <h2 class="mume-header" id="section-complete-example">Complete Examples</h2>
 
                     <p>
                         The input values are marked as <span class="input">Green</span>.
                         Each example below shows one released sample input and its corresponding expected output.
                     </p>
 
-                    <h4><span class="badge badge-info">Level 1 (input01)</span></h4>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <th style="width:30%;">A sample input</th>
-                                <th style="width:70%;">A sample output</th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <code>given_testcases/input01.txt</code>
-                                    <pre><code style="white-space: pre-wrap;"><span class="input">1</span>
-<span class="input">0 0 5 5</span>
-<span class="input">map01</span>
-<span class="input">q</span></code></pre>
-                                </td>
-                                <td>
-                                    <code>given_testcases/output01.txt</code>
-                                    <pre><code style="white-space: pre-wrap;">========================================
+                    <h4><span class="badge badge-info">Level 1 (input01.txt)</span></h4>
+                        <pre style="border: 1px solid; padding: 5px;">
+========================================
 The Last Ember
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
->
+> <span class="input">1</span>
+
 ========================================
 Level 1: Traverse the Blizzard to Find the Beacon
 
 ========================================
 Goal: Reach the distress beacon from the temporary camp at (0,0) by finding the shortest viable path.
 
-Enter startR startC targetR targetC: Enter map file name (e.g., map01 or map01.txt):
+Enter startR startC targetR targetC: <span class="input">0 0 5 5</span>
+Enter map file name (e.g., map01 or map01.txt): <span class="input">map01</span>
+
 Test case: 6 6 0 0 5 5
 
 Wasteland terrain ( .=passable, #=chasm ):
@@ -308,7 +290,7 @@ Searching for shortest path...
 
 ✓ Path found successfully!
 Path length: 11 steps
-(0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (1,5) -> (2,5) -> (3,5) -> (4,5) -> (5,5)
+(0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (1,5) -> (2,5) -> (3,5) -> (4,5) -> (5,5)       
 
 Path annotated map:
  S  >  >  >  >  v
@@ -320,40 +302,22 @@ Path annotated map:
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
->
+> <span class="input">q</span>
+
 ========================================
 Game Over!
 
-========================================</code></pre>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+========================================</pre>
 
-                    <h4><span class="badge badge-info">Level 2 (input02)</span></h4>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <th style="width:30%;">A sample input</th>
-                                <th style="width:70%;">A sample output</th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <code>given_testcases/input02.txt</code>
-                                    <pre><code style="white-space: pre-wrap;"><span class="input">2</span>
-<span class="input">0 0 7 9</span>
-<span class="input">25 10</span>
-<span class="input">map02</span>
-<span class="input">q</span></code></pre>
-                                </td>
-                                <td>
-                                    <code>given_testcases/output02.txt</code>
-                                    <pre><code style="white-space: pre-wrap;">========================================
+                    <h4><span class="badge badge-info">Level 2 (input02.txt)</span></h4>
+                        <pre style="border: 1px solid; padding: 5px;">
+========================================
 The Last Ember
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
->
+> <span class="input">2</span>
+
 ========================================
 Level 2: The Last Ember — Hazardous Journey
 
@@ -366,7 +330,10 @@ Settings:
   4. Some tiles contain hazards (negative values) that reduce rescued survivors
   5. Find the SHORTEST valid path to the shelter while meeting survivor requirements
 
-Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt):
+Enter startR startC targetR targetC: <span class="input">0 0 7 9</span>
+Enter timeLeft unlockThreshold: <span class="input">25 10</span>
+Enter map file name (e.g., map01 or map01.txt): <span class="input">map02</span>
+
 Test case: 8 10 0 0 7 9 25 10
 
 Map (positive = survivors to rescue, negative = hazard points lost, # = wall/chasm, S = start, D = locked shelter door):
@@ -402,40 +369,22 @@ Path annotated map:
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
->
+> <span class="input">q</span>
+
 ========================================
 Game Over!
 
-========================================</code></pre>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+========================================</pre>
 
-                    <h4><span class="badge badge-info">Level 3 (input03)</span></h4>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <th style="width:30%;">A sample input</th>
-                                <th style="width:70%;">A sample output</th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <code>given_testcases/input03.txt</code>
-                                    <pre><code style="white-space: pre-wrap;"><span class="input">3</span>
-<span class="input">0 0 6 6</span>
-<span class="input">45 15</span>
-<span class="input">map03</span>
-<span class="input">q</span></code></pre>
-                                </td>
-                                <td>
-                                    <code>given_testcases/output03.txt</code>
-                                    <pre><code style="white-space: pre-wrap;">========================================
+                    <h4><span class="badge badge-info">Level 3 (input03.txt)</span></h4>
+                        <pre style="border: 1px solid; padding: 5px;">
+========================================
 The Last Ember
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
->
+> <span class="input">3</span>
+
 ========================================
 Level 3: The Last Ember — Rescue Mission
 
@@ -448,7 +397,10 @@ Settings:
   4. The blizzard has buried the path behind you, no turning back!
   5. Rescue as many survivors as possible before time runs out
 
-Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt):
+Enter startR startC targetR targetC: <span class="input">0 0 6 6</span>
+Enter timeLeft unlockThreshold: <span class="input">45 15</span>
+Enter map file name (e.g., map01 or map01.txt): <span class="input">map03</span>
+
 Test case: 7 7 0 0 6 6 45 15
 
 Survivor distribution map (numbers = survivors to rescue, # = snow wall/chasm, D = locked shelter door):
@@ -481,15 +433,12 @@ Path annotated map (survivor counts preserved):
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit
->
+> <span class="input">q</span>
+
 ========================================
 Game Over!
 
-========================================</code></pre>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+========================================</pre>
 
                   
 
@@ -509,10 +458,10 @@ Game Over!
 
                     <h4><span class="badge badge-warning">Task Clarifications</span></h4>
                     <ul>
-                        <li><strong>Direction order for recursive expansion is fixed:</strong> up, down, left, right (same order as <code>DIRECTIONS</code> in <code>globals.cpp</code>).</li>
                         <li><strong>Path length</strong> means number of coordinates in the path array (including both start and target).</li>
                         <li>In Levels 2 and 3, cell values are added when you step on the cell (including start and target cells if visited).</li>
-                        <li>In Level 2, among all valid routes, the expected output path is the shortest valid one (not just any valid path).</li>
+                        <li>In Level 1 and 2, among all valid routes, the expected output path is the shortest valid one (not just any valid path).</li>
+                        <li>In all 3 levels, you can assume that there is <strong>at most one</strong> valid path.</li>
                         <li>Map file format is: first line <code>rows cols</code>, then <code>rows * cols</code> integers.</li>
                     </ul>
 
@@ -648,7 +597,7 @@ Game Over!
 
 <div
     style="background-color: #F0F8FF; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-    <h4> Hint </h4>
+    <h4> Guidance </h4>
 
     <p>
         A reliable way to implement Level 1 is to separate the DFS into two parts:
@@ -710,13 +659,6 @@ Game Over!
 </div>
 
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
-// TODO: Recursively try 4 directions for shortestPath
-bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength,
-                               int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE],
-                               int currentPath[][2], int currentPathLength, int dirIndex){
-    // TODO4-helper: Implement this function
-}
-
 // TODO: Level 1: Shortest path finding using recursion
 //
 // @param map: The 2D array storing the map information
@@ -735,6 +677,13 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
 bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength, int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength){
     // TODO4: Implement this function
 }
+
+// TODO: Recursively try 4 directions for shortestPath
+bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength,
+                               int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE],
+                               int currentPath[][2], int currentPathLength, int dirIndex){
+    // TODO4-helper: Implement this function
+}
 </code></pre>
 
 
@@ -744,20 +693,20 @@ bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], in
         <ul>
             <li>From the beacon, you saw a big shelter (D), but it's currently locked</li>
             <li>Luckily, there are survivors scattered around the area who can help you break through the door</li>
-            <li>You must rescue enough survivors scattered across the map to open it</li>
-            <li>However, it is getting colder and you have limited time before the blizzard hits again</li>
-            <li>Some areas are more dangerous (penalty tiles with negative values) that will reduce the survivors you rescue</li>
-            <li>You need to plan your route carefully to maximize efficiency and reach the shelter in time</li>
+            <li>You must rescue <strong>enough</strong> survivors scattered across the map to open it</li>
+            <li>However, you have limited time and must reach the shelter <strong>as soon as possible</strong> before the blizzard hits again</li>
+            <li>Some areas are <strong>dangerous (penalty tiles with negative values)</strong> that will reduce the survivors you rescue</li>
+            <li>You need to plan your route carefully to maximize efficiency and get into the shelter in time</li>
         </ul>
     </li>
-    <li><strong>Rules of this level:</strong> Find <strong>ONE valid path</strong> is enough
+    <li><strong>Rules of this level:</strong> Find <strong>the shortest valid path</strong>
         <ul>
             <li>You still cannot revisit cells (blizzard rule remains)</li>
             <li>You have a limited amount of time to reach the shelter</li>
             <li>Each step costs 1 time unit (fixed cost)</li>
             <li>You need to rescue at least 'unlockThreshold' survivors to unlock the shelter door</li>
-            <li>Certain cells contain negative values (penalty tiles) that reduce your total rescued survivors when you step on them</li>
-            <li>The goal is to find a valid path that reaches the shelter with enough survivors while staying within time limits</li>
+            <li>Certain cells contain negative values (penalty tiles < -1) that reduce your total rescued survivors when you step on them</li>
+            <li>The goal is to find the shortest path that reaches the shelter with enough survivors while staying within time limits</li>
         </ul>
     </li>
 </ul>
@@ -1344,8 +1293,7 @@ g++ uninitialized_variables.cpp -Wuninitialized
                             <div class="card p-3 mb-2">
                                 <h5 class="card-title">Which released test cases should I use for local checking?</h5>
                                 <p class="card-text">
-                                    Use <code>input01</code>, <code>input02</code>, and <code>input03</code> in
-                                    <code>given_testcases/</code>. These correspond to Levels 1, 2, and 3 respectively.
+                                    Use testcases in <code>given_testcases/</code>.
                                 </p>
                             </div>
 
@@ -1366,30 +1314,11 @@ g++ uninitialized_variables.cpp -Wuninitialized
                             </div>
 
                             <div class="card p-3 mb-2">
-                                <h5 class="card-title">If multiple valid paths exist, which one should be output?</h5>
-                                <p class="card-text">
-                                    In Level 1 and Level 2, output the shortest valid path. Branch exploration order must follow
-                                    <code>up, down, left, right</code> for deterministic behavior.
-                                </p>
-                            </div>
-
-                            <div class="card p-3 mb-2">
                                 <h5 class="card-title">Can I use loops in my own helper functions?</h5>
                                 <p class="card-text">
                                     No. For this PA, required functions and any extra helper functions for those tasks should use recursion only.
                                 </p>
                             </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
