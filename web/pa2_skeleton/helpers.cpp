@@ -277,14 +277,25 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols,
     // TODO: Implement this function
 }
 
-
 /**
  * Phase B (Level 1 DFS Foundation)
  * TODO B1: DFS backtracking to find the shortest valid path to the exit.
  */
-// r, c: current position; visited: visited marks
-// currentPath/currentPathLength: path under exploration
-// returns true if at least one valid route to target exists
+// TODO: Level 1: Shortest path finding using recursion
+//
+// @param map: The 2D array storing the map information
+// @param rows: number of rows
+// @param cols: number of columns
+// @param path: output path if found
+// @param pathLength: output path length
+// @param targetRow: target row
+// @param targetCol: target column
+// @param r: current row
+// @param c: current column
+// @param visited: visited marks
+// @param currentPath: path has been explored
+// @param currentPathLength: length of current path
+// @return: true if path found, false otherwise
 bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols,
                     int path[][2], int& pathLength,
                     int targetRow, int targetCol,

@@ -588,74 +588,34 @@ Game Over!
     </li>
 </ul>
 
-<p><strong>Task4: Implement Shortest Path Algorithm </strong></p>
+<p><strong>Task4: Implement Level 1 Shortest Path (2 related functions)</strong></p>
+
+<p>
+    For Level 1, you need to complete two mutually-recursive functions:
+    one handles direction traversal, and one handles current-cell DFS state.
+</p>
+
+<p><strong>Task4.1: Implement shortestPath</strong></p>
 
 <ul>
-    <li><strong>Implementation note:</strong> You should complete both <code>shortestPathTryDirections</code> and
-        <code>shortestPath</code> for recursive branch traversal without loops.</li>
+    <li><strong>Purpose:</strong> Handle current-cell DFS state, update shortest path at target, and delegate direction expansion to the helper function.</li>
 </ul>
 
 <div
     style="background-color: #F0F8FF; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-    <h4> Guidance </h4>
-
+    <h4> Hint </h4>
     <p>
         A reliable way to implement Level 1 is to separate the DFS into two parts:
         one part processes the current cell, and another part recursively tries all 4 directions.
     </p>
-
-    <p><strong>Step-by-step for processing one cell</strong></p>
     <ol>
-        <li>
-            <strong>Prune invalid states first</strong>:
-            out-of-bound, wall (<code>-1</code>), already visited, or path too long.
-            <br><em>Reason:</em> stop impossible branches immediately.
-        </li>
-        <li>
-            <strong>Record current cell</strong>:
-            mark <code>visited[r][c] = true</code>, write <code>(r,c)</code> into
-            <code>currentPath[currentPathLength]</code>, then compute <code>newPathLength</code>.
-            <br><em>Reason:</em> every recursive branch must know the exact current route.
-        </li>
-        <li>
-            <strong>If current cell is target</strong>, compare <code>newPathLength</code> with
-            current best <code>pathLength</code>; if better, copy path using
-            your recursive path-copy logic.
-            <br><em>Reason:</em> we need the shortest path among all valid paths.
-        </li>
-        <li>
-            <strong>If not target</strong>, call the direction-recursion part starting from direction index 0.
-            <br><em>Reason:</em> recursively expand all 4 branches in fixed order.
-        </li>
-        <li>
-            <strong>Backtrack before return</strong>:
-            set <code>visited[r][c] = false</code>.
-            <br><em>Reason:</em> allow other DFS branches to reuse this cell legally.
-        </li>
+        <li>Prune invalid states first: out-of-bound, wall, visited, or path overflow.</li>
+        <li>Record current cell into <code>currentPath</code> and mark it visited.</li>
+        <li>If at target, compare with best path length and copy if this path is shorter.</li>
+        <li>If not at target, call the direction-recursion helper starting from index 0.</li>
+        <li>Backtrack (<code>visited[r][c] = false</code>) before returning.</li>
     </ol>
-
-    <p><strong>Step-by-step for trying directions recursively</strong></p>
-    <ol>
-        <li>
-            Base case: if <code>dirIndex >= 4</code>, return <code>false</code>.
-        </li>
-        <li>
-            Use the direction array to form <code>(newR,newC)</code>, then recurse into the
-            cell-processing part for this direction.
-        </li>
-        <li>
-            Recurse to the next direction index (<code>dirIndex + 1</code>).
-        </li>
-        <li>
-            Return <code>foundThis || foundNext</code>.
-            <br><em>Reason:</em> true means at least one direction can reach target.
-        </li>
-    </ol>
-
-    <p>
-        <strong>Important:</strong> do not stop at the first found path in Level 1.
-        You must continue exploring all branches to guarantee the shortest path is captured.
-    </p>
+    <p><strong>Key idea:</strong> these two functions should call each other to complete full DFS traversal without loops.</p>
 </div>
 
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
@@ -677,7 +637,28 @@ Game Over!
 bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength, int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength){
     // TODO4: Implement this function
 }
+</code></pre>
 
+<p><strong>Task4.2: Implement shortestPathTryDirections</strong></p>
+
+<ul>
+    <li><strong>Purpose:</strong> Recursively try all 4 directions from the current cell (up, down, left, right) and combine branch results.</li>
+</ul>
+
+<div
+    style="background-color: #F0F8FF; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+    <h4> Hint </h4>
+    <ol>
+        <li>Base case: when all directions are tried (<code>dirIndex >= 4</code>), return <code>false</code>.</li>
+        <li>Compute the next coordinate using the current direction index.</li>
+        <li>Call the main shortest-path DFS function on that next coordinate.</li>
+        <li>Recursively try the next direction index.</li>
+        <li>Return whether either branch succeeds (<code>foundThis || foundNext</code>).</li>
+    </ol>
+    <p><strong>Key idea:</strong> this function should delegate cell-state logic to the other DFS function.</p>
+</div>
+
+<pre><code class="language-cpp" style="white-space: pre-wrap;">
 // TODO: Recursively try 4 directions for shortestPath
 bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength,
                                int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE],
@@ -711,7 +692,7 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
     </li>
 </ul>
 
-<p><strong>Task5: Implement rescueSurvivorsWithPenalty</strong></p>
+<p><strong>Task5.1: Implement rescueSurvivorsWithPenalty</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
@@ -750,11 +731,11 @@ bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int
                                 int timeLeft, int outPath[][2], int& outPathLength,
                                 int currentSurvivors, int unlockThreshold,
                                 int& bestPathLength){
-    // TODO5: Implement this function
+    // TODO5.1: Implement this function
 }
 </code></pre>
 
-<p><strong>Task6: Implement tryAllDirectionsWithPenalty</strong></p>
+<p><strong>Task5.2: Implement tryAllDirectionsWithPenalty</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
@@ -793,7 +774,7 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, in
                                  int timeLeft, int dirIndex,
                                  int outPath[][2], int& outPathLength, int currentSurvivors, int unlockThreshold,
                                  int& bestPathLength){
-    // TODO6: Implement this function
+    // TODO5.2: Implement this function
 }
 </code></pre>
 
@@ -820,7 +801,7 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, in
     </li>
 </ul>
 
-<p><strong>Task7: Implement rescueSurvivorsMax</strong></p>
+<p><strong>Task6.1: Implement rescueSurvivorsMax</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
@@ -854,11 +835,11 @@ int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRo
                     bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
                     int timeLeft, int bestPath[][2], int& bestPathLength,
                     int& maxSurvivors, int currentSurvivors, int unlockThreshold){
-    // TODO7: Implement this function
+    // TODO6.1: Implement this function
 }
 </code></pre>
 
-<p><strong>Task8: Implement tryAllDirectionsMax</strong></p>
+<p><strong>Task6.2: Implement tryAllDirectionsMax</strong></p>
 
 <ul>
     <li><strong>Purpose:</strong>
@@ -898,7 +879,7 @@ int tryAllDirectionsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetR
                      bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
                      int timeLeft, int bestPath[][2], int& bestPathLength, int dirIndex,
                      int& maxSurvivors, int currentSurvivors, int unlockThreshold){
-    // TODO8: Implement this function
+    // TODO6.2: Implement this function
 }
 </code></pre>
 
@@ -1101,9 +1082,15 @@ g++ uninitialized_variables.cpp -Wuninitialized
 
                     <h4><span class="badge badge-info">After the deadline</span></h4>
 
-                    <p>In addition to the given test cases, hidden test cases will cover edge cases across all three levels.</p>
+                    <p>In addition to the given test cases, we have hidden test cases. They are summarized in
+                        the
+                        following table:</p>
 
-                    <p><em>The hidden-case distribution can be adjusted before final grading release.</em></p>
+                    <p><em>(*): In this project assignment, we may not able to completely isolate one feature
+                            from
+                            another feature. So, we only list out the main area in the following table.
+
+                        </em></p>
 
 
 
@@ -1112,37 +1099,37 @@ g++ uninitialized_variables.cpp -Wuninitialized
                             <tr>
                                 <th>Main Area (*)</th>
                                 <th>Number of <br>Given Test Cases</th>
-                                <th>Number of <br>Hidden Test Cases (Tentative)</th>
+                                <th>Number of <br>Hidden Test Cases</th>
                                 <th>Total Marks in Each Area</th>
 
                             </tr>
 
                             <tr>
                                 <td>Level 1</td>
+                                <td>2</td>
                                 <td>1</td>
-                                <td>TBA</td>
-                                <td>TBA</td>
-                            </tr>
-
-                            <tr>
-                                <td>Level 2</td>
-                                <td>1</td>
-                                <td>TBA</td>
-                                <td>TBA</td>
+                                <td>15 <br>(5 marks for each case)</td>
                             </tr>
 
                             <tr>
                                 <td>Level 3</td>
-                                <td>1</td>
-                                <td>TBA</td>
-                                <td>TBA</td>
+                                <td>4</td>
+                                <td>7</td>
+                                <td>55<br>(5 marks for each case)</td>
+                            </tr>
+
+                            <tr>
+                                <td>Level 2</td>
+                                <td>2</td>
+                                <td>4</td>
+                                <td>30<br>(5 marks for each case)</td>
                             </tr>
                  
                             <tr>
                                 <th>Total</th>
-                                <th>3</th>
-                                <th>TBA</th>
-                                <th>100</th>
+                                <th>7</th>
+                                <th>13</th>
+                                <th>100<br>(20 testcases in total)</th>
                             </tr>
                             
                         </table>
