@@ -1,0 +1,35 @@
+input01.txt     output01.txt	map01.txt   All 3 Levels    normal example
+
+input02.txt     output02.txt    map02.txt   Level 1     normal example
+
+input03.txt     output03.txt	map01.txt	Level 2     encounter monster
+
+input04.txt     output04.txt	map01.txt	Level 2     avoid monster
+
+input05.txt     output05.txt	map01.txt	Level 3	    normal example
+
+input06.txt     output06.txt	map03.txt	Level 1	    no viable path (cannot access exit)
+
+input07.txt     output07.txt	map04.txt	Level 2	    encounter monster
+
+input08.txt     output08.txt	map04.txt	Level 2	    avoid monster
+
+input09.txt     output09.txt	map05.txt	Level 2	    no viable path (no enough time + avoid monster)
+
+input10.txt     output10.txt	map05.txt	Level 2	    no viable path (no enough survivors + avoid monster)
+
+input11.txt     output11.txt	map05.txt	Level 2	    exact time and survivors
+
+input12.txt     output12.txt	map04.txt	Level 2	    encounter monster (exact survivor)
+
+input13.txt     output13.txt	map05.txt	Level 2	    no viable path (no enough time + encounter monster)
+
+input14.txt     output14.txt	map05.txt	Level 2	    no viable path (no enough survivors + encounter monster)
+
+input15.txt     output15.txt    map04.txt   Level 3     no viable path (no enough time)
+
+input16.txt     output16.txt	map04.txt	Level 3	    no viable path (no enough survivors)
+
+input17.txt     output17.txt	map04.txt	Level 3     exact time and survivors
+
+input18.txt     output18.txt    map02.txt   Level 3     normal example
