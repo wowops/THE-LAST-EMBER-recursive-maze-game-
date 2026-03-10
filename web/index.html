@@ -150,7 +150,7 @@
 
 
                     <h1 class="mume-header" id="page-title"></h1>
-                    <h2>The Last Ember (a maze game using recursion)</h2>
+                    <h2>The Last Ember - A Maze game Using Recursion</h2>
 
                     <figure class="figure mx-auto d-block">
                         <img src="images/maze_game.jpg" class="figure-img mx-auto d-block" alt="Responsive image"
@@ -458,29 +458,51 @@ Game Over!
 
                     <h4><span class="badge badge-warning">Task Clarifications</span></h4>
                     <ul>
-                        <li><strong>Path length</strong> means number of coordinates in the path array (including both start and target).</li>
-                        <li>In Levels 2 and 3, cell values are added when you step on the cell (including start and target cells if visited).</li>
-                        <li>In Level 1 and 2, among all valid routes, the expected output path is the shortest valid one (not just any valid path).</li>
-                        <li>In all 3 levels, you can assume that there is <strong>at most one</strong> valid path.</li>
+                        <li><strong>Path length</strong> means the number of coordinates in the path array, including both the start and the target.</li>
+                        <li><strong>Number of moves</strong> means <code>pathLength - 1</code>.</li>
                         <li>Map file format is: first line <code>rows cols</code>, then <code>rows * cols</code> integers.</li>
                     </ul>
 
 
 <h2 class="mume-header" id="section-coding-tasks">Coding Tasks</h2>
 
+                    <div
+                        style="background-color: #F5F5F5; border-radius: 8px; padding: 16px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <p><strong>Before you code</strong></p>
+                        <p>For each recursive search function, ask yourself:</p>
+                        <ol>
+                            <li>What are the invalid/base cases?</li>
+                            <li>What state should be updated when entering a cell?</li>
+                            <li>When should the best answer be updated?</li>
+                            <li>Which helper function is responsible for trying the 4 directions?</li>
+                            <li>What state must be restored before returning?</li>
+                        </ol>
+                    </div>
+
+                    <div
+                        style="background-color: #F8F9FA; border-radius: 8px; padding: 16px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <p><strong>Provided constants in the skeleton code</strong></p>
+                        <ul>
+                            <li><code>MAX_PATH_LENGTH = 256</code>: the maximum number of coordinates that can be stored in a path array.</li>
+                            <li><code>MAX_MAP_SIZE = 16</code>: the maximum number of rows or columns in the map.</li>
+                            <li><code>UNREACHABLE = -999</code>: a sentinel value used for impossible states.</li>
+                        </ul>
+                        <!-- <p>In the search tasks, “path too long” means the current path has already reached the path-array limit, i.e. <code>currentPathLength &gt;= MAX_PATH_LENGTH</code>.</p> -->
+                    </div>
+
                     <ul>
 
                         <li>You need to complete the following functions in the file "helpers.cpp":
                             <ul>
-                                <li><code language="language-cpp">printPath</code></li>
-                                <li><code language="language-cpp">copyPathRecursive</code></li>
-                                <li><code language="language-cpp">calculate_num_survivors</code></li>
-                                <li><code language="language-cpp">shortestPathTryDirections</code></li>
-                                <li><code language="language-cpp">shortestPath</code></li>
-                                <li><code language="language-cpp">rescueSurvivorsWithPenalty</code></li>
-                                <li><code language="language-cpp">tryAllDirectionsWithPenalty</code></li>
-                                <li><code language="language-cpp">rescueSurvivorsMax</code></li>
-                                <li><code language="language-cpp">tryAllDirectionsMax</code></li>
+                                <li><a href="#task-printPath"><code language="language-cpp">printPath</code></a></li>
+                                <li><a href="#task-copyPathRecursive"><code language="language-cpp">copyPathRecursive</code></a></li>
+                                <li><a href="#task-calculate_num_survivors"><code language="language-cpp">calculate_num_survivors</code></a></li>
+                                <li><a href="#task-shortestPathTryDirections"><code language="language-cpp">shortestPathTryDirections</code></a></li>
+                                <li><a href="#task-shortestPath"><code language="language-cpp">shortestPath</code></a></li>
+                                <li><a href="#task-rescueSurvivorsWithPenalty"><code language="language-cpp">rescueSurvivorsWithPenalty</code></a></li>
+                                <li><a href="#task-tryAllDirectionsWithPenalty"><code language="language-cpp">tryAllDirectionsWithPenalty</code></a></li>
+                                <li><a href="#task-rescueSurvivorsMax"><code language="language-cpp">rescueSurvivorsMax</code></a></li>
+                                <li><a href="#task-tryAllDirectionsMax"><code language="language-cpp">tryAllDirectionsMax</code></a></li>
                             </ul>
                         </li>
 
@@ -490,14 +512,16 @@ Game Over!
                     
 
     <li>                  
-        <p><strong>Task1: Implement printPath</strong></p>
+        <p id="task-printPath"><strong>Task1: Implement printPath</strong></p>
 
             <ul>
                 <li><strong>Purpose:</strong>
                     <ul>
-                        <li>After finding a successful path, you need to display the escape route</li>
-                        <li>This function prints the coordinates of the path in a readable format, like (0,0) -> (1,0) -> ..., using recursion to traverse the path array</li>
-                        <li>Read the given example carefully to understand the expected output format (there's a space both before and after "->")</li>
+                        <li>After a valid path has already been found, this function is used only to display that path.</li>
+                        <li>The path is stored as a sequence of coordinates in the <code>path</code> array.</li>
+                        <li>Use recursion to print the coordinates from left to right, starting from index 0.</li>
+                        <li>Follow the sample output format exactly: <code>(r,c) -&gt; (r,c) -&gt; ...</code> with one space before and after <code>-&gt;</code>.</li>
+                        <li>Do not print an extra <code>-&gt;</code> after the last coordinate.</li>
                     </ul>
                 </li>
             </ul>
@@ -515,7 +539,7 @@ Game Over!
     </li>
 
     <li>
-        <p><strong>Task2: Implement copyPathRecursive</strong></p>
+        <p id="task-copyPathRecursive"><strong>Task2: Implement copyPathRecursive</strong></p>
 
         <ul>
             <li><strong>Purpose:</strong>
@@ -540,7 +564,7 @@ Game Over!
     </li>
 
     <li>
-        <p><strong>Task3: Implement calculate_num_survivors</strong></p>
+        <p id="task-calculate_num_survivors"><strong>Task3: Implement calculate_num_survivors</strong></p>
 
         <ul>
             <li><strong>Purpose:</strong>
@@ -563,6 +587,7 @@ Game Over!
             // TODO3: Implement this function
         }
         </code></pre>
+
     </li>
 
 <p><strong>【Level 1: Shortest Path】</strong></p>
@@ -591,31 +616,29 @@ Game Over!
 <p><strong>Task4: Implement Level 1 Shortest Path (2 related functions)</strong></p>
 
 <p>
-    For Level 1, you need to complete two mutually-recursive functions:
-    one handles direction traversal, and one handles current-cell DFS state.
+    For Level 1, you need to complete two mutually-recursive functions.
+    One function processes the current cell and updates the path state.
+    The other function tries the 4 directions one by one recursively.
+    Together, they complete the full recursive search without using loops.
 </p>
 
-<p><strong>Task4.1: Implement shortestPath</strong></p>
+<p id="task-shortestPath"><strong>Task4.1: Implement shortestPath</strong></p>
 
 <ul>
-    <li><strong>Purpose:</strong> Handle current-cell DFS state, update shortest path at target, and delegate direction expansion to the helper function.</li>
+    <li><strong>Purpose:</strong> Process the current cell, maintain the current path state, update the shortest answer when the target is reached, and ask the helper function to continue exploring.</li>
 </ul>
 
 <div
     style="background-color: #F0F8FF; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
     <h4> Hint </h4>
-    <p>
-        A reliable way to implement Level 1 is to separate the DFS into two parts:
-        one part processes the current cell, and another part recursively tries all 4 directions.
-    </p>
     <ol>
-        <li>Prune invalid states first: out-of-bound, wall, visited, or path overflow.</li>
-        <li>Record current cell into <code>currentPath</code> and mark it visited.</li>
-        <li>If at target, compare with best path length and copy if this path is shorter.</li>
-        <li>If not at target, call the direction-recursion helper starting from index 0.</li>
-        <li>Backtrack (<code>visited[r][c] = false</code>) before returning.</li>
+        <li>First reject invalid cases: outside the map, wall/chasm, already visited, or <code>currentPathLength &gt;= MAX_PATH_LENGTH</code>.</li>
+        <li>For a valid cell, record <code>(r, c)</code> into <code>currentPath</code> and mark it as visited.</li>
+        <li>If this cell is the target, compare the current path with the best answer found so far and update it if needed.</li>
+        <li>Otherwise, ask the helper function to try the 4 directions starting from direction index 0.</li>
+        <li>Before returning, restore the visited state of this cell.</li>
     </ol>
-    <p><strong>Key idea:</strong> these two functions should call each other to complete full DFS traversal without loops.</p>
+    <p><strong>Key idea:</strong> this function handles the current cell. It should record state, decide whether to update the answer, and delegate direction-trying to the helper.</p>
 </div>
 
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
@@ -639,30 +662,28 @@ bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], in
 }
 </code></pre>
 
-<p><strong>Task4.2: Implement shortestPathTryDirections</strong></p>
+<p id="task-shortestPathTryDirections"><strong>Task4.2: Implement shortestPathTryDirections</strong></p>
 
 <ul>
-    <li><strong>Purpose:</strong> Recursively try all 4 directions from the current cell (up, down, left, right) and combine branch results.</li>
+    <li><strong>Purpose:</strong> Recursively try the 4 directions from the current cell one by one, and combine the results returned from those recursive calls.</li>
 </ul>
 
 <div
     style="background-color: #F0F8FF; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
     <h4> Hint </h4>
     <ol>
-        <li>Base case: when all directions are tried (<code>dirIndex >= 4</code>), return <code>false</code>.</li>
-        <li>Compute the next coordinate using the current direction index.</li>
-        <li>Call the main shortest-path DFS function on that next coordinate.</li>
-        <li>Recursively try the next direction index.</li>
-        <li>Return whether either branch succeeds (<code>foundThis || foundNext</code>).</li>
+        <li>If all 4 directions have already been considered, stop and return <code>false</code>.</li>
+        <li>Use <code>dirIndex</code> to get the next cell in the current direction.</li>
+        <li>Call <code>shortestPath</code> on that next cell.</li>
+        <li>Then recursively continue with the next direction index.</li>
+        <li>Return whether any of the directions can eventually lead to a valid answer.</li>
     </ol>
-    <p><strong>Key idea:</strong> this function should delegate cell-state logic to the other DFS function.</p>
+    <p><strong>Key idea:</strong> this function is only responsible for trying directions one by one. The logic for handling a cell belongs to <code>shortestPath</code>.</p>
 </div>
 
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
 // TODO: Recursively try 4 directions for shortestPath
-bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength,
-                               int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE],
-                               int currentPath[][2], int currentPathLength, int dirIndex){
+bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int path[][2], int& pathLength, int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength, int dirIndex){
     // TODO4-helper: Implement this function
 }
 </code></pre>
@@ -674,25 +695,111 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
         <ul>
             <li>From the beacon, you saw a big shelter (D), but it's currently locked</li>
             <li>Luckily, there are survivors scattered around the area who can help you break through the door</li>
-            <li>You must rescue <strong>enough</strong> survivors scattered across the map to open it</li>
-            <li>However, you have limited time and must reach the shelter <strong>as soon as possible</strong> before the blizzard hits again</li>
-            <li>Some areas are <strong>dangerous (penalty tiles with negative values)</strong> that will reduce the survivors you rescue</li>
-            <li>You need to plan your route carefully to maximize efficiency and get into the shelter in time</li>
+            <li>You must rescue <strong>enough</strong> survivors to unlock the shelter door</li>
+            <li>You also have limited time, so the target is still the <strong>shortest valid path</strong></li>
         </ul>
     </li>
-    <li><strong>Rules of this level:</strong> Find <strong>the shortest valid path</strong>
+    <li><strong>Goal:</strong> Reach the shelter by the <strong>shortest valid path</strong>.</li>
+    <li><strong>A path is valid only if:</strong>
         <ul>
-            <li>You still cannot revisit cells (blizzard rule remains)</li>
-            <li>You have a limited amount of time to reach the shelter</li>
-            <li>Each step costs 1 time unit (fixed cost)</li>
-            <li>You need to rescue at least 'unlockThreshold' survivors to unlock the shelter door</li>
-            <li>Certain cells contain negative values (penalty tiles < -1) that reduce your total rescued survivors when you step on them</li>
-            <li>The goal is to find the shortest path that reaches the shelter with enough survivors while staying within time limits</li>
+            <li>It stays inside the map.</li>
+            <li>It never enters a wall/chasm cell (<code>-1</code>).</li>
+            <li>It never visits the same cell twice.</li>
+            <li>The total time used does not exceed <code>timeLeft</code>.</li>
+            <li>The total rescued survivors at the shelter is at least <code>unlockThreshold</code>.</li>
+        </ul>
+    </li>
+    <li><strong>How survivors are counted:</strong>
+        <ul>
+            <li>Whenever you step on a cell, add that cell's map value to <code>currentSurvivors</code>.</li>
+            <li>Positive value: gain survivors.</li>
+            <li><code>0</code>: no change.</li>
+            <li>Negative value smaller than <code>-1</code>: lose survivors.</li>
+            <li><code>-1</code>: wall/chasm, cannot enter.</li>
+        </ul>
+    </li>
+    <li><strong>How time is counted:</strong>
+        <ul>
+            <li>Each move costs exactly <code>1</code> time unit.</li>
+            <li>If the path contains <code>L</code> coordinates, then the number of moves is <code>L - 1</code>.</li>
+            <li>So for Level 2, <code>timeUsed = pathLength - 1</code>.</li>
+        </ul>
+    </li>
+    <li><strong>What to optimize:</strong> Among all valid paths, return the one with the smallest path length.</li>
+    <li><strong>What your recursive functions must enforce:</strong>
+        <ul>
+            <li>bounds checking</li>
+            <li>wall/chasm checking</li>
+            <li>visited checking</li>
+            <li>path overflow checking</li>
+            <li>time remaining</li>
+            <li>survivor accumulation, including penalty tiles</li>
+            <li><code>unlockThreshold</code> when the target shelter is reached</li>
+            <li>best answer update for the shortest valid path</li>
+        </ul>
+    </li>
+    <li><strong>What the skeleton already provides:</strong>
+        <ul>
+            <li>map loading</li>
+            <li>input and output formatting</li>
+            <li>test harness and main game flow</li>
+            <li>constants such as map/path size and direction order</li>
         </ul>
     </li>
 </ul>
 
-<p><strong>Task5.1: Implement rescueSurvivorsWithPenalty</strong></p>
+<!-- <div
+    style="background-color: #E8F4FD; border-radius: 8px; padding: 16px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+    <p><strong>Level 2 vs Level 3 preview</strong></p>
+    <table class="table table-bordered table-sm" style="background-color:white;">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Level 2</th>
+                <th>Level 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Main goal</td>
+                <td>Shortest valid path</td>
+                <td>Maximum rescued survivors</td>
+            </tr>
+            <tr>
+                <td>Revisit cells?</td>
+                <td>No</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>Need enough survivors to unlock?</td>
+                <td>Yes</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>Time limit?</td>
+                <td>Yes</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>Time cost per move</td>
+                <td>Fixed: 1</td>
+                <td>Dynamic: <code>1 + currentSurvivors / 4</code></td>
+            </tr>
+            <tr>
+                <td>Negative cells?</td>
+                <td>Yes, penalty tiles affect survivors</td>
+                <td>Same survivor-counting rule</td>
+            </tr>
+            <tr>
+                <td>What to optimize?</td>
+                <td>Shortest path</td>
+                <td>Largest survivor total</td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
+
+<p id="task-rescueSurvivorsWithPenalty"><strong>Task5.1: Implement rescueSurvivorsWithPenalty</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
@@ -704,13 +811,12 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
 // TODO: Rescue survivors to unlock shelter (with penalty tiles)
 //
-// Hints:
-// - Check boundaries, time, chasms, visited, path length and use them as base cases.
-// - Handle positive and negative survivor values (penalty tiles).
-// - Mark as visited and add to path.
-// - Add current survivors (which may be negative). Also check if at target and enough to unlock.
-// - Call tryAllDirectionsWithPenalty to explore moves.
-// - Remember to backtrack.
+// Short hints:
+// - Prune invalid states first.
+// - Record current cell and update currentSurvivors.
+// - At the target, check unlockThreshold.
+// - Otherwise recurse to the direction helper.
+// - Backtrack before returning.
 //
 // @param map: The 2D array storing survivor counts (positive or negative values)
 // @param rows, cols: map dimensions
@@ -726,16 +832,12 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
 // @param unlockThreshold: survivors needed to unlock
 // @param bestPathLength: length of best path found so far
 // @return: true if path found, false otherwise
-bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
-                                bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
-                                int timeLeft, int outPath[][2], int& outPathLength,
-                                int currentSurvivors, int unlockThreshold,
-                                int& bestPathLength){
+bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength, int timeLeft, int outPath[][2], int& outPathLength, int currentSurvivors, int unlockThreshold, int& bestPathLength){
     // TODO5.1: Implement this function
 }
 </code></pre>
 
-<p><strong>Task5.2: Implement tryAllDirectionsWithPenalty</strong></p>
+<p id="task-tryAllDirectionsWithPenalty"><strong>Task5.2: Implement tryAllDirectionsWithPenalty</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
@@ -747,12 +849,10 @@ bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
 // TODO: Try all four directions recursively (penalty tiles version)
 //
-// Hints:
-// - Use an array of direction (fixed order for grading: up, down, left, right).
+// Short hints:
 // - Base case: all directions tried.
-// - Calculate new position and time cost.
-// - Recur into rescueSurvivorsWithPenalty for the new position.
-// - Make use of the return value.
+// - Try the current direction, then recurse to the next direction index.
+// - Time cost in Level 2 is fixed at 1 per move.
 //
 // @param map: The 2D array storing survivor counts (positive or negative values)
 // @param rows, cols: map dimensions
@@ -769,11 +869,7 @@ bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int
 // @param unlockThreshold: survivors needed to unlock
 // @param bestPathLength: length of best path found so far
 // @return: true if valid path found, false otherwise
-bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
-                                 bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
-                                 int timeLeft, int dirIndex,
-                                 int outPath[][2], int& outPathLength, int currentSurvivors, int unlockThreshold,
-                                 int& bestPathLength){
+bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c,  bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength, int timeLeft, int dirIndex, int outPath[][2], int& outPathLength, int currentSurvivors, int unlockThreshold, int& bestPathLength){
     // TODO5.2: Implement this function
 }
 </code></pre>
@@ -787,21 +883,55 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, in
             <li>You have collected some resources from the shelter</li>
             <li>However, you know you can't stay here forever</li>
             <li>There are still survivors out there who need your help</li>
-            <li>You want to save as many survivors as possible and return to more shelters</li>
+            <li>You want to save as many survivors as possible before reaching the next shelter</li>
         </ul>
     </li>
-    <li><strong>Rules of this level:</strong>
+    <li><strong>Goal:</strong> Reach the shelter while rescuing as many survivors as possible.</li>
+    <li><strong>A path is valid only if:</strong>
         <ul>
-            <li>You still cannot revisit cells (blizzard rule remains)</li>
-            <li>You have a limited amount of time to reach the next shelter</li>
-            <li>Carrying more survivors makes you slower: each step costs 1 + (total_survivors / 4) time units</li>
-            <li>You need to rescue at least 'unlockThreshold' survivors to unlock the next shelter door</li>
-            <li>The goal is to maximize the number of rescued survivors while unlocking the shelter</li>
+            <li>It stays inside the map.</li>
+            <li>It never enters a wall/chasm cell (<code>-1</code>).</li>
+            <li>It never visits the same cell twice.</li>
+            <li>The total time used does not exceed <code>timeLeft</code>.</li>
+            <li>The total rescued survivors at the shelter is at least <code>unlockThreshold</code>.</li>
+        </ul>
+    </li>
+    <li><strong>How survivors are counted:</strong>
+        <ul>
+            <li>Same rule as Level 2: when you step on a cell, add that cell's map value to <code>currentSurvivors</code>.</li>
+        </ul>
+    </li>
+    <li><strong>How time is counted:</strong>
+        <ul>
+            <li>The cost of each move depends on how many survivors you are already carrying.</li>
+            <li>Each move costs <code>1 + currentSurvivors / 4</code> using integer division in C++.</li>
+            <li>This movement cost is computed using the survivors already rescued <strong>before</strong> making that move.</li>
+            <li>Examples: <code>0..3 -&gt; 1</code>, <code>4..7 -&gt; 2</code>, <code>8..11 -&gt; 3</code>.</li>
+        </ul>
+    </li>
+    <li><strong>What to optimize:</strong> Among all valid paths, return the one with the largest survivor total.</li>
+    <li><strong>What your recursive functions must enforce:</strong>
+        <ul>
+            <li>bounds checking</li>
+            <li>wall/chasm checking</li>
+            <li>visited checking</li>
+            <li>path overflow checking</li>
+            <li>dynamic time deduction</li>
+            <li>survivor accumulation</li>
+            <li><code>unlockThreshold</code> when the target shelter is reached</li>
+            <li>best answer update for the maximum survivor total</li>
+        </ul>
+    </li>
+    <li><strong>Compared with Level 2, what changes?</strong>
+        <ul>
+            <li>The path is no longer chosen by shortest length.</li>
+            <li>The objective becomes maximum rescued survivors.</li>
+            <li>The time cost is no longer fixed; it depends on <code>currentSurvivors</code>.</li>
         </ul>
     </li>
 </ul>
 
-<p><strong>Task6.1: Implement rescueSurvivorsMax</strong></p>
+<p id="task-rescueSurvivorsMax"><strong>Task6.1: Implement rescueSurvivorsMax</strong></p>
 <ul>
     <li><strong>Purpose:</strong>
         <ul>
@@ -813,9 +943,11 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, in
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
 // TODO: Rescue survivors recursively (maximum rescue version)
 //
-// Hints:
-// - Use dynamic time cost based on survivors rescued.
-// - Remember to update best path and max survivors when reaching the target.
+// Short hints:
+// - Prune invalid states first.
+// - Record current cell and update currentSurvivors.
+// - At the target, enforce unlockThreshold and update the best answer if needed.
+// - Otherwise recurse to the direction helper, then backtrack.
 //
 // @param map: The 2D array storing survivor counts
 // @param rows, cols: map dimensions
@@ -831,15 +963,12 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, in
 // @param currentSurvivors: survivors rescued so far
 // @param unlockThreshold: survivors needed to unlock
 // @return: maximum survivors that can be rescued
-int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
-                    bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
-                    int timeLeft, int bestPath[][2], int& bestPathLength,
-                    int& maxSurvivors, int currentSurvivors, int unlockThreshold){
+int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength, int timeLeft, int bestPath[][2], int& bestPathLength, int& maxSurvivors, int currentSurvivors, int unlockThreshold){
     // TODO6.1: Implement this function
 }
 </code></pre>
 
-<p><strong>Task6.2: Implement tryAllDirectionsMax</strong></p>
+<p id="task-tryAllDirectionsMax"><strong>Task6.2: Implement tryAllDirectionsMax</strong></p>
 
 <ul>
     <li><strong>Purpose:</strong>
@@ -852,13 +981,11 @@ int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRo
 <pre><code class="language-cpp" style="white-space: pre-wrap;">
 // TODO: Try all four directions recursively (maximum rescue version)
 //
-// Hints:
-// - Use direction deltas array.
+// Short hints:
 // - Base case: all directions tried.
-// - For each direction, calculate new position and time cost.
-// - Recur into rescueSurvivorsMax, then try next direction.
-// - Compare the results
-// - - Use the const int variable UNREACHABLE to indicate a path cannot satisfy the constraints.
+// - Compute the move cost from the current survivor count.
+// - Try the current direction, then recurse to the next direction index.
+// - Combine branch results and use UNREACHABLE for impossible branches.
 //
 // @param map: The 2D array storing survivor counts
 // @param rows, cols: map dimensions
@@ -875,10 +1002,7 @@ int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRo
 // @param currentSurvivors: survivors rescued so far
 // @param unlockThreshold: survivors needed to unlock
 // @return: maximum survivors that can be rescued
-int tryAllDirectionsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, 
-                     bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength,
-                     int timeLeft, int bestPath[][2], int& bestPathLength, int dirIndex,
-                     int& maxSurvivors, int currentSurvivors, int unlockThreshold){
+int tryAllDirectionsMax(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c,  bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength, int timeLeft, int bestPath[][2], int& bestPathLength, int dirIndex, int& maxSurvivors, int currentSurvivors, int unlockThreshold){
     // TODO6.2: Implement this function
 }
 </code></pre>
