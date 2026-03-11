@@ -19,7 +19,7 @@ Settings:
 Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt): 
 Test case: 8 10 0 0 7 9 25 10
 
-Map (positive = survivors to rescue, negative = hazard points lost, # = wall/chasm, S = start, D = locked shelter door):
+Map (positive = survivors to rescue, negative = hazard points lost, # = wall, S = start, D = locked shelter door):
  S -5 -5 -5 -5 -5 -5 -5 -5 -5 
  2  #  #  #  #  #  #  #  # -5 
  2  2  5  5  5  5  5  5  # -5 

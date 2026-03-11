@@ -177,10 +177,14 @@
                     <p>
                         The game is divided into three levels:
                         <ul>
-                            <li>Level 1: Simple pathfinding to reach a beacon without revisiting cells.</li>
-                            <li>Level 2: Maximize survivors rescued under time constraints and dynamic movement costs.</li>
-                            <li>Level 3: Unlock shelter with enough survivors under time constraints and penalty tile mechanics.</li>
+                            <li>Level 1: Find the shortest path from the start to the target.</li>
+                            <li>Level 2: Find the shortest valid path to the shelter within the time limit while rescuing enough survivors, with penalty tiles allowed.</li>
+                            <li>Level 3: Find a valid path to the shelter within the time limit while maximizing rescued survivors under dynamic movement costs.</li>
                         </ul>
+                    </p>
+
+                    <p>
+                        A <strong>valid path</strong> is a path that satisfies all rules of that level. The <strong>best path</strong> is the valid path that optimizes that level's objective. Some test cases may have <strong>no valid path</strong>, so a search function may return false.
                     </p>
 
                     <p>
@@ -278,7 +282,7 @@ Enter map file name (e.g., map01 or map01.txt): <span class="input">map01</span>
 
 Test case: 6 6 0 0 5 5
 
-Wasteland terrain ( .=passable, #=chasm ):
+Wasteland terrain (. = passable, # = wall):
  S  .  .  .  .  .
  .  #  #  #  #  .
  .  #  .  .  .  .
@@ -336,7 +340,7 @@ Enter map file name (e.g., map01 or map01.txt): <span class="input">map02</span>
 
 Test case: 8 10 0 0 7 9 25 10
 
-Map (positive = survivors to rescue, negative = hazard points lost, # = wall/chasm, S = start, D = locked shelter door):
+Map (positive = survivors to rescue, negative = hazard points lost, # = wall, S = start, D = locked shelter door):
  S -5 -5 -5 -5 -5 -5 -5 -5 -5
  2  #  #  #  #  #  #  #  # -5
  2  2  5  5  5  5  5  5  # -5
@@ -403,7 +407,7 @@ Enter map file name (e.g., map01 or map01.txt): <span class="input">map03</span>
 
 Test case: 7 7 0 0 6 6 45 15
 
-Survivor distribution map (numbers = survivors to rescue, # = snow wall/chasm, D = locked shelter door):
+Survivor distribution map (numbers = survivors to rescue, # = wall, D = locked shelter door):
  S  5  5  5  5  5  #
  0  #  #  #  #  5  #
  0  #  #  #  #  5  #
@@ -601,7 +605,7 @@ Game Over!
     </li>
     <li><strong>Rules of this level:</strong>
         <ul>
-            <li>You cannot cross chasms (# / -1 cells)</li>
+            <li>You cannot enter a <code>#</code> cell.</li>
             <li>You cannot visit the same cell twice (blizzard buries your tracks behind you)</li>
             <li>There is no time limit and no weight penalty yet</li>
         </ul>
@@ -632,7 +636,7 @@ Game Over!
     style="background-color: #F0F8FF; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
     <h4> Hint </h4>
     <ol>
-        <li>First reject invalid cases: outside the map, wall/chasm, already visited, or <code>currentPathLength &gt;= MAX_PATH_LENGTH</code>.</li>
+        <li>First reject invalid cases: outside the map, a <code>#</code> cell, an already visited cell, or <code>currentPathLength &gt;= MAX_PATH_LENGTH</code>.</li>
         <li>For a valid cell, record <code>(r, c)</code> into <code>currentPath</code> and mark it as visited.</li>
         <li>If this cell is the target, compare the current path with the best answer found so far and update it if needed.</li>
         <li>Otherwise, ask the helper function to try the 4 directions starting from direction index 0.</li>
@@ -689,7 +693,7 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
 </code></pre>
 
 
-<p><strong>【Level 2: Advanced DFS with Penalty Tiles】</strong></p>
+<p><strong>【Level 2: Penalty Tiles and Shortest Valid Path】</strong></p>
 <ul>
     <li><strong>Background:</strong>
         <ul>
@@ -703,7 +707,7 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
     <li><strong>A path is valid only if:</strong>
         <ul>
             <li>It stays inside the map.</li>
-            <li>It never enters a wall/chasm cell (<code>-1</code>).</li>
+            <li>It never enters a <code>#</code> cell.</li>
             <li>It never visits the same cell twice.</li>
             <li>The total time used does not exceed <code>timeLeft</code>.</li>
             <li>The total rescued survivors at the shelter is at least <code>unlockThreshold</code>.</li>
@@ -714,8 +718,8 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
             <li>Whenever you step on a cell, add that cell's map value to <code>currentSurvivors</code>.</li>
             <li>Positive value: gain survivors.</li>
             <li><code>0</code>: no change.</li>
-            <li>Negative value smaller than <code>-1</code>: lose survivors.</li>
-            <li><code>-1</code>: wall/chasm, cannot enter.</li>
+            <li>Negative numeric value: lose survivors.</li>
+            <li><code>#</code>: wall, cannot enter.</li>
         </ul>
     </li>
     <li><strong>How time is counted:</strong>
@@ -723,13 +727,20 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
             <li>Each move costs exactly <code>1</code> time unit.</li>
             <li>If the path contains <code>L</code> coordinates, then the number of moves is <code>L - 1</code>.</li>
             <li>So for Level 2, <code>timeUsed = pathLength - 1</code>.</li>
+            <li>Reaching the shelter with <code>timeLeft == 0</code> does <strong>not</strong> count as success. A successful path must reach the shelter while the recursive call still has <code>timeLeft &gt; 0</code>.</li>
+        </ul>
+    </li>
+    <li><strong>Boundary cases to follow:</strong>
+        <ul>
+            <li>Do bounds checking before reading <code>map[r][c]</code>. A state is out of bounds if <code>r &lt; 0</code>, <code>r &gt;= rows</code>, <code>c &lt; 0</code>, or <code>c &gt;= cols</code>.</li>
+            <li>If <code>start == target</code>, process the start cell immediately, count its survivors immediately, and then check the threshold, but only succeed if <code>timeLeft &gt; 0</code>.</li>
         </ul>
     </li>
     <li><strong>What to optimize:</strong> Among all valid paths, return the one with the smallest path length.</li>
     <li><strong>What your recursive functions must enforce:</strong>
         <ul>
             <li>bounds checking</li>
-            <li>wall/chasm checking</li>
+            <li><code>#</code> cell checking</li>
             <li>visited checking</li>
             <li>path overflow checking</li>
             <li>time remaining</li>
@@ -875,7 +886,7 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, in
 </code></pre>
 
 
-<p><strong>【Level 3: DFS Optimization with Maximum Rescue】</strong></p>
+<p><strong>【Level 3: Maximum Rescue with Dynamic Time Cost】</strong></p>
 <ul>
     <li><strong>Background:</strong> Find the <strong>BEST path</strong> that maximizes the number of survivors
         <ul>
@@ -890,7 +901,7 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, in
     <li><strong>A path is valid only if:</strong>
         <ul>
             <li>It stays inside the map.</li>
-            <li>It never enters a wall/chasm cell (<code>-1</code>).</li>
+            <li>It never enters a <code>#</code> cell.</li>
             <li>It never visits the same cell twice.</li>
             <li>The total time used does not exceed <code>timeLeft</code>.</li>
             <li>The total rescued survivors at the shelter is at least <code>unlockThreshold</code>.</li>
@@ -907,13 +918,20 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, in
             <li>Each move costs <code>1 + currentSurvivors / 4</code> using integer division in C++.</li>
             <li>This movement cost is computed using the survivors already rescued <strong>before</strong> making that move.</li>
             <li>Examples: <code>0..3 -&gt; 1</code>, <code>4..7 -&gt; 2</code>, <code>8..11 -&gt; 3</code>.</li>
+            <li>Reaching the shelter with <code>timeLeft == 0</code> does <strong>not</strong> count as success. A successful path must reach the shelter while the recursive call still has <code>timeLeft &gt; 0</code>.</li>
+        </ul>
+    </li>
+    <li><strong>Boundary cases to follow:</strong>
+        <ul>
+            <li>Do bounds checking before reading <code>map[r][c]</code>. A state is out of bounds if <code>r &lt; 0</code>, <code>r &gt;= rows</code>, <code>c &lt; 0</code>, or <code>c &gt;= cols</code>.</li>
+            <li>If <code>start == target</code>, process the start cell immediately, count its survivors immediately, and then check the threshold, but only succeed if <code>timeLeft &gt; 0</code>.</li>
         </ul>
     </li>
     <li><strong>What to optimize:</strong> Among all valid paths, return the one with the largest survivor total.</li>
     <li><strong>What your recursive functions must enforce:</strong>
         <ul>
             <li>bounds checking</li>
-            <li>wall/chasm checking</li>
+            <li><code>#</code> cell checking</li>
             <li>visited checking</li>
             <li>path overflow checking</li>
             <li>dynamic time deduction</li>
@@ -1172,7 +1190,7 @@ g++ uninitialized_variables.cpp -Wuninitialized
                                     Level 1
                                 </td>
                                 <td>
-                                    Shortest path to the beacon (basic DFS/backtracking)
+                                    Shortest path to the beacon
                                 </td>
                             </tr>
                             <tr>
@@ -1236,17 +1254,16 @@ g++ uninitialized_variables.cpp -Wuninitialized
                             </tr>
 
                             <tr>
-                                <td>Level 3</td>
-                                <td>4</td>
-                                <td>7</td>
-                                <td>55<br>(5 marks for each case)</td>
-                            </tr>
-
-                            <tr>
                                 <td>Level 2</td>
                                 <td>2</td>
                                 <td>4</td>
                                 <td>30<br>(5 marks for each case)</td>
+                            </tr>
+                            <tr>
+                                <td>Level 3</td>
+                                <td>4</td>
+                                <td>7</td>
+                                <td>55<br>(5 marks for each case)</td>
                             </tr>
                  
                             <tr>

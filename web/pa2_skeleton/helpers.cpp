@@ -53,7 +53,13 @@ bool readMapFromFile(const string& mapName, int map[MAX_MAP_SIZE][MAX_MAP_SIZE],
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            mapFile >> map[i][j];
+            string token;
+            mapFile >> token;
+            if (token == string(1, WALL_SYMBOL)) {
+                map[i][j] = WALL_CELL;
+            } else {
+                map[i][j] = stoi(token);
+            }
         }
     }
 
@@ -122,7 +128,7 @@ void printLevel1MapWithPath(int path[][2], int pathLength,
                 cout << " S ";
             } else if (i == targetR && j == targetC) {
                 cout << " E ";
-            } else if (map[i][j] == -1) {
+            } else if (map[i][j] == WALL_CELL) {
                 cout << " # ";
             } else if (indexMap[i][j] >= 0) {
                 char sym = directionSymbol(path, pathLength, indexMap[i][j]);
@@ -151,7 +157,7 @@ void printLevel2MapWithPath(int map[][MAX_MAP_SIZE], int rows, int cols,
                 cout << " S ";
             } else if (i == targetR && j == targetC) {
                 cout << " D ";
-            } else if (map[i][j] == -1) {
+            } else if (map[i][j] == WALL_CELL) {
                 cout << " # ";
             } else if (indexMap[i][j] >= 0) {
                 char sym = directionSymbol(path, pathLength, indexMap[i][j]);
@@ -278,8 +284,8 @@ int calculate_num_survivors(int map[][MAX_MAP_SIZE], int rows, int cols,
 }
 
 /**
- * Phase B (Level 1 DFS Foundation)
- * TODO B1: DFS backtracking to find the shortest valid path to the exit.
+ * Phase B (Level 1 Recursive Path Search)
+ * TODO B1: Recursively find the shortest valid path to the exit.
  */
 // TODO: Level 1: Shortest path finding using recursion
 //
@@ -310,7 +316,7 @@ bool shortestPath(int map[][MAX_MAP_SIZE], int rows, int cols,
 }
 
 /**
- * Phase B (Level 1 DFS Foundation)
+ * Phase B (Level 1 Recursive Path Search)
  * TODO B2: Recursively try all 4 directions for shortest-path search.
  * Note: This helper is separated from shortestPath to enforce recursive direction traversal.
  */
@@ -327,8 +333,8 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
 }
 
 /**
- * Phase C (Level 2 Advanced DFS with Penalty Tiles)
- * TODO C1: DFS rescue with time/resource constraints and penalty tile mechanics.
+ * Phase C (Level 2 Penalty Tiles and Shortest Valid Path)
+ * TODO C1: Recursive rescue with time/resource constraints and penalty tile mechanics.
  * Penalty tiles (negative values) reduce rescued survivors.
  */
 bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
@@ -340,7 +346,7 @@ bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
                                 int currentSurvivors,
                                 int unlockThreshold,
                                 int& bestPathLength) {
-    // Hint 1: Prune impossible states early (bounds, time, wall, visited, max path).
+    // Hint 1: Prune impossible states early (bounds, time, # cell, visited, max path).
     // Hint 2: Mark state and handle survivor collection/penalty (positive or negative values).
     // Hint 3: If we reach the target with enough survivors, check if we found a shorter path.
     // Hint 4: Recurse to all directions and backtrack visited on return.
@@ -348,7 +354,7 @@ bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
 }
 
 /**
- * Phase C (Level 2 Advanced DFS with Penalty Tiles)
+ * Phase C (Level 2 Penalty Tiles and Shortest Valid Path)
  * TODO C2: Recursively try all four directions while tracking shortest valid path.
  */
 bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
@@ -370,9 +376,9 @@ bool tryAllDirectionsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
 
 
 /**
- * Phase D (Level 3 DFS Optimization)
- * TODO D1: DFS rescue with dynamic time cost, threshold check, and best-path update.
- * Note: Kept separate from tryAllDirectionsMax intentionally for DFS decomposition learning.
+ * Phase D (Level 3 Maximum Rescue)
+ * TODO D1: Recursive rescue with dynamic time cost, threshold check, and best-path update.
+ * Note: Kept separate from tryAllDirectionsMax intentionally for recursion decomposition learning.
  */
 int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                     int targetRow, int targetCol,
@@ -382,7 +388,7 @@ int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                     int bestPath[][2], int& bestPathLength,
                     int& maxSurvivors, int currentSurvivors,
                     int unlockThreshold) {
-    // Hint 1: Prune invalid states first (bounds, time, wall, visited, path overflow).
+    // Hint 1: Prune invalid states first (bounds, time, # cell, visited, path overflow).
     // Hint 2: Record current node, then update rescued survivors.
     // Hint 3: Enforce unlock threshold only when reaching the shelter door.
     // Hint 4: Delegate branch exploration to tryAllDirectionsMax, then backtrack.
@@ -390,9 +396,9 @@ int rescueSurvivorsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
 }
 
 /**
- * Phase D (Level 3 DFS Optimization)
+ * Phase D (Level 3 Maximum Rescue)
  * TODO D2: Try all four directions and combine branch results.
- * Note: Kept separate from rescueSurvivorsMax intentionally for DFS decomposition learning.
+ * Note: Kept separate from rescueSurvivorsMax intentionally for recursion decomposition learning.
  */
 int tryAllDirectionsMax(int map[][MAX_MAP_SIZE], int rows, int cols,
                      int targetRow, int targetCol,

@@ -25,7 +25,7 @@ void level1() {
     }
 
     cout << "\nTest case: " << rows << " " << cols << " " << startR << " " << startC << " " << targetR << " " << targetC << endl;
-    cout << "\nWasteland terrain ( .=passable, #=chasm ):" << endl;
+    cout << "\nWasteland terrain (. = passable, # = wall):" << endl;
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             if (i == startR && j == startC) {
@@ -33,7 +33,7 @@ void level1() {
             }
             else if (i == targetR && j == targetC) {
                 cout << " E ";
-            } else if (map[i][j] == -1) {
+            } else if (map[i][j] == WALL_CELL) {
                 cout << " # ";
             } else {
                 cout << " . ";

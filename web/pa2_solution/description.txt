@@ -1,35 +1,35 @@
-input01.txt     output01.txt	map01.txt   All 3 Levels    normal example
+input01.txt     output01.txt	map01.txt   All 3 Levels    released example
 
 input02.txt     output02.txt    map02.txt   Level 1     normal example
 
-input03.txt     output03.txt	map01.txt	Level 2     encounter monster
+input03.txt     output03.txt	map01.txt	Level 2     shortest valid path with penalty tiles
 
-input04.txt     output04.txt	map01.txt	Level 2     avoid monster
+input04.txt     output04.txt	map01.txt	Level 2     alternative valid path under penalty tiles
 
 input05.txt     output05.txt	map01.txt	Level 3	    normal example
 
 input06.txt     output06.txt	map03.txt	Level 1	    no viable path (cannot access exit)
 
-input07.txt     output07.txt	map04.txt	Level 2	    encounter monster
+input07.txt     output07.txt	map04.txt	Level 2	    penalty tile route remains valid
 
-input08.txt     output08.txt	map04.txt	Level 2	    avoid monster
+input08.txt     output08.txt	map04.txt	Level 2	    safer route around penalty tiles
 
-input09.txt     output09.txt	map05.txt	Level 2	    no viable path (no enough time + avoid monster)
+input09.txt     output09.txt	map05.txt	Level 2	    no viable path (not enough time after safer routing)
 
-input10.txt     output10.txt	map05.txt	Level 2	    no viable path (no enough survivors + avoid monster)
+input10.txt     output10.txt	map05.txt	Level 2	    no viable path (not enough survivors after safer routing)
 
-input11.txt     output11.txt	map05.txt	Level 2	    exact time and survivors
+input11.txt     output11.txt	map05.txt	Level 2	    exact time and survivor threshold
 
-input12.txt     output12.txt	map04.txt	Level 2	    encounter monster (exact survivor)
+input12.txt     output12.txt	map04.txt	Level 2	    exact survivor threshold with penalty tiles
 
-input13.txt     output13.txt	map05.txt	Level 2	    no viable path (no enough time + encounter monster)
+input13.txt     output13.txt	map05.txt	Level 2	    no viable path (not enough time on penalty-heavy route)
 
-input14.txt     output14.txt	map05.txt	Level 2	    no viable path (no enough survivors + encounter monster)
+input14.txt     output14.txt	map05.txt	Level 2	    no viable path (not enough survivors on penalty-heavy route)
 
-input15.txt     output15.txt    map04.txt   Level 3     no viable path (no enough time)
+input15.txt     output15.txt    map04.txt   Level 3     no viable path (not enough time)
 
-input16.txt     output16.txt	map04.txt	Level 3	    no viable path (no enough survivors)
+input16.txt     output16.txt	map04.txt	Level 3	    no viable path (not enough survivors)
 
-input17.txt     output17.txt	map04.txt	Level 3     exact time and survivors
+input17.txt     output17.txt	map04.txt	Level 3     exact time and survivor threshold
 
-input18.txt     output18.txt    map02.txt   Level 3     normal example
+input18.txt     output18.txt    map02.txt   Level 3     dynamic-time optimization example

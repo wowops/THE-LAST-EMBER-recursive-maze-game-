@@ -39,7 +39,7 @@ void level3() {
 
     cout << "\nTest case: " << rows << " " << cols << " " << startR << " " << startC << " " << targetR << " " << targetC << " " << timeLeft << " " << unlockThreshold << endl;
 
-    cout << "\nSurvivor distribution map (numbers = survivors to rescue, # = snow wall/chasm, D = locked shelter door):" << endl;
+    cout << "\nSurvivor distribution map (numbers = survivors to rescue, # = wall, D = locked shelter door):" << endl;
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             if (i == startR && j == startC) {
@@ -48,7 +48,7 @@ void level3() {
             else if (i == targetR && j == targetC) {
                 cout << " D ";
             }
-            else if (resourceMap[i][j] == -1) {
+            else if (resourceMap[i][j] == WALL_CELL) {
                 cout << " # ";
             }
             else {
