@@ -345,8 +345,8 @@ Map (positive = survivors to rescue, negative = hazard points lost, # = wall, S 
  2  #  #  #  #  #  #  #  # -5
  2  2  5  5  5  5  5  5  # -5
  2  #  #  #  #  #  #  5  # -5
- 2  5  5  5  5  5  5  5  # -5
- 2  5  #  #  #  #  #  #  # -5
+ 2  #  5  5  5  5  5  5  # -5
+ 2  #  5  #  #  #  #  #  # -5
  2  2  2  2  2  #  2  2  2 -5
  #  #  #  #  2  2  2  #  2  D
 
@@ -366,8 +366,8 @@ Path annotated map:
  v  #  #  #  #  #  #  #  #  .
  v  .  .  .  .  .  .  .  #  .
  v  #  #  #  #  #  #  .  #  .
- v  .  .  .  .  .  .  .  #  .
- v  .  #  #  #  #  #  #  #  .
+ v  #  .  .  .  .  .  .  #  .
+ v  #  .  #  #  #  #  #  #  .
  >  >  >  >  v  #  >  >  v  .
  #  #  #  #  >  >  ^  #  >  E
 
@@ -1215,6 +1215,28 @@ g++ uninitialized_variables.cpp -Wuninitialized
                                     Dynamic time cost + maximize rescued survivors
                                 </td>
                             </tr>
+                            <tr>
+                                <td><a href="pa2_skeleton/given_testcases/input05.txt">input05.txt</a></td>
+                                <td><a href="pa2_skeleton/given_testcases/output05.txt">output05.txt</a></td>
+                                <td>map02.txt</td>
+                                <td>
+                                    Level 2
+                                </td>
+                                <td>
+                                    Penalty tiles + time limit + shortest valid path
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="pa2_skeleton/given_testcases/input09.txt">input09.txt</a></td>
+                                <td><a href="pa2_skeleton/given_testcases/output09.txt">output09.txt</a></td>
+                                <td>map03.txt</td>
+                                <td>
+                                    Level 3
+                                </td>
+                                <td>
+                                    Dynamic time cost + maximize rescued survivors
+                                </td>
+                            </tr>
 
                         </table>
                     </div>
@@ -1248,29 +1270,29 @@ g++ uninitialized_variables.cpp -Wuninitialized
 
                             <tr>
                                 <td>Level 1</td>
-                                <td>2</td>
                                 <td>1</td>
-                                <td>15 <br>(5 marks for each case)</td>
+                                <td>1</td>
+                                <td>10 <br>(5 marks for each case)</td>
                             </tr>
 
                             <tr>
                                 <td>Level 2</td>
                                 <td>2</td>
-                                <td>4</td>
-                                <td>30<br>(5 marks for each case)</td>
+                                <td>3</td>
+                                <td>25<br>(5 marks for each case)</td>
                             </tr>
                             <tr>
                                 <td>Level 3</td>
+                                <td>2</td>
                                 <td>4</td>
-                                <td>7</td>
-                                <td>55<br>(5 marks for each case)</td>
+                                <td>30<br>(5 marks for each case)</td>
                             </tr>
                  
                             <tr>
                                 <th>Total</th>
-                                <th>7</th>
-                                <th>13</th>
-                                <th>100<br>(20 testcases in total)</th>
+                                <th>5</th>
+                                <th>8</th>
+                                <th>65<br>(13 testcases in total)</th>
                             </tr>
                             
                         </table>
