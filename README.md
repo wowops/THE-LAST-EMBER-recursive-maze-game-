@@ -14,7 +14,7 @@ Map Elements:
 Rules:
 - Move in 4 directions: up, down, left, right
 - Cannot revisit cells
-- Cannot pass through chasms
+- Cannot pass through walls
 - Must stay within map boundaries
 
 Success:
