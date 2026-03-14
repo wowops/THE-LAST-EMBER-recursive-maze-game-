@@ -178,13 +178,13 @@
                         The game is divided into three levels:
                         <ul>
                             <li>Level 1: Find the shortest path from the start to the target.</li>
-                            <li>Level 2: Find the shortest valid path to the shelter within the time limit while rescuing enough survivors, with penalty tiles allowed.</li>
-                            <li>Level 3: Find a valid path to the shelter within the time limit while maximizing rescued survivors under dynamic movement costs.</li>
+                            <li>Level 2: Find the shortest valid path to the shelter within the time limit while rescuing enough survivors, with possible penalty tiles.</li>
+                            <li>Level 3: Find the best path to the shelter within the time limit by maximizing rescued survivors under dynamic movement costs.</li>
                         </ul>
                     </p>
 
                     <p>
-                        A <strong>valid path</strong> is a path that satisfies all rules of that level. The <strong>best path</strong> is the valid path that optimizes that level's objective. Some test cases may have <strong>no valid path</strong>, so a search function may return false.
+                        For all the cases, you can assume that there is <strong>at most one valid path</strong> that meets the requirements.
                     </p>
 
                     <p>
