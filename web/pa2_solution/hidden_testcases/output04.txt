@@ -1,0 +1,48 @@
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 1: Traverse the Blizzard to Find the Beacon
+
+========================================
+Goal: Reach the distress beacon from the temporary camp at (0,0) by finding the shortest viable path.
+
+Enter startR startC targetR targetC: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 8 10 0 0 7 9
+
+Wasteland terrain (. = passable, # = wall):
+ S  .  .  .  .  .  .  .  .  . 
+ .  #  #  #  #  #  #  #  #  . 
+ .  .  .  .  .  .  .  .  #  . 
+ .  #  #  #  #  #  #  .  #  . 
+ .  #  .  .  .  .  .  .  #  . 
+ .  #  .  #  #  #  #  #  #  . 
+ .  .  .  .  .  #  .  .  .  . 
+ #  #  #  #  .  .  .  #  .  E 
+
+Searching for shortest path...
+
+✓ Path found successfully!
+Path length: 17 steps
+(0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (0,6) -> (0,7) -> (0,8) -> (0,9) -> (1,9) -> (2,9) -> (3,9) -> (4,9) -> (5,9) -> (6,9) -> (7,9)
+
+Path annotated map:
+ S  >  >  >  >  >  >  >  >  v 
+ .  #  #  #  #  #  #  #  #  v 
+ .  .  .  .  .  .  .  .  #  v 
+ .  #  #  #  #  #  #  .  #  v 
+ .  #  .  .  .  .  .  .  #  v 
+ .  #  .  #  #  #  #  #  #  v 
+ .  .  .  .  .  #  .  .  .  v 
+ #  #  #  #  .  .  .  #  .  E 
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Game Over!
+
+========================================

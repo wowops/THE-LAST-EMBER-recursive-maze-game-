@@ -1,0 +1,55 @@
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 2: The Last Ember — Hazardous Journey
+
+========================================
+Goal: Rescue enough survivors and find the shortest safe path
+Settings:
+  1. The shelter door is initially locked and can only be opened by rescuing enough survivors
+  2. Your time is limited. Speed up!
+  3. The blizzard has buried the path behind you, no turning back!
+  4. Some tiles contain hazards (negative values) that reduce rescued survivors
+  5. Find the SHORTEST valid path to the shelter while meeting survivor requirements
+
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 12 12 0 0 11 11 38 89
+
+Map (positive = survivors to rescue, negative = hazard points lost, # = wall, S = start, D = locked shelter door):
+ S  3  3  3  3  3  3  3  3  3  3  3 
+ 2  #  #  #  #  #  #  #  #  #  #  3 
+ 2  #  5  5  5  5  5  5  5  5  #  3 
+ 2  #  5  #  #  #  #  #  #  5  #  3 
+ 2  #  5  #  2  2  2  2  #  5  #  3 
+ 2  #  5  #  2  #  #  2  #  5  #  3 
+ 2  #  5  #  2  #  #  2  #  5  #  3 
+ 2  #  5  #  2  2  2  2  #  5  #  3 
+ 2  #  5  #  #  #  #  #  #  5 -20  3 
+ 2  #  5  5  5  5  5  5  5  5  #  # 
+ 2  2  2  2  2  2  2  2  2  2  2  2 
+ #  #  #  #  #  #  #  #  #  #  #  D 
+
+Survivors needed to unlock the shelter: 89
+Available time: 38 units
+
+Planning route (must reach unlock threshold, avoid hazards, find shortest path)...
+Initial remaining time: 38 units
+
+✗ No viable path found
+Possible reasons:
+  - Insufficient remaining time to reach the shelter
+  - Hazardous tiles reduce the survivor count below the required threshold
+  - Not enough accessible survivors to meet the threshold of 89
+  - All viable paths are blocked by obstacles
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Game Over!
+
+========================================
