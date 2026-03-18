@@ -1246,9 +1246,10 @@ g++ uninitialized_variables.cpp -Wuninitialized
 
                     <h4><span class="badge badge-info">After the deadline</span></h4>
 
-                    <p>In addition to the given test cases, we have hidden test cases. They are summarized in
-                        the
-                        following table:</p>
+                    <p>In addition to the given test cases, we have hidden test cases. These include both
+                        full-program maze cases for Levels 1-3 and a small number of direct hidden checks for the
+                        Phase A warm-up helper functions. All of them are counted toward the final assignment
+                        score. The official breakdown is summarized in the following table:</p>
 
                     <p><em>(*): In this project assignment, we may not able to completely isolate one feature
                             from
@@ -1269,34 +1270,63 @@ g++ uninitialized_variables.cpp -Wuninitialized
                             </tr>
 
                             <tr>
+                                <td>Phase A Warm-up<br><small>(Task1.1 - Task1.3)</small></td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>10<br>(5 marks for each case)</td>
+                            </tr>
+
+                            <tr>
                                 <td>Level 1</td>
                                 <td>1</td>
-                                <td>1</td>
-                                <td>10 <br>(5 marks for each case)</td>
+                                <td>4</td>
+                                <td>20 <br>(4 marks for each case)</td>
                             </tr>
 
                             <tr>
                                 <td>Level 2</td>
                                 <td>2</td>
-                                <td>3</td>
-                                <td>25<br>(5 marks for each case)</td>
+                                <td>8</td>
+                                <td>30<br>(3 marks for each case)</td>
                             </tr>
                             <tr>
                                 <td>Level 3</td>
                                 <td>2</td>
-                                <td>4</td>
-                                <td>30<br>(5 marks for each case)</td>
+                                <td>8</td>
+                                <td>30<br>(3 marks for each case)</td>
                             </tr>
                  
                             <tr>
                                 <th>Total</th>
                                 <th>5</th>
-                                <th>8</th>
-                                <th>65<br>(13 testcases in total)</th>
+                                <th>22</th>
+                                <th>90<br>(27 checks in total)</th>
                             </tr>
                             
                         </table>
                     </div>
+
+                    <p><strong>Important note:</strong> the warm-up hidden checks carry <strong>5 marks</strong>
+                        each, each counted Level 1 testcase carries <strong>4 marks</strong>, and each counted Level
+                        2 and Level 3 testcase carries <strong>3 marks</strong>. For cases with more than one valid
+                        optimal answer, we avoid relying on any unspecified direction-order tie-breaking rule.</p>
+
+                    <p><strong>Conditions that your solution should handle correctly:</strong></p>
+                    <ul>
+                        <li><strong>Phase A warm-up:</strong> empty path handling, correct recursive base cases,
+                            copying exactly <code>pathLength</code> coordinates, and summing path resources with
+                            zeros and negative values.</li>
+                        <li><strong>Level 1:</strong> stay inside the map, never step on <code>#</code>, never
+                            revisit a cell, and return a shortest valid path without assuming any unstated
+                            tie-breaking order.</li>
+                        <li><strong>Level 2:</strong> shortest path is chosen only among routes that reach the
+                            shelter within <code>timeLeft</code> and satisfy <code>unlockThreshold</code>; negative
+                            cells can reduce rescued survivors; “almost enough” time or survivors is still a fail.
+                        </li>
+                        <li><strong>Level 3:</strong> maximize rescued survivors instead of minimizing path length;
+                            compute move cost using <code>1 + currentSurvivors / 4</code> before each move; handle
+                            threshold boundary cases and one-step time-limit cliff cases correctly.</li>
+                    </ul>
 
 
                     <h2 class="mume-header" id="section-academic-integrity">Academic Integrity</h2>
