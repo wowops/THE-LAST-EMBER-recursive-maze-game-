@@ -1,6 +1,6 @@
 // Level 3 test cases - Maximize survivors with dynamic time cost.
 
-#include "helpers.cpp"
+#include "pa2.cpp"
 
 void level3() {
     cout << "\n========================================" << endl;

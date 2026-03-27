@@ -107,7 +107,7 @@ The line "at most one valid path" is a major simplification. It means the marker
 
 ### 2.6 Coding tasks
 
-This is the heart of the spec. The TODO functions in `helpers.cpp` are listed in increasing difficulty.
+This is the heart of the spec. The TODO functions in `pa2.cpp` are listed in increasing difficulty.
 
 The structure is strong because the tasks are grouped into:
 
@@ -147,7 +147,7 @@ Then the corresponding level file runs:
 
 All TODO logic lives in:
 
-- [helpers.cpp](/Users/andy/Desktop/code/comp2011pa2/THE-LAST-EMBER-recursive-maze-game-/web/pa2_solution/helpers.cpp)
+- [pa2.cpp](/Users/andy/Desktop/code/comp2011pa2/THE-LAST-EMBER-recursive-maze-game-/web/pa2_solution/pa2.cpp)
 
 Shared constants are in:
 
@@ -190,7 +190,7 @@ What changes between levels is:
 
 ## 5. Function-by-function explanation
 
-Below is the presentation-ready explanation of every TODO function from `helpers.cpp`.
+Below is the presentation-ready explanation of every TODO function from `pa2.cpp`.
 
 ---
 
@@ -827,8 +827,8 @@ You can present the assignment in this order:
 For your explanation, the most important files are:
 
 - spec: [index.html](/Users/andy/Desktop/code/comp2011pa2/THE-LAST-EMBER-recursive-maze-game-/web/index.html)
-- student template: [helpers.cpp](/Users/andy/Desktop/code/comp2011pa2/THE-LAST-EMBER-recursive-maze-game-/web/pa2_skeleton/helpers.cpp)
-- reference solution: [helpers.cpp](/Users/andy/Desktop/code/comp2011pa2/THE-LAST-EMBER-recursive-maze-game-/web/pa2_solution/helpers.cpp)
+- student template: [pa2.cpp](/Users/andy/Desktop/code/comp2011pa2/THE-LAST-EMBER-recursive-maze-game-/web/pa2_skeleton/pa2.cpp)
+- reference solution: [pa2.cpp](/Users/andy/Desktop/code/comp2011pa2/THE-LAST-EMBER-recursive-maze-game-/web/pa2_solution/pa2.cpp)
 - level drivers:
   - [level1.cpp](/Users/andy/Desktop/code/comp2011pa2/THE-LAST-EMBER-recursive-maze-game-/web/pa2_solution/level1.cpp)
   - [level2.cpp](/Users/andy/Desktop/code/comp2011pa2/THE-LAST-EMBER-recursive-maze-game-/web/pa2_solution/level2.cpp)

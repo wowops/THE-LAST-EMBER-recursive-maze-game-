@@ -1,6 +1,6 @@
 // Level 2 test cases (Penalty Tiles system).
 
-#include "helpers.cpp"
+#include "pa2.cpp"
 
 void level2() {
     cout << "\n========================================" << endl;
