@@ -36,7 +36,7 @@ Number of survivors needed to unlock the shelter: 70
 Planning route (dynamic time consumption)...
 Initial remaining survival time: 125 units
 
-✓ You have unlocked the shelter door!
+Path found successfully!
 Successfully rescued: 73 survivors (threshold 70)
 Path length: 19 steps
 Path coordinates: (0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (4,1) -> (4,2) -> (4,3) -> (4,4) -> (4,5) -> (4,6) -> (4,7) -> (4,8) -> (4,9) -> (5,9) -> (6,9) -> (7,9) -> (8,9) -> (9,9)

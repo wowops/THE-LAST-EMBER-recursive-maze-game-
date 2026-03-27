@@ -35,7 +35,7 @@ Available time: 25 units
 Planning route (must reach unlock threshold, avoid hazards, find shortest path)...
 Initial remaining time: 25 units
 
-✓ You have found a safe path!
+Path found successfully!
 Path length: 19 steps (SHORTEST)
 Path coordinates: (0,0) -> (1,0) -> (2,0) -> (3,0) -> (4,0) -> (5,0) -> (6,0) -> (6,1) -> (6,2) -> (6,3) -> (6,4) -> (7,4) -> (7,5) -> (7,6) -> (6,6) -> (6,7) -> (6,8) -> (7,8) -> (7,9)
 

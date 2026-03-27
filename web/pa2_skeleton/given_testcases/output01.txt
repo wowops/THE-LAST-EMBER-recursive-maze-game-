@@ -23,7 +23,7 @@ Wasteland terrain (. = passable, # = wall):
 
 Searching for shortest path...
 
-✓ Path found successfully!
+Path found successfully!
 Path length: 11 steps
 (0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (1,5) -> (2,5) -> (3,5) -> (4,5) -> (5,5)
 

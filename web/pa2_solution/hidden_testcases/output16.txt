@@ -37,10 +37,9 @@ Available time: 18 units
 Planning route (must reach unlock threshold, avoid hazards, find shortest path)...
 Initial remaining time: 18 units
 
-✗ No viable path found
+No viable path found
 Possible reasons:
   - Insufficient remaining time to reach the shelter
-  - Hazardous tiles reduce the survivor count below the required threshold
   - Not enough accessible survivors to meet the threshold of 20
   - All viable paths are blocked by obstacles
 

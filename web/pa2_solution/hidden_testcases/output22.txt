@@ -27,7 +27,7 @@ Wasteland terrain (. = passable, # = wall):
 
 Searching for shortest path...
 
-✗ No viable path found
+No viable path found
 
 Select a level to run: 1 / 2 / 3
 Enter q to quit

@@ -36,7 +36,7 @@ Number of survivors needed to unlock the shelter: 70
 Planning route (dynamic time consumption)...
 Initial remaining survival time: 124 units
 
-✗ No viable path found
+No viable path found
 Possible reasons:
   - Insufficient remaining time to reach and rescue enough survivors
   - Not enough survivors in accessible areas to meet the threshold of 70

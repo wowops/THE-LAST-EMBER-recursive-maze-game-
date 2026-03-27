@@ -54,13 +54,13 @@ void level1() {
                                 currentPath, currentPathLength);
 
     if (found) {
-        cout << "\n✓ Path found successfully!" << endl;
+        cout << "\nPath found successfully!" << endl;
         cout << "Path length: " << pathLength << " steps" << endl;
         printPath(path, pathLength, 0);
         printLevel1MapWithPath(path, pathLength,
                                map, rows, cols,
                                startR, startC, targetR, targetC);
     } else {
-        cout << "\n✗ No viable path found" << endl;
+        cout << "\nNo viable path found" << endl;
     }
 }

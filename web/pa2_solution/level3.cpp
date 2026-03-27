@@ -80,7 +80,7 @@ void level3() {
                     unlockThreshold);
 
     if (bestPathLength > 0) {
-        cout << "\n✓ You have unlocked the shelter door!" << endl;
+        cout << "\nPath found successfully!" << endl;
         cout << "Successfully rescued: " << maxSurvivors << " survivors (threshold " << unlockThreshold << ")" << endl;
         cout << "Path length: " << bestPathLength << " steps" << endl;
         cout << "Path coordinates: ";
@@ -88,7 +88,7 @@ void level3() {
         printLevel2MapWithPath(resourceMap, rows, cols, bestPath, bestPathLength, startR, startC, targetR, targetC);
     }
     else {
-        cout << "\n✗ No viable path found" << endl;
+        cout << "\nNo viable path found" << endl;
         cout << "Possible reasons:" << endl;
         cout << "  - Insufficient remaining time to reach and rescue enough survivors" << endl;
         cout << "  - Not enough survivors in accessible areas to meet the threshold of " << unlockThreshold << endl;

@@ -83,7 +83,7 @@ void level2() {
                                bestPathLength);
 
     if (bestPathLength > 0) {
-        cout << "\n✓ You have found a safe path!" << endl;
+        cout << "\nPath found successfully!" << endl;
         cout << "Path length: " << bestPathLength << " steps (SHORTEST)" << endl;
         cout << "Path coordinates: ";
         printPath(bestPath, bestPathLength, 0);
@@ -91,10 +91,9 @@ void level2() {
         printLevel1MapWithPath(bestPath, bestPathLength, resourceMap, rows, cols, startR, startC, targetR, targetC);
     }
     else {
-        cout << "\n✗ No viable path found" << endl;
+        cout << "\nNo viable path found" << endl;
         cout << "Possible reasons:" << endl;
         cout << "  - Insufficient remaining time to reach the shelter" << endl;
-        cout << "  - Hazardous tiles reduce the survivor count below the required threshold" << endl;
         cout << "  - Not enough accessible survivors to meet the threshold of " << unlockThreshold << endl;
         cout << "  - All viable paths are blocked by obstacles" << endl;
     }
