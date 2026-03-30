@@ -1,0 +1,66 @@
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 3: The Last Ember — Rescue Mission
+
+========================================
+Goal: Rescue as many survivors as possible while unlocking the shelter
+Settings:
+  1. The shelter door is initially locked and opens only after rescuing enough survivors
+  2. The more survivors you rescue, the slower you move (dynamic time cost)
+  3. Your time is limited. Plan your route carefully!
+  4. The blizzard has buried the path behind you, no turning back!
+  5. Rescue as many survivors as possible before time runs out
+
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 12 12 0 0 11 11 182 40
+
+Survivor distribution map (numbers = survivors to rescue, # = wall, D = locked shelter door):
+ S  #  #  #  #  #  #  #  #  #  #  # 
+ 0  #  #  #  #  #  #  #  #  #  #  # 
+ 0  4  4  4  4  4  4  4  4  4  4  4 
+ 0  #  #  #  #  #  #  #  #  #  #  0 
+ 0  #  #  #  #  #  #  #  #  #  #  0 
+ 0  #  #  #  #  #  #  #  #  #  #  0 
+ 0  2  2  2  2  2  2 15  4  4  4  4 
+ 0  #  #  #  #  #  #  #  #  #  #  0 
+ 0  #  #  #  #  #  #  #  #  #  #  0 
+ 0  #  #  #  #  #  #  #  #  #  #  0 
+ 0  0  0  0  0  0  0  0  0  0 42  0 
+ #  #  #  #  #  #  #  #  #  #  #  D 
+
+Number of survivors needed to unlock the shelter: 40
+
+Planning route (dynamic time consumption)...
+Initial remaining survival time: 182 units
+
+Path found successfully!
+Successfully rescued: 48 survivors (threshold 40)
+Path length: 23 steps
+Path coordinates: (0,0) -> (1,0) -> (2,0) -> (2,1) -> (2,2) -> (2,3) -> (2,4) -> (2,5) -> (2,6) -> (2,7) -> (2,8) -> (2,9) -> (2,10) -> (2,11) -> (3,11) -> (4,11) -> (5,11) -> (6,11) -> (7,11) -> (8,11) -> (9,11) -> (10,11) -> (11,11)
+
+Path annotated map (survivor counts preserved):
+ S  #  #  #  #  #  #  #  #  #  #  # 
+ v  #  #  #  #  #  #  #  #  #  #  # 
+ >  >  >  >  >  >  >  >  >  >  >  v 
+ 0  #  #  #  #  #  #  #  #  #  #  v 
+ 0  #  #  #  #  #  #  #  #  #  #  v 
+ 0  #  #  #  #  #  #  #  #  #  #  v 
+ 0  2  2  2  2  2  2 15  4  4  4  v 
+ 0  #  #  #  #  #  #  #  #  #  #  v 
+ 0  #  #  #  #  #  #  #  #  #  #  v 
+ 0  #  #  #  #  #  #  #  #  #  #  v 
+ 0  0  0  0  0  0  0  0  0  0 42  v 
+ #  #  #  #  #  #  #  #  #  #  #  D 
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Game Over!
+
+========================================

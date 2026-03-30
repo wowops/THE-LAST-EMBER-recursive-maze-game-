@@ -1,0 +1,56 @@
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 3: The Last Ember — Rescue Mission
+
+========================================
+Goal: Rescue as many survivors as possible while unlocking the shelter
+Settings:
+  1. The shelter door is initially locked and opens only after rescuing enough survivors
+  2. The more survivors you rescue, the slower you move (dynamic time cost)
+  3. Your time is limited. Plan your route carefully!
+  4. The blizzard has buried the path behind you, no turning back!
+  5. Rescue as many survivors as possible before time runs out
+
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 7 7 0 0 6 6 90 15
+
+Survivor distribution map (numbers = survivors to rescue, # = wall, D = locked shelter door):
+ S  5  5  5  5  5  # 
+ 0  #  #  #  #  5  # 
+ 0  #  #  #  #  5  # 
+ 0  #  #  #  #  5  # 
+ 3  #  #  #  #  5  # 
+ 3  #  #  #  #  5  # 
+ 3  3  3  3  3  0  D 
+
+Number of survivors needed to unlock the shelter: 15
+
+Planning route (dynamic time consumption)...
+Initial remaining survival time: 90 units
+
+Path found successfully!
+Successfully rescued: 50 survivors (threshold 15)
+Path length: 13 steps
+Path coordinates: (0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (1,5) -> (2,5) -> (3,5) -> (4,5) -> (5,5) -> (6,5) -> (6,6)
+
+Path annotated map (survivor counts preserved):
+ S  >  >  >  >  v  # 
+ 0  #  #  #  #  v  # 
+ 0  #  #  #  #  v  # 
+ 0  #  #  #  #  v  # 
+ 3  #  #  #  #  v  # 
+ 3  #  #  #  #  v  # 
+ 3  3  3  3  3  >  D 
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Game Over!
+
+========================================
