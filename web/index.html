@@ -845,6 +845,11 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols, int 
 // @param unlockThreshold: survivors needed to unlock
 // @param bestPathLength: length of best path found so far
 // @return: true if path found, false otherwise
+/*
+ * You may simplify based on your own design and ignore either outPathLength or bestPathLength.
+ * They are separated here mainly for readability and to make "output data" vs
+ * "search-state tracking" easier to distinguish.
+ */
 bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols, int targetRow, int targetCol, int r, int c, bool visited[][MAX_MAP_SIZE], int currentPath[][2], int currentPathLength, int timeLeft, int outPath[][2], int& outPathLength, int currentSurvivors, int unlockThreshold, int& bestPathLength){
     // TODO5.1: Implement this function
 }
