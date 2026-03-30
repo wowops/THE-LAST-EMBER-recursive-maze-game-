@@ -68,7 +68,7 @@ void level2() {
     int bestPathLength = 0;
     int currentPath[MAX_PATH_LENGTH][2];
     int currentPathLength = 0;
-    int maxSurvivors = 0;
+    // int maxSurvivors = 0;
 
     cout << "\nPlanning route (must reach unlock threshold, avoid hazards, find shortest path)..." << endl;
     cout << "Initial remaining time: " << timeLeft << " units" << endl;

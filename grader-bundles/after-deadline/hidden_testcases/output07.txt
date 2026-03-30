@@ -17,7 +17,7 @@ Settings:
   5. Find the SHORTEST valid path to the shelter while meeting survivor requirements
 
 Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt): 
-Test case: 12 12 0 0 11 11 60 191
+Test case: 12 12 0 0 11 11 60 162
 
 Map (positive = survivors to rescue, negative = hazard points lost, # = wall, S = start, D = locked shelter door):
  S  3  3  3  3  3  3  3  3  3  3  3 
@@ -29,19 +29,19 @@ Map (positive = survivors to rescue, negative = hazard points lost, # = wall, S 
  2  #  5  #  2  #  #  2  #  5  #  3 
  2  #  5  #  2  2  2  2  #  5  #  3 
  2  #  5  #  #  #  #  #  #  5 -20  3 
- 2  #  5  5  5  5  5  5  5  5  #  # 
+ 2  #  5  #  #  #  #  #  #  #  #  # 
  2  2  2  2  2  2  2  2  2  2  2  2 
  #  #  #  #  #  #  #  #  #  #  #  D 
 
-Survivors needed to unlock the shelter: 191
+Survivors needed to unlock the shelter: 162
 Available time: 60 units
 
 Planning route (must reach unlock threshold, avoid hazards, find shortest path)...
 Initial remaining time: 60 units
 
 Path found successfully!
-Path length: 57 steps (SHORTEST)
-Path coordinates: (0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (0,6) -> (0,7) -> (0,8) -> (0,9) -> (0,10) -> (0,11) -> (1,11) -> (2,11) -> (3,11) -> (4,11) -> (5,11) -> (6,11) -> (7,11) -> (8,11) -> (8,10) -> (8,9) -> (7,9) -> (6,9) -> (5,9) -> (4,9) -> (3,9) -> (2,9) -> (2,8) -> (2,7) -> (2,6) -> (2,5) -> (2,4) -> (2,3) -> (2,2) -> (3,2) -> (4,2) -> (5,2) -> (6,2) -> (7,2) -> (8,2) -> (9,2) -> (10,2) -> (10,3) -> (9,3) -> (9,4) -> (10,4) -> (10,5) -> (9,5) -> (9,6) -> (9,7) -> (9,8) -> (9,9) -> (10,9) -> (10,10) -> (10,11) -> (11,11)
+Path length: 53 steps (SHORTEST)
+Path coordinates: (0,0) -> (0,1) -> (0,2) -> (0,3) -> (0,4) -> (0,5) -> (0,6) -> (0,7) -> (0,8) -> (0,9) -> (0,10) -> (0,11) -> (1,11) -> (2,11) -> (3,11) -> (4,11) -> (5,11) -> (6,11) -> (7,11) -> (8,11) -> (8,10) -> (8,9) -> (7,9) -> (6,9) -> (5,9) -> (4,9) -> (3,9) -> (2,9) -> (2,8) -> (2,7) -> (2,6) -> (2,5) -> (2,4) -> (2,3) -> (2,2) -> (3,2) -> (4,2) -> (5,2) -> (6,2) -> (7,2) -> (8,2) -> (9,2) -> (10,2) -> (10,3) -> (10,4) -> (10,5) -> (10,6) -> (10,7) -> (10,8) -> (10,9) -> (10,10) -> (10,11) -> (11,11)
 
 
 Path annotated map:
@@ -54,8 +54,8 @@ Path annotated map:
  .  #  v  #  .  #  #  .  #  ^  #  v 
  .  #  v  #  .  .  .  .  #  ^  #  v 
  .  #  v  #  #  #  #  #  #  ^  <  < 
- .  #  v  >  v  >  >  >  >  v  #  # 
- .  .  >  ^  >  ^  .  .  .  >  >  v 
+ .  #  v  #  #  #  #  #  #  #  #  # 
+ .  .  >  >  >  >  >  >  >  >  >  v 
  #  #  #  #  #  #  #  #  #  #  #  E 
 
 Select a level to run: 1 / 2 / 3

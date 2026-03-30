@@ -9,7 +9,4 @@ const int UNREACHABLE = -100; // sentinel for impossible states (path not found,
 const int WALL_CELL = -7777;
 const char WALL_SYMBOL = '#';
 
-// Direction deltas in grading order: up, down, left, right
-const int DIRECTIONS[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-
 #endif // GLOBALS_H
