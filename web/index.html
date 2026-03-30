@@ -33,7 +33,7 @@
 
         const title = "COMP2011 PA2";
         const ta_contacts = [
-            // { name: "MO Heyang", email: "hmoad@connect.ust.hk" },
+            { name: "MO Heyang", email: "hmoad@connect.ust.hk" },
             { name: "CHUNG Ka Wai", email: "kwchungac@connect.ust.hk" }
         ];
         const lab_submission_filename = "pa2.cpp";
@@ -184,7 +184,7 @@
                     </p>
 
                     <p>
-                        For all the cases, you can assume that there is <strong>at most one valid path</strong> that meets the requirements.
+                        In general, you should search for a valid path that satisfies the task requirements. For consistency with the released materials and grading behavior, if multiple candidate paths appear possible, we recommend using the direction order <strong>up, down, left, right</strong>.
                     </p>
 
                     <p>
@@ -452,8 +452,8 @@ Game Over!
 
                         <li>The map has at least 1 row and at most 16 rows, inclusive</li>
                         <li>The map has at least 1 column and at most 16 columns, inclusive</li>
-                        <li>For all levels, we consider only valid paths. For each task, there is at most one valid path. In other
-  words, a task may have no solution. Please return False if no solution exists.</li>
+                        <li>For all levels, we consider only valid paths. A task may have no solution, so please return False if no solution exists.</li>
+                        <li>For consistency, when exploring directions recursively, we recommend using the fixed order <strong>up, down, left, right</strong>.</li>
                         <li>The length of the path has at most 256 steps</li>
                         <li><strong style="color:red;">Do not use loops in the functions to be implemented.</strong>
                             Code checking will be applied after the submission. <strong style="color:red;">0 marks will be assigned</strong> if loop instead of recursion
@@ -1314,7 +1314,7 @@ g++ uninitialized_variables.cpp -Wuninitialized
                     </div>
 
                     <p><strong>Important note:</strong> the warm-up hidden checks carry <strong>5 marks</strong>
-                        each, each counted Level 1 testcase carries <strong>4 marks</strong>, and each counted Level
+                        each, each counted Level 1 testcase carries <strong>6 marks</strong>, and each counted Level
                         2 and Level 3 testcase carries <strong>3 marks</strong>. For cases with more than one valid
                         optimal answer, we avoid relying on any unspecified direction-order tie-breaking rule.</p>
 
@@ -1482,6 +1482,13 @@ g++ uninitialized_variables.cpp -Wuninitialized
                                 <p class="card-text">
                                     Path length is the number of coordinates in the path array, including both start and destination.
                                     (So moves = path length - 1.)
+                                </p>
+                            </div>
+
+                            <div class="card p-3 mb-2">
+                                <h5 class="card-title">What direction order should I use in recursive search?</h5>
+                                <p class="card-text">
+                                    For consistency with the released cases and grading setup, we recommend trying directions in the order <code>up, down, left, right</code>.
                                 </p>
                             </div>
 
