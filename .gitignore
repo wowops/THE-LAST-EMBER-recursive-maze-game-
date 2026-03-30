@@ -36,6 +36,11 @@
 *.exe
 *.out
 *.app
+/web/pa2_skeleton/testcases
+/web/pa2_solution/testcases
+
+# OS metadata
+.DS_Store
 
 # debug information files
 *.dwo
