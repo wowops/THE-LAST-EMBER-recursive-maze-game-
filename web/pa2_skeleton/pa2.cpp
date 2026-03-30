@@ -336,7 +336,14 @@ bool shortestPathTryDirections(int map[][MAX_MAP_SIZE], int rows, int cols,
  * Phase C (Level 2 Penalty Tiles and Shortest Valid Path)
  * TODO C1: Recursive rescue with time/resource constraints and penalty tile mechanics.
  * Penalty tiles (negative values) reduce rescued survivors.
+ *
+ * You may simplify based on your own design and ignore either outPathLength or bestPathLength.
+ * They are separated here mainly for readability and to make "output data" vs
+ * "search-state tracking" easier to distinguish.
  */
+//  @param outPath: the output array that stores the best valid path found so far.
+//  @param outPathLength: the length of outPath (for external output/use).
+//  @param bestPathLength: the current best (shortest) valid path length used internally for comparison.
 bool rescueSurvivorsWithPenalty(int map[][MAX_MAP_SIZE], int rows, int cols,
                                 int targetRow, int targetCol,
                                 int r, int c, bool visited[][MAX_MAP_SIZE],
