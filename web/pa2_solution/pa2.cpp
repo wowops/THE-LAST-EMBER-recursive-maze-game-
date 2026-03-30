@@ -9,6 +9,7 @@
 #include <string>
 
 #include "globals.cpp"
+const int DIRECTIONS[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
 using namespace std;
 
