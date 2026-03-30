@@ -1,0 +1,59 @@
+========================================
+The Last Ember
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Level 2: The Last Ember — Hazardous Journey
+
+========================================
+Goal: Rescue enough survivors and find the shortest safe path
+Settings:
+  1. The shelter door is initially locked and can only be opened by rescuing enough survivors
+  2. Your time is limited. Speed up!
+  3. The blizzard has buried the path behind you, no turning back!
+  4. Some tiles contain hazards (negative values) that reduce rescued survivors
+  5. Find the SHORTEST valid path to the shelter while meeting survivor requirements
+
+Enter startR startC targetR targetC: Enter timeLeft unlockThreshold: Enter map file name (e.g., map01 or map01.txt): 
+Test case: 8 10 0 0 7 9 30 35
+
+Map (positive = survivors to rescue, negative = hazard points lost, # = wall, S = start, D = locked shelter door):
+ S -5 -5 -5 -5 -5 -5 -5 -5 -5 
+ 2  #  #  #  #  #  #  #  # -5 
+ 2  2  5  5  5  5  5  5  # -5 
+ 2  #  #  #  #  #  #  5  # -5 
+ 2  #  5  5  5  5  5  5  # -5 
+ 2  #  5  #  #  #  #  #  # -5 
+ 2  2  2  2  2  #  2  2  2 -5 
+ #  #  #  #  2  2  2  #  2  D 
+
+Survivors needed to unlock the shelter: 35
+Available time: 30 units
+
+Planning route (must reach unlock threshold, avoid hazards, find shortest path)...
+Initial remaining time: 30 units
+
+Path found successfully!
+Path length: 29 steps (SHORTEST)
+Path coordinates: (0,0) -> (1,0) -> (2,0) -> (2,1) -> (2,2) -> (2,3) -> (2,4) -> (2,5) -> (2,6) -> (2,7) -> (3,7) -> (4,7) -> (4,6) -> (4,5) -> (4,4) -> (4,3) -> (4,2) -> (5,2) -> (6,2) -> (6,3) -> (6,4) -> (7,4) -> (7,5) -> (7,6) -> (6,6) -> (6,7) -> (6,8) -> (7,8) -> (7,9)
+
+
+Path annotated map:
+ S  .  .  .  .  .  .  .  .  . 
+ v  #  #  #  #  #  #  #  #  . 
+ >  >  >  >  >  >  >  v  #  . 
+ .  #  #  #  #  #  #  v  #  . 
+ .  #  v  <  <  <  <  <  #  . 
+ .  #  v  #  #  #  #  #  #  . 
+ .  .  >  >  v  #  >  >  v  . 
+ #  #  #  #  >  >  ^  #  >  E 
+
+Select a level to run: 1 / 2 / 3
+Enter q to quit
+> 
+========================================
+Game Over!
+
+========================================
