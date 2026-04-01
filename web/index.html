@@ -1487,6 +1487,17 @@ g++ uninitialized_variables.cpp -Wuninitialized
                             </div>
 
                             <div class="card p-3 mb-2">
+                                <h5 class="card-title">I get all the paths correct, but ZINC still does not pass my code. What should I check?</h5>
+                                <p class="card-text">
+                                    Please also check whether your printing format matches the expected output exactly. You can verify this locally with commands such as
+                                    <code>g++ -std=c++11 -Wall -o pa2 testcases.cpp</code>,
+                                    <code>./pa2 &lt; given_testcases/input01.txt &gt; my_output.txt</code>,
+                                    and
+                                    <code>diff -u my_output.txt given_testcases/output01.txt</code>.
+                                </p>
+                            </div>
+
+                            <div class="card p-3 mb-2">
                                 <h5 class="card-title">What direction order should I use in recursive search?</h5>
                                 <p class="card-text">
                                     For consistency with the released cases and grading setup, we recommend trying directions in the order <code>up, down, left, right</code>.
