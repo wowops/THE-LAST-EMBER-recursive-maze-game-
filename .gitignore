@@ -41,6 +41,7 @@
 
 # OS metadata
 .DS_Store
+/grader-bundles/2530-COMP2011-PA2_submissions/
 
 # debug information files
 *.dwo

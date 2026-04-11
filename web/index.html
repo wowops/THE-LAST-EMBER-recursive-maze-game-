@@ -186,6 +186,9 @@
                     <p>
                         In general, you should search for a valid path that satisfies the task requirements. For consistency with the released materials and grading behavior, if multiple candidate paths appear possible, we recommend using the direction order <strong>up, down, left, right</strong>.
                     </p>
+                    <p>
+                        When checking walls in your code, use the <code>WALL_CELL</code> constant from <code>globals.cpp</code> after the map is loaded, rather than comparing <code>map[r][c]</code> directly with the character <code>#</code>.
+                    </p>
 
                     <p>
                         Upon completing this project assignment, you will achieve the following learning outcomes:
@@ -1501,6 +1504,13 @@ g++ uninitialized_variables.cpp -Wuninitialized
                                 <h5 class="card-title">What direction order should I use in recursive search?</h5>
                                 <p class="card-text">
                                     For consistency with the released cases and grading setup, we recommend trying directions in the order <code>up, down, left, right</code>.
+                                </p>
+                            </div>
+
+                            <div class="card p-3 mb-2">
+                                <h5 class="card-title">Should I compare a loaded map cell with <code>#</code> in my code?</h5>
+                                <p class="card-text">
+                                    No. In the map file, walls are written as <code>#</code>, but after loading the map you should check walls using <code>WALL_CELL</code> from <code>globals.cpp</code>.
                                 </p>
                             </div>
 
